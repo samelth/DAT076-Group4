@@ -11,3 +11,12 @@ and open the template in the editor.
 body{
   background-color: #DFD575
 }
+
+h1{
+  font-family: 'Jaldi', sans-serif;
+}
+
+/* Can be applied to text to get stroke effect */
+.stroke{
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
