@@ -6,14 +6,37 @@ and open the template in the editor.
 -->
 <html>
   <head>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-    <title>Join Game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jaldi&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Game</title>
   </head>
   <body>
-    <div>TODO write content</div>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <div class="container">
+      <div class="d-flex justify-content-center" style="padding-top: 150px">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align:center">Join Game</h5>
+            <div class="mb-3">
+              <div class="d-flex justify-content-center">
+                <label for="formGroupPlayerInput" class="form-label">Username</label>
+              </div>
+              <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Username">
+            </div>
+            <p class="card-text">Game joining things goes here</p>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <a href="#" class="btn btn-primary">START GAME</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </body>
 </html>
