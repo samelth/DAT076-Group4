@@ -67,3 +67,7 @@ h1{
 .progress {
   border-radius: 0px 0px 0px 5px;
 }
+
+.row {
+  --bs-gutter-x: 0;
+}
