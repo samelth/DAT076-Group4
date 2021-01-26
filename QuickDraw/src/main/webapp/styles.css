@@ -43,13 +43,9 @@ h1{
   background-color: #8358A7;
 }
 
-
-.row-heighttimer {
-    height: 35px;
-    text-align: center;
-}
-
-.col-xl-1{
+/* Countdown background */
+.countdown{
+  height: 35px;
   background-color: #90C472;
   border-radius: 0px 0px 5px 0px;
   position: relative;
@@ -57,16 +53,27 @@ h1{
   color: white;
 }
 
-.col-xl-1 p{
+/* Countdown text */
+.countdown p{
    position: absolute;               /* 2 */
    top: 50%;                         /* 3 */
    left: 50%;
    transform: translate(-50%, -50%)    /* 4 */
 }
 
-.col-xl-4{
+/* Description background*/
+.description{
   background-color: #6D9C52;
   border-radius: 5px 5px 0px 0px;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Drawing area placeholder*/
+.draw{
+  background-color: #eeeeee;
+  border-radius: 5px 5px 5px 5px;
   position: relative;
   text-align: center;
   color: white;
@@ -76,21 +83,26 @@ h1{
   border-radius: 0px 0px 0px 5px;
 }
 
-.row {
-  --bs-gutter-x: 0;
 #creategame{
   background-color: white;
   width: 30%;
-  min-width: "400 px";
+  min-width: 400px;
 }
+
 .cgBound{
   min-height: 500px; 
   min-width: 300px;
 }
+
+.row {
+  --bs-gutter-x: 0;
+}
+
 #row2{
   border-top-style: solid;
 }
+
 #row1{
-  min-height = 360px; 
-  height = 360px:
+  min-height: 360px; 
+  height: 360px;
 }
