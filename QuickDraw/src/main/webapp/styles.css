@@ -9,7 +9,8 @@ and open the template in the editor.
 */
 
 body{
-  background-color: #DFD575
+  background-color: #DFD575;
+  font-family: 'Jaldi', sans-serif;
 }
 
 h1{

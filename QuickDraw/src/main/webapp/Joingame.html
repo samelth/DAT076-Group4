@@ -19,23 +19,48 @@
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <div class="container">
-      <div class="d-flex justify-content-center" style="padding-top: 150px">
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title" style="text-align:center">Join Game</h5>
-            <div class="mb-3">
-              <div class="d-flex justify-content-center">
-                <label for="formGroupPlayerInput" class="form-label">Username</label>
+      <div class="row align-items center">
+        <div class="row">
+          <!-- FIRST ROW -->
+        </div>
+        <div class="row">
+          <!-- Second row -->
+          <div class="col-4 join-col">
+            <!-- First Col -->
+          </div>
+          <div class="col-4 join-col" style="padding-top: 100px">
+            <!-- Second col -->
+            <div class="d-flex justify-content-center">
+              <div class="card bg-secondary text-white" style="width: 18rem; align-items: center;">
+                <div class="card-body">
+                  <h5 class="card-title stroke" style="font-size: 60px; font-weight: bold; color: #6D9C52; text-align: center;">Join Game</h5>
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-center">
+                      <label for="formGroupPlayerInput" class="form-label">Lobby Code</label>
+                    </div>
+                    <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Lobby Code">
+                  </div>
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-center">
+                      <label for="formGroupPlayerInput" class="form-label">Username</label>
+                    </div>
+                    <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Username">
+                  </div>
+                  
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="#" class="btn btn-primary">START GAME</a>
+                  </div>
+                </div>
               </div>
-              <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Username">
-            </div>
-            <p class="card-text">Game joining things goes here</p>
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <a href="#" class="btn btn-primary">START GAME</a>
             </div>
           </div>
+          <div class="col-join-col-4">
+            <!-- Third col -->
+          </div>
         </div>
-        
+        <div class="row">
+          <!-- Third Row -->
+        </div>
       </div>
     </div>
   </body>
