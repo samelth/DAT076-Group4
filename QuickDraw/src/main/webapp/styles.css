@@ -34,3 +34,36 @@ h1{
   font-weight: bold;
   box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 8px #000;
 }
+
+
+.row-heighttimer {
+    height: 35px;
+    text-align: center;
+}
+
+.col-xl-1{
+  background-color: #90C472;
+  border-radius: 0px 0px 5px 0px;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.col-xl-1 p{
+   position: absolute;               /* 2 */
+   top: 50%;                         /* 3 */
+   left: 50%;
+   transform: translate(-50%, -50%)    /* 4 */
+}
+
+.col-xl-4{
+  background-color: #6D9C52;
+  border-radius: 5px 5px 0px 0px;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.progress {
+  border-radius: 0px 0px 0px 5px;
+}
