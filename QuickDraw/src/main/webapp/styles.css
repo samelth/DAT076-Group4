@@ -19,5 +19,13 @@ h1{
 
 /* Can be applied to text to get stroke effect */
 .stroke{
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 4px 4px 8px #000;
+}
+
+.btn.btn-menu{
+  background-color: #6D9C52;
+  width: 150px;
+  font-family: 'Jaldi', sans-serif;
+  font-weight: bold;
+  box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 8px #000;
 }
