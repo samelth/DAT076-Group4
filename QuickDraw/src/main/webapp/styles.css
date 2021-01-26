@@ -78,4 +78,19 @@ h1{
 
 .row {
   --bs-gutter-x: 0;
+#creategame{
+  background-color: white;
+  width: 30%;
+  min-width: "400 px";
+}
+.cgBound{
+  min-height: 500px; 
+  min-width: 300px;
+}
+#row2{
+  border-top-style: solid;
+}
+#row1{
+  min-height = 360px; 
+  height = 360px:
 }
