@@ -7,9 +7,12 @@ and open the template in the editor.
     Created on : 25 jan. 2021, 13:55:00
     Author     : Samuel Local
 */
-
+:root {
+  --background: #DFD575;
+  --front: #6D9C52;
+}
 body{
-  background-color: #DFD575;
+  background-color: var(--background);
   font-family: 'Jaldi', sans-serif;
 }
 
@@ -17,7 +20,7 @@ h1{
   font-family: 'Jaldi', sans-serif;
   font-size: 120px; 
   font-weight: bold; 
-  color: #6D9C52; 
+  color: var(--front); 
   text-align: center;
 }
 
@@ -32,7 +35,7 @@ h1{
 }
 
 .btn.btn-menu{
-  background-color: #6D9C52;
+  background-color: var(--front);
   width: 150px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
@@ -41,6 +44,7 @@ h1{
 
 .btn.btn-menu.purple{
   background-color: #8358A7;
+  float: right;
 }
 
 /* Countdown background */
@@ -63,7 +67,7 @@ h1{
 
 /* Description background*/
 .description{
-  background-color: #6D9C52;
+  background-color: var(--front);
   border-radius: 5px 5px 0px 0px;
   position: relative;
   text-align: center;
@@ -91,9 +95,22 @@ h1{
   min-height: 500px; 
   min-width: 300px;
   padding: 20px;
-  background-color: #6D9C52;
   width: 400px;
 }
 #t1{
   min-height: 450px;
+}
+.greybox {
+  background-color: grey;
+}
+.bgGreen{
+  background-color: var(--front);
+}
+
+.pad-10{
+  padding: 10px;
+}
+
+.mag-30{
+  margin-top:  30px;
 }
