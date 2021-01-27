@@ -7,14 +7,21 @@ and open the template in the editor.
     Created on : 25 jan. 2021, 13:55:00
     Author     : Samuel Local
 */
-
+:root {
+  --background: #DFD575;
+  --front: #6D9C52;
+}
 body{
-  background-color: #DFD575;
+  background-color: var(--background);
   font-family: 'Jaldi', sans-serif;
 }
 
 h1{
   font-family: 'Jaldi', sans-serif;
+  font-size: 120px; 
+  font-weight: bold; 
+  color: var(--front); 
+  text-align: center;
 }
 
 /* Can be applied to text to get stroke effect */
@@ -28,13 +35,19 @@ h1{
 }
 
 .btn.btn-menu{
-  background-color: #6D9C52;
+  background-color: var(--front);
   width: 150px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
   box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 8px #000;
 }
 
+.btn.btn-menu.purple{
+  background-color: #8358A7;
+  float: right;
+}
+
+/* Countdown background */
 .countdown{
   height: 35px;
   background-color: #90C472;
@@ -44,15 +57,17 @@ h1{
   color: white;
 }
 
+/* Countdown text */
 .countdown p{
    position: absolute;               /* 2 */
    top: 50%;                         /* 3 */
    left: 50%;
    transform: translate(-50%, -50%)    /* 4 */
 }
+
 /* Description background*/
 .description{
-  background-color: #6D9C52;
+  background-color: var(--front);
   border-radius: 5px 5px 0px 0px;
   position: relative;
   text-align: center;
@@ -74,4 +89,28 @@ h1{
 
 .row {
   --bs-gutter-x: 0;
+}
+
+.cgbound{
+  min-height: 500px; 
+  min-width: 300px;
+  padding: 20px;
+  width: 400px;
+}
+#t1{
+  min-height: 450px;
+}
+.greybox {
+  background-color: grey;
+}
+.bgGreen{
+  background-color: var(--front);
+}
+
+.pad-10{
+  padding: 10px;
+}
+
+.mag-30{
+  margin-top:  30px;
 }
