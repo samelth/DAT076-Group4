@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Jaldi&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"/>
+    <script type="text/javascript" src="main.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Game</title>
@@ -36,19 +37,18 @@
                   <h5 class="card-title stroke" style="font-size: 60px; font-weight: bold; color: #6D9C52; text-align: center;">Join Game</h5>
                   <div class="mb-3">
                     <div class="d-flex justify-content-center">
-                      <label for="formGroupPlayerInput" class="form-label">Lobby Code</label>
+                      <label for="gameCode" class="form-label">Lobby Code</label>
                     </div>
-                    <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Lobby Code">
+                    <input type="text" class="form-control" id="gameCode" placeholder="Lobby Code">
                   </div>
                   <div class="mb-3">
                     <div class="d-flex justify-content-center">
-                      <label for="formGroupPlayerInput" class="form-label">Username</label>
+                      <label for="PlayerUsername" class="form-label">Username</label>
                     </div>
-                    <input type="text" class="form-control" id="formGroupPlayerInput" placeholder="Username">
-                  </div>
-                  
+                    <input type="text" class="form-control" id="playerUsername" placeholder="Username">
+                  </div>                  
                   <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="#" class="btn btn-primary">START GAME</a>
+                    <button type="button" class="btn btn-primary" onclick="joinGame()">START GAME</button>
                   </div>
                 </div>
               </div>

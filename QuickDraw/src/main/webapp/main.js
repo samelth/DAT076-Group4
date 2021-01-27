@@ -4,9 +4,16 @@
  * and open the template in the editor.
  */
 
-
 var progressBarVal = 0;
 var progressBarDelay = 1000;
+
+function joinGame(){
+  var gamecode = document.getElementById("gameCode");
+  var username = document.getElementById("playerUsername");
+  console.log(gamecode.value);
+  console.log(username.value);
+}
+
 function jump(page){
   window.location.href = page;
 }
