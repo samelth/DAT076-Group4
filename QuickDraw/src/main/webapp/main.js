@@ -33,13 +33,13 @@ function updateProgressBar(){
   progressBarVal += 1;
   console.log(x);
 }
-var canvas = document.getElementById("myCanvas");
+//var canvas = document.getElementById("myCanvas");
 canvas.addEventListener("mousedown", function(e){
   canvas.onmousemove= function(e){
     var ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(e.x,e.y); 
-    setTimeout(function (){
+     setTimeout(function (){
       ctx.lineTo(e.x,e.y);
       ctx.stroke();
     } , 1000);
