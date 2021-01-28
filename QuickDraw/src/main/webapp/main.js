@@ -33,7 +33,7 @@ function updateProgressBar(){
   progressBarVal += 1;
   console.log(x);
 }
-//var canvas = document.getElementById("myCanvas");
+var canvas = document.getElementById("myCanvas");
 canvas.addEventListener("mousedown", function(e){
   canvas.onmousemove= function(e){
     var ctx = canvas.getContext("2d");
