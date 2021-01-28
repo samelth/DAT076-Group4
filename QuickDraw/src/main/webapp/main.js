@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
+/* Time unit in ms*/
 var progressBarVal = 0;
+/* Time unit in ms*/
 var progressBarDelay = 1000;
 
 function joinGame(){
@@ -26,6 +28,7 @@ function showElem(tag){
 function startProgressBar(){
   setInterval(updateProgressBar, progressBarDelay);
 }
+
 function updateProgressBar(){
   let progress= document.getElementById("p1");
   var x = $("#p1").attr("aria-valuenow", progressBarVal); 
@@ -33,7 +36,8 @@ function updateProgressBar(){
   progressBarVal += 1;
   console.log(x);
 }
-var canvas = document.getElementById("myCanvas");
+
+/*var canvas = document.getElementById("myCanvas");*/
 canvas.addEventListener("mousedown", function(e){
   canvas.onmousemove= function(e){
     var ctx = canvas.getContext("2d");
