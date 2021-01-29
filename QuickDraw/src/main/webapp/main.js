@@ -8,7 +8,9 @@
 var progressBarVal = 0;
 /* Time unit in ms*/
 var progressBarDelay = 1000;
-
+$("#butt").click(function(){
+    console.log("clicked");
+ });
 function joinGame(){
   var gamecode = document.getElementById("gameCode");
   var username = document.getElementById("playerUsername");
@@ -36,8 +38,31 @@ function updateProgressBar(){
   progressBarVal += 1;
   console.log(x);
 }
+function copyToCB(textindentifier){
+  var selectedText = document.getElementById(textindentifier);
+  selectedText.select();
+  document.execCommand("copy");
+  $(document).ready(function() {
+        $(".toast").toast("show");
+      });
+  $("#alert").animate({
+      opacity: 1,
+      top: "-=5vh"
+    },1000);
+  setTimeout(function (){
+    $("#alert").animate({
+      opacity: 0,
+      top: "+=5vh"
+    },1000)}
+  ,2500);
+}
 
-/*var canvas = document.getElementById("myCanvas");*/
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl, option)
+})
+
+/*var canvas = document.getElementById("myCanvas");
 canvas.addEventListener("mousedown", function(e){
   canvas.onmousemove= function(e){
     var ctx = canvas.getContext("2d");
@@ -54,6 +79,7 @@ canvas.addEventListener("mousedown", function(e){
 canvas.addEventListener("mouseup", function(e){
   canvas.onmousemove=null;
 })
+*/
 
 //TODO implement a timer for the counter 20,19...  
 //TODO syncronize the progressbar with the counter
