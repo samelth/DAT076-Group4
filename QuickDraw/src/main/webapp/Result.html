@@ -24,56 +24,61 @@ and open the template in the editor.
   <body>
     <!-- EMPTY ROW FOR SPACING -->  
     <div class="row" style="height:80px"></div>
-    
-    <!-- DESCRIPTION -->
+
+    <!-- THE HUGE CONTAINING ROW -->
     <div class="row">
-      <div class="col-4"></div>
 
-      <div class="col-2 result left g-0">
-        <h3>Word: x</h3>
+      <!-- THE FIRST THIRD OF THE SCREEN (EMPTY) -->
+      <div class="col"></div>
+
+      <!-- THE MIDDLE OF THE SCREEN (THE MEAT) -->
+      <div class="col">
+
+        <!-- FIRST HEADER ROW -->
+        <div class="row">
+          <div class="col result left">Word: a</div>
+          <div class="col result right">Round b/c</div>
+        </div>
+
+        <!-- SECOND HEADER ROW -->
+        <div class="row">
+          <div class="col result bottom">Winner: d</div>
+        </div>
+
+        <!-- DRAWING -->
+        <div class="row" style="height:250px">
+          <div class="col draw"></div>
+        </div> 
+
+        <!-- EMPTY ROW FOR SPACING -->
+        <div class="row" style="height:15px"></div>
+
+        <!-- BUTTONS ROW -->
+        <div class="row">
+          <div class="col">
+            <a href="index.html" class="btn btn-menu">Main Menu</a>
+          </div>
+        </div>
       </div>
 
-      <div class="col-2 result right g-0">
-        <h3>Round y/z</h3>
+      <!-- THE LAST THIRD OF THE SCREEN (SCOREBOARD) -->
+      <div class="col">
+        <div class="row">
+          <div class="col scoreboard">
+            <h3 style="text-align:center;padding-top:10px">SCOREBOARD</h3>
+            <ol>
+              <li>One</li>
+              <li>Two</li>
+              <li>Three</li>
+            </ol>
+          </div>
+          <div class="col-8"></div>
+        </div>
       </div>
 
-      <div class="col-4"></div>
-    </div>
-    
-    <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:15px"></div> 
-
-    <!-- ROW 2 -->
-    <div class="row">
-      <div class="col-4"></div>
-
-      <div class="col-4 result bottom g-0">
-        <h3>Winner: player x</h3>
-      </div>
-
-      <div class="col-4"></div>
-    </div>
-    <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:15px"></div>
-    
-    <div class="row" style="height:250px">
-      <div class="col-4"></div>
-      <div class="col-4 draw"></div>
-      <div class="col-4"></div>
-    </div> 
-    
-    <div class="row">
-      <div class="col-4"></div>
-
-      <div class="col-4 g-0">
-        <br>
-        <form action="index.html">
-          <input type="submit" class="btn btn-menu" value="Start Menu" />
-        </form>
-      </div>
-
-      <div class="col-4"></div>
     </div>
 
   </body>
+
 </html>
+

@@ -116,10 +116,18 @@ h1{
 }
 
 .result.bottom {
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 0px 0px 5px 5px;
   text-align: center;
   height: 35px;
   line-height: 35px;
+}
+
+.scoreboard {
+  margin-left: 15px;
+  border-radius: 5px 5px 5px 5px;
+  background-color: tomato;
 }
 
 .row {
