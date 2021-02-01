@@ -12,10 +12,13 @@ $("#butt").click(function(){
     console.log("clicked");
  });
 function joinGame(){
-  var gamecode = document.getElementById("gameCode");
-  var username = document.getElementById("playerUsername");
-  console.log(gamecode.value);
-  console.log(username.value);
+  $(document).ready(function(){
+    var gamecode = document.getElementById("gameCode");
+    var username = document.getElementById("playerUsername");
+    
+    console.log(gamecode.value);
+    console.log(username.value);
+  }); 
 }
 
 function jump(page){
