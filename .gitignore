@@ -1,2 +1,6 @@
 /QuickDraw/target/
 /QuickDraw/nbproject/
+
+*.dat
+
+DB/Games/seg0/
