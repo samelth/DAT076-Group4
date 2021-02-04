@@ -11,15 +11,17 @@ var progressBarDelay = 1000;
 $("#butt").click(function(){
     console.log("clicked");
  });
-function joinGame(){
+ 
   $(document).ready(function(){
-    var gamecode = document.getElementById("gameCode");
-    var username = document.getElementById("playerUsername");
-    
-    console.log(gamecode.value);
-    console.log(username.value);
+    $("#startGame").click(function(){
+      var gamecode = document.getElementById("gameCode");
+      var username = document.getElementById("playerUsername");
+      
+      console.log(gamecode.value);
+      console.log(username.value);
+    })
   }); 
-}
+
 
 function jump(page){
   window.location.href = page;
