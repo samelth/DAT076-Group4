@@ -12,18 +12,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 /**
  *
- * @author Karl Svensson
+ * @author Karl Svensson <Svensson.Karl@iCloud.com>
  */
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Player implements Serializable {
-	@Id private int user_id;
-	private String username;
-        private int score;
+public class Lobby implements Serializable{
+  @Id private int lid;
+  private int round;
 }

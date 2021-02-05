@@ -1,13 +1,13 @@
-package model.entity;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package model.entity;
 
 import javax.ejb.EJB;
-import model.dao.PlayerDAO;
+import model.dao.LobbyDAO;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -20,30 +20,30 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author Karl Svensson
+ * @author Karl Svensson <Svensson.Karl@iCloud.com>
  */
 @RunWith(Arquillian.class)
-public class PlayerDAOTest {
+public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlayerDAO.class, Player.class)
+      .addClasses(LobbyDAO.class, Lobby.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
 
   @EJB
-  private PlayerDAO playerDAO;
+  private LobbyDAO lobbyDAO;
 
   @Before
   public void init() {
-    playerDAO.create(new Player(1, "Karl", 0));
-    playerDAO.create(new Player(2, "Samuel", 0));
-    playerDAO.create(new Player(3, "Fawzi", 0));
+    lobbyDAO.create(new Lobby(1, 1));
+    lobbyDAO.create(new Lobby(2, 1));
+    lobbyDAO.create(new Lobby(3, 1));
   }
 
   @Test
-  public void checkThatFindUserMatchingNameMatchesCorrectly() {
+  public void checkThatFindLobbyMatchingNameMatchesCorrectly() {
     Assert.assertTrue(true); /* Some better condition */
   }
 }
