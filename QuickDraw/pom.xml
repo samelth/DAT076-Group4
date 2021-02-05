@@ -36,7 +36,7 @@
         <groupId>org.jboss.arquillian.junit</groupId>
         <artifactId>arquillian-junit-container</artifactId>
         <scope>test</scope>
-         <version>1.1.10.Final</version>
+         <version>1.1.15.Final</version>
          <type>jar</type>
       </dependency>
       <dependency>
