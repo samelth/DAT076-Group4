@@ -1,6 +1,20 @@
 /QuickDraw/target/
 /QuickDraw/nbproject/
 
-*.dat
+# Compiled class
+*.class
 
-DB/Games/seg0/
+# MacOS file
+*.DS_Store
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
