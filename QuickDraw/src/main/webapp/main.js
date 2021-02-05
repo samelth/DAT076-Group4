@@ -28,8 +28,10 @@ function hideElem(tag){
 function showElem(tag){
   $(tag).show();
 }
-function startProgressBar(){
-  setInterval(updateProgressBar, progressBarDelay);
+function startProgressBar(indentifier){
+  setInterval( function(){
+    updateProgressBar(indentifier);
+  } , progressBarDelay);
 }
 
 function updateProgressBar(){
@@ -38,8 +40,8 @@ function updateProgressBar(){
   progressBarVal += 1;
   console.log(x);
 }
-function copyToCB(textToCopy){
-  let selectedText = document.getElementById(textToCopy);
+function copyToCB(textToCopyID){
+  let selectedText = document.getElementById(textToCopyID);
   selectedText.select();
   document.execCommand("copy");
   $(document).ready(function() {
