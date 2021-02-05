@@ -5,17 +5,15 @@
  */
 
 /* Time unit in ms*/
-var progressBarVal = 0;
+let progressBarVal = 0;
 /* Time unit in ms*/
-var progressBarDelay = 1000;
-$("#butt").click(function(){
-    console.log("clicked");
- });
+let progressBarDelay = 1000;
+
 function joinGame(){
   $(document).ready(function(){
-    var gamecode = document.getElementById("gameCode");
-    var username = document.getElementById("playerUsername");
-    
+    const gamecode = document.getElementById("gameCode");
+    const username = document.getElementById("playerUsername");
+   
     console.log(gamecode.value);
     console.log(username.value);
   }); 
@@ -35,14 +33,13 @@ function startProgressBar(){
 }
 
 function updateProgressBar(){
-  let progress= document.getElementById("p1");
-  var x = $("#p1").attr("aria-valuenow", progressBarVal); 
-  var x = $("#p1").css("width", progressBarVal + "%"); 
+  $("#p1").attr("aria-valuenow", progressBarVal); 
+  $("#p1").css("width", progressBarVal + "%"); 
   progressBarVal += 1;
   console.log(x);
 }
-function copyToCB(textindentifier){
-  var selectedText = document.getElementById(textindentifier);
+function copyToCB(textToCopy){
+  let selectedText = document.getElementById(textToCopy);
   selectedText.select();
   document.execCommand("copy");
   $(document).ready(function() {
@@ -60,15 +57,15 @@ function copyToCB(textindentifier){
   ,2500);
 }
 
-var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-var toastList = toastElList.map(function (toastEl) {
+let toastElList = [].slice.call(document.querySelectorAll('.toast'))
+let toastList = toastElList.map(function (toastEl) {
   return new bootstrap.Toast(toastEl, option)
 })
 
-/*var canvas = document.getElementById("myCanvas");
+/*let canvas = document.getElementById("myCanvas");
 canvas.addEventListener("mousedown", function(e){
   canvas.onmousemove= function(e){
-    var ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(e.x,e.y); 
      setTimeout(function (){
