@@ -17,6 +17,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,10 +54,15 @@ public class LobbyDAOTest {
     lobbyDAO.remove(lobbyRemove); 
     final List<Player> listAfterRemove = lobbyDAO.findAll();
     Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
-    lobbyDAO.create(lobbyRemove);
   }
   @Test 
   public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable() {
     Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
   }  
+  @After
+  public void tearDown() {
+    lobbyDAO.findAll().forEach(lob -> {
+      lobbyDAO.remove(lob);
+    });
+  }
 }
