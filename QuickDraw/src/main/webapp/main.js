@@ -7,17 +7,21 @@
 /* Time unit in ms*/
 let progressBarVal = 0;
 /* Time unit in ms*/
-let progressBarDelay = 1000;
-
-function joinGame(){
+var progressBarDelay = 1000;
+$("#butt").click(function(){
+    console.log("clicked");
+ });
+ 
   $(document).ready(function(){
-    const gamecode = document.getElementById("gameCode");
-    const username = document.getElementById("playerUsername");
-   
-    console.log(gamecode.value);
-    console.log(username.value);
+    $("#startGame").click(function(){
+      var gamecode = document.getElementById("gameCode");
+      var username = document.getElementById("playerUsername");
+      
+      console.log(gamecode.value);
+      console.log(username.value);
+    })
   }); 
-}
+
 
 function jump(page){
   window.location.href = page;
