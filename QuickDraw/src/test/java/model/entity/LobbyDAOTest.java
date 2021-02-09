@@ -45,10 +45,6 @@ public class LobbyDAOTest {
       lobbyDAO.create(new Lobby());
     }
   }
-  @Test
-  public void checkThatFindLobbyMatchingNameMatchesCorrectly() {
-    Assert.assertTrue(true);
-  }
   @Test 
   public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable(){
     Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
