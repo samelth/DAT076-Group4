@@ -3,24 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.entity;
+package model.database.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
 /**
  *
- * @author Karl Svensson <Svensson.Karl@iCloud.com>
+ * @author Karl Svensson
  */
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lobby implements Serializable{
-  @Id private int lid;
-  private int round;
+public class Player implements Serializable {
+  @JoinColumn(name = "lobby")
+  @ManyToOne private Lobby lobby;
+  @Id @GeneratedValue private int user_id;
+  private String username;
+  private int score;
+  private boolean judge;
 }

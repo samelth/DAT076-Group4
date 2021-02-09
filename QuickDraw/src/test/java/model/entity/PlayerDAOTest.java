@@ -6,8 +6,13 @@ package model.entity;
  * and open the template in the editor.
  */
 
+import model.database.entity.Player;
+import model.database.entity.Lobby;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
-import model.dao.PlayerDAO;
+import model.database.dao.LobbyDAO;
+import model.database.dao.PlayerDAO;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -27,23 +32,33 @@ public class PlayerDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlayerDAO.class, Player.class)
+      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
 
   @EJB
   private PlayerDAO playerDAO;
+  @EJB
+  private LobbyDAO lobbyDAO;
+  
 
   @Before
   public void init() {
-    playerDAO.create(new Player(1, "Karl", 0));
-    playerDAO.create(new Player(2, "Samuel", 0));
-    playerDAO.create(new Player(3, "Fawzi", 0));
+    
+    Lobby lobby = new Lobby();
+    Player p1 = new Player();
+    p1.setUsername("Karl");
+    p1.setLobby(lobby);
+    lobbyDAO.create(lobby);
+    playerDAO.create(p1);
+    playerDAO.create(new Player());
+    playerDAO.create(new Player());
   }
-
+ 
   @Test
   public void checkThatFindUserMatchingNameMatchesCorrectly() {
-    Assert.assertTrue(true); /* Some better condition */
+    Assert.assertTrue(true);
   }
+  
 }

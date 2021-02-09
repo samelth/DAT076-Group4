@@ -5,8 +5,12 @@
  */
 package model.entity;
 
+import model.database.entity.Player;
+import model.database.entity.Lobby;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
-import model.dao.LobbyDAO;
+import model.database.dao.LobbyDAO;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,7 +31,7 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class)
+      .addClasses(LobbyDAO.class, Lobby.class, Player.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
@@ -37,13 +41,13 @@ public class LobbyDAOTest {
 
   @Before
   public void init() {
-    lobbyDAO.create(new Lobby(1, 1));
-    lobbyDAO.create(new Lobby(2, 1));
-    lobbyDAO.create(new Lobby(3, 1));
+    lobbyDAO.create(new Lobby());
+    lobbyDAO.create(new Lobby());
+    lobbyDAO.create(new Lobby());
   }
-
+  
   @Test
   public void checkThatFindLobbyMatchingNameMatchesCorrectly() {
-    Assert.assertTrue(true); /* Some better condition */
+    Assert.assertTrue(true);
   }
 }
