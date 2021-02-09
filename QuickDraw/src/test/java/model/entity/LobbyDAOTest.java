@@ -45,8 +45,18 @@ public class LobbyDAOTest {
       lobbyDAO.create(new Lobby());
     }
   }
+ 
   @Test 
-  public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable(){
+  public void checkThatLobbyDoesNotExistAfterRemove() {
+    final List<Lobby> listBeforeRemove = lobbyDAO.findAll();
+    final Lobby lobbyRemove = listBeforeRemove.get(0);
+    lobbyDAO.remove(lobbyRemove); 
+    final List<Player> listAfterRemove = lobbyDAO.findAll();
+    Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
+    lobbyDAO.create(lobbyRemove);
+  }
+  @Test 
+  public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable() {
     Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
   }  
 }
