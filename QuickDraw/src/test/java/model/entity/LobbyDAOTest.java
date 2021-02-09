@@ -38,16 +38,19 @@ public class LobbyDAOTest {
 
   @EJB
   private LobbyDAO lobbyDAO;
-
+  private static final int NR_OF_INSERTED_LOBBIES = 3; 
   @Before
   public void init() {
-    lobbyDAO.create(new Lobby());
-    lobbyDAO.create(new Lobby());
-    lobbyDAO.create(new Lobby());
+    for (int i = 0; i < NR_OF_INSERTED_LOBBIES; i++){
+      lobbyDAO.create(new Lobby());
+    }
   }
-  
   @Test
   public void checkThatFindLobbyMatchingNameMatchesCorrectly() {
     Assert.assertTrue(true);
   }
+  @Test 
+  public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable(){
+    Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
+  }  
 }
