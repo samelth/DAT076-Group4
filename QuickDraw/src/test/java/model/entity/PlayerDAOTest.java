@@ -12,7 +12,6 @@ import model.database.entity.Player;
 import model.database.entity.Lobby;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
@@ -108,14 +107,12 @@ public class PlayerDAOTest {
   @Test
   public void checkThatFawziIsTheSupremeArbiterOfJusticeAndTheOthersAreHisLoyalSubjects() {
     final Map<String, Boolean> bs = new HashMap<>();
-    final List<String> ss = new ArrayList<>();
     final List<Player> ps = playerDAO.findAll();
     for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
-      ss.add(ps.get(i).getUsername());
-      bs.put(ss.get(i), ps.get(i).isJudge());
+      bs.put(ps.get(i).getUsername(), ps.get(i).isJudge());
     }
-    ss.forEach(s -> {
-      Assert.assertEquals(bs.get(s), s.equals("Fawzi") ? true : false);
+    bs.forEach((s, b) -> {
+      Assert.assertEquals(b, s.equals("Fawzi") ? true : false);
     });
   }
 }
