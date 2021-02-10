@@ -17,8 +17,11 @@
 package model.entity;
 
 import javax.ejb.EJB;
+import org.junit.Assert;
 import model.database.entity.Lobby;
+import model.database.entity.Player;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -35,7 +38,19 @@ public class LobbyTest {
   @Before
   public void init() {
      lob = new Lobby();
+     Player karl = new Player();
+     karl.setUsername("Karl");
+     Player william = new Player();
+     karl.setUsername("William");
+     Player fahwzi = new Player();
+     karl.setUsername("Fahwzi");
   }
   
+  @Test 
+  public void checkThatNextRoundMethodIncrementsRound(){
+    int prevRound = lob.getRound();
+    lob.nextRound(); 
+    Assert.assertEquals(prevRound + 1, lob.getRound() );
+  }
 
 }
