@@ -20,6 +20,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,10 +44,10 @@ public class PlayerDAOTest {
   private LobbyDAO lobbyDAO;
   
   private static final int NR_OF_INSERTED_PLAYERS = 3;
+  private static final int SCORE_TOTAL = 9006;
 
   @Before
   public void init() {
-    
     Lobby lobby = new Lobby();
     Player p1 = new Player();
     p1.setUsername("Karl");
@@ -69,9 +70,26 @@ public class PlayerDAOTest {
     playerDAO.create(p3);
   }
   
+  @After
+  public void tearDown() {
+    playerDAO.findAll().forEach(p -> {
+      playerDAO.remove(p);
+    });
+  }
+  
   @Test
   public void checkPlayerCount() {
     Assert.assertEquals(NR_OF_INSERTED_PLAYERS, playerDAO.count());
+  }
+  
+  @Test
+  public void checkScoreTotal() {
+    int t = 0;
+    final List<Player> ps = playerDAO.findAll();
+    for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
+      t += ps.get(i).getScore();
+    }
+    Assert.assertEquals(SCORE_TOTAL, t);
   }
 
 }
