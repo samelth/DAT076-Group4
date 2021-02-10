@@ -8,6 +8,7 @@ package model.database.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lobby implements Serializable{
+public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby") private List<Player> players = new ArrayList<>();
   @Id @GeneratedValue private int lid;
   private int round;
@@ -39,5 +40,13 @@ public class Lobby implements Serializable{
   
   public void kick(Player p) {
     players.remove(p);
+  }
+  
+  public List<Player> topThree() {
+    return players
+            .stream()
+            .sorted((p1,p2) -> p2.getScore() - p1.getScore())
+            .limit(3)
+            .collect(Collectors.toList());
   }
 }
