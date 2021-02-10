@@ -42,6 +42,9 @@ public class Lobby implements Serializable {
     players.remove(p);
   }
   
+  /**
+   * @return sorted list of top three players in the lobby. Where the first element corresponds to first place. 
+   */
   public List<Player> topThree() {
     return players
             .stream()
