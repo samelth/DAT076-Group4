@@ -32,6 +32,7 @@ public class Lobby implements Serializable{
     this.round++;
   }
   
-
-  
+  public void join(Player p) {
+    players.add(p);
+  }
 }
