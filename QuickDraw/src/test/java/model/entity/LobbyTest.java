@@ -29,7 +29,13 @@ import org.junit.Before;
 
 public class LobbyTest {
   
+  @EJB
+  private Lobby lob;
   
+  @Before
+  public void init() {
+     lob = new Lobby();
+  }
   
 
 }
