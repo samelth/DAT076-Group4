@@ -27,4 +27,11 @@ public class Lobby implements Serializable{
   @OneToMany(mappedBy = "lobby") private List<Player> players;
   @Id @GeneratedValue private int lid;
   private int round;
+ 
+  public void nextRound() {
+    this.round++;
+  }
+  
+
+  
 }
