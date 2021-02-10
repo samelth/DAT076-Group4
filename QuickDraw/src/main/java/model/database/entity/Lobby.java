@@ -35,4 +35,8 @@ public class Lobby implements Serializable{
   public void join(Player p) {
     players.add(p);
   }
+  
+  public void kick(Player p) {
+    players.remove(p);
+  }
 }
