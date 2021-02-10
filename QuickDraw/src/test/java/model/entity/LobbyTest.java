@@ -20,6 +20,7 @@ import javax.ejb.EJB;
 import org.junit.Assert;
 import model.database.entity.Lobby;
 import model.database.entity.Player;
+import org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,9 +36,15 @@ public class LobbyTest {
   @EJB
   private Lobby lob;
   
+  @EJB
+  private Player player;
+  
   @Before
   public void init() {
      lob = new Lobby();
+     player = new Player();
+     lob.join(player);
+     
      Player karl = new Player();
      karl.setUsername("Karl");
      Player william = new Player();
@@ -53,4 +60,18 @@ public class LobbyTest {
     Assert.assertEquals(prevRound + 1, lob.getRound());
   }
 
+  @Test 
+  public void checkThatJoinPlayerAddsPlayerToLobby(){
+    int lobSize = lob.getPlayers().size();
+    Player p = new Player();
+    lob.join(p);
+    Assert.assertEquals(lobSize + 1,lob.getPlayers().size());
+    Assert.assertTrue(lob.getPlayers().contains(p));
+  }
+  
+  @Test 
+  public void checkThatKickPlayerKicksPlayerFromLobby(){
+    lob.kick(player);
+    Assert.assertFalse(lob.getPlayers().contains(player));
+  }
 }
