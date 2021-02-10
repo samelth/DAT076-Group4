@@ -50,7 +50,7 @@ public class LobbyTest {
   public void checkThatNextRoundMethodIncrementsRound(){
     int prevRound = lob.getRound();
     lob.nextRound(); 
-    Assert.assertEquals(prevRound + 1, lob.getRound() );
+    Assert.assertEquals(prevRound + 1, lob.getRound());
   }
 
 }
