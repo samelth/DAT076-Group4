@@ -7,7 +7,6 @@ package model.entity;
 
 import model.database.entity.Player;
 import model.database.entity.Lobby;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;

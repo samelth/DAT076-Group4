@@ -6,10 +6,13 @@ package model.entity;
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import model.database.entity.Player;
 import model.database.entity.Lobby;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
@@ -78,12 +81,12 @@ public class PlayerDAOTest {
   }
   
   @Test
-  public void checkPlayerCount() {
+  public void checkPlayerCountAndAddWordsToMakeMethodNameConventionCompliant() {
     Assert.assertEquals(NR_OF_INSERTED_PLAYERS, playerDAO.count());
   }
   
   @Test
-  public void checkScoreTotal() {
+  public void checkScoreTotalAndAddWordsToMakeMethodNameConventionCompliant() {
     int t = 0;
     final List<Player> ps = playerDAO.findAll();
     for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
@@ -91,5 +94,28 @@ public class PlayerDAOTest {
     }
     Assert.assertEquals(SCORE_TOTAL, t);
   }
+  
+  @Test
+  public void checkUsernamesAndAddWordsToMakeMethodNameConventionCompliant() {
+    final List<String> ss = new ArrayList<>();
+    final List<Player> ps = playerDAO.findAll();
+    for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
+      ss.add(ps.get(i).getUsername());
+    }
+    Assert.assertTrue(ss.contains("Karl") && ss.contains("Fawzi") && ss.contains("Samuel"));
+  }
 
+  @Test
+  public void checkThatFawziIsTheSupremeArbiterOfJusticeAndTheOthersAreHisLoyalSubjects() {
+    final Map<String, Boolean> bs = new HashMap<>();
+    final List<String> ss = new ArrayList<>();
+    final List<Player> ps = playerDAO.findAll();
+    for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
+      ss.add(ps.get(i).getUsername());
+      bs.put(ss.get(i), ps.get(i).isJudge());
+    }
+    ss.forEach(s -> {
+      Assert.assertEquals(bs.get(s), s.equals("Fawzi") ? true : false);
+    });
+  }
 }
