@@ -39,7 +39,8 @@ public class LobbyDAOTest {
 
   @EJB
   private LobbyDAO lobbyDAO;
-  private static final int NR_OF_INSERTED_LOBBIES = 3; 
+  private static final int NR_OF_INSERTED_LOBBIES = 3;
+  
   @Before
   public void init() {
     for (int i = 0; i < NR_OF_INSERTED_LOBBIES; i++){
@@ -52,13 +53,15 @@ public class LobbyDAOTest {
     final List<Lobby> listBeforeRemove = lobbyDAO.findAll();
     final Lobby lobbyRemove = listBeforeRemove.get(0);
     lobbyDAO.remove(lobbyRemove); 
-    final List<Player> listAfterRemove = lobbyDAO.findAll();
+    final List<Lobby> listAfterRemove = lobbyDAO.findAll();
     Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
   }
+  
   @Test 
   public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable() {
     Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
-  }  
+  }
+  
   @After
   public void tearDown() {
     lobbyDAO.findAll().forEach(lob -> {
