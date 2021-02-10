@@ -16,11 +16,11 @@
  */
 package model.entity;
 
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import org.junit.Assert;
 import model.database.entity.Lobby;
 import model.database.entity.Player;
-import org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,14 +43,6 @@ public class LobbyTest {
   public void init() {
      lob = new Lobby();
      player = new Player();
-     lob.join(player);
-     
-     Player karl = new Player();
-     karl.setUsername("Karl");
-     Player william = new Player();
-     karl.setUsername("William");
-     Player fahwzi = new Player();
-     karl.setUsername("Fahwzi");
   }
   
   @Test 
@@ -63,14 +55,14 @@ public class LobbyTest {
   @Test 
   public void checkThatJoinPlayerAddsPlayerToLobby(){
     int lobSize = lob.getPlayers().size();
-    Player p = new Player();
-    lob.join(p);
+    lob.join(player);
     Assert.assertEquals(lobSize + 1,lob.getPlayers().size());
-    Assert.assertTrue(lob.getPlayers().contains(p));
+    Assert.assertTrue(lob.getPlayers().contains(player));
   }
   
   @Test 
   public void checkThatKickPlayerKicksPlayerFromLobby(){
+    lob.join(player);
     lob.kick(player);
     Assert.assertFalse(lob.getPlayers().contains(player));
   }

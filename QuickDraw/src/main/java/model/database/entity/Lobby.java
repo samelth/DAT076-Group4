@@ -6,6 +6,7 @@
 package model.database.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Lobby implements Serializable{
-  @OneToMany(mappedBy = "lobby") private List<Player> players;
+  @OneToMany(mappedBy = "lobby") private List<Player> players = new ArrayList<>();
   @Id @GeneratedValue private int lid;
   private int round;
  
