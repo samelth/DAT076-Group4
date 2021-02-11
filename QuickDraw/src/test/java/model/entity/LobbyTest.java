@@ -17,6 +17,7 @@
 package model.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import org.junit.Assert;
 import model.database.entity.Lobby;
@@ -65,5 +66,19 @@ public class LobbyTest {
     lob.join(player);
     lob.kick(player);
     Assert.assertFalse(lob.getPlayers().contains(player));
+  }
+  
+  @Test
+  public void topThreeTest() {
+    for(int i = 0; i < 7; i++) {
+      final Player p = new Player();
+      p.setScore(i - 3);
+      lob.join(p);
+    }
+    final List<Player> ps = lob.topThree();
+    Assert.assertEquals(3, ps.size());
+    for(int i = 0; i < 2; i++) {
+      Assert.assertTrue(ps.get(i).getScore() >= ps.get(i + 1).getScore());
+    }
   }
 }
