@@ -5,12 +5,15 @@
  */
 package model.database.dao;
 
+import com.querydsl.core.support.QueryBase;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.Player;
+import model.database.entity.QPlayer;
 
 /**
  *
@@ -29,5 +32,14 @@ public class PlayerDAO extends AbstractDAO<Player> {
     throw new UnsupportedOperationException("Not yet implemented");
   }
   
-  
+  public Player getJudge(){
+    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    QPlayer player = QPlayer.player;
+    Player judge = query
+            .select(player)
+            .from(player)
+            .where(player.judge.eq(Boolean.TRUE))
+            .fetchOne();
+    return judge;
+  }
 }

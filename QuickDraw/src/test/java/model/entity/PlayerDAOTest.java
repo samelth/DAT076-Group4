@@ -6,6 +6,7 @@ package model.entity;
  * and open the template in the editor.
  */
 
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.database.entity.Player;
@@ -103,7 +104,15 @@ public class PlayerDAOTest {
     }
     Assert.assertTrue(ss.contains("Karl") && ss.contains("Fawzi") && ss.contains("Samuel"));
   }
-
+  
+  @Test
+  public void checkThatFawziIsJudge(){
+    Player judge = playerDAO.getJudge();
+    
+    Assert.assertEquals("Karl", judge.getUsername());
+    
+  }
+  
   @Test
   public void checkThatFawziIsTheSupremeArbiterOfJusticeAndTheOthersAreHisLoyalSubjects() {
     final Map<String, Boolean> bs = new HashMap<>();
