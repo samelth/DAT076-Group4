@@ -110,7 +110,7 @@ public class PlayerDAOTest {
     int lid = 1;
     Player judge = playerDAO.getJudge(lid);
     
-    Assert.assertEquals("Karl", judge.getUsername());
+    Assert.assertEquals("Fawzi", judge.getUsername());
     
   }
   

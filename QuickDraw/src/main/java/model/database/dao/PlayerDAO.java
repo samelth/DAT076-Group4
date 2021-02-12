@@ -22,8 +22,7 @@ import model.database.entity.QPlayer;
 public class PlayerDAO extends AbstractDAO<Player> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  JPAQuery<?> query = new JPAQuery<Void>(entityManager);
-  QPlayer player = QPlayer.player;
+  
 
   public PlayerDAO(){
     super(Player.class);
@@ -34,6 +33,8 @@ public class PlayerDAO extends AbstractDAO<Player> {
   }
   
   public Player getJudge(int lid){
+    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    QPlayer player = QPlayer.player;
     Player judge = query
             .select(player)
             .from(player)
