@@ -22,6 +22,8 @@ import model.database.entity.QPlayer;
 public class PlayerDAO extends AbstractDAO<Player> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
+  JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+  QPlayer player = QPlayer.player;
 
   public PlayerDAO(){
     super(Player.class);
@@ -31,14 +33,13 @@ public class PlayerDAO extends AbstractDAO<Player> {
     throw new UnsupportedOperationException("Not yet implemented");
   }
   
-  public Player getJudge(){
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
-    QPlayer player = QPlayer.player;
+  public Player getJudge(int lid){
     Player judge = query
             .select(player)
             .from(player)
-            .where(player.judge.eq(Boolean.TRUE))
+            .where(player.judge.eq(Boolean.TRUE), player.lobby.lid.eq(lid))
             .fetchOne();
     return judge;
   }
+  
 }

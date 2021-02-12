@@ -107,7 +107,8 @@ public class PlayerDAOTest {
   
   @Test
   public void checkThatFawziIsJudge(){
-    Player judge = playerDAO.getJudge();
+    int lid = 1;
+    Player judge = playerDAO.getJudge(lid);
     
     Assert.assertEquals("Karl", judge.getUsername());
     
