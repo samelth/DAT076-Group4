@@ -5,7 +5,6 @@
  */
 package model.database.dao;
 
-import com.querydsl.core.support.QueryBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 import javax.ejb.Stateless;
