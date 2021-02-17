@@ -10,6 +10,8 @@ import model.database.entity.Lobby;
 import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
+import model.database.dao.PlayerDAO;
+import model.database.entity.GameSession;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,7 +33,7 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class, Player.class)
+      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
@@ -39,11 +41,11 @@ public class LobbyDAOTest {
   @EJB
   private LobbyDAO lobbyDAO;
   private static final int NR_OF_INSERTED_LOBBIES = 3;
-  
+   
   @Before
   public void init() {
     for (int i = 0; i < NR_OF_INSERTED_LOBBIES; i++){
-      lobbyDAO.create(new Lobby());
+    lobbyDAO.create(new Lobby());
     }
   }
  

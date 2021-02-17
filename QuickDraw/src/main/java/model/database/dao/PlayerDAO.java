@@ -28,19 +28,24 @@ public class PlayerDAO extends AbstractDAO<Integer,Player> {
     super(Player.class);
   }
   
-  public List<Player>findUsersMatchingName() {
-    throw new UnsupportedOperationException("Not yet implemented");
-  }
-  
-  public Player getJudge(int lid){
+  public Player getPlayer(int user_id) {
     JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     QPlayer player = QPlayer.player;
-    Player judge = query
+    return query
             .select(player)
             .from(player)
-            .where(player.judge.eq(Boolean.TRUE), player.lobby.lid.eq(lid))
+            .where(player.user_id.eq(user_id))
             .fetchOne();
-    return judge;
   }
   
+  public List<Player>findUsersInSameLobby(int lid) {
+    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    QPlayer player = QPlayer.player;
+    List<Player> inLobby = query
+            .select(player)
+            .from(player)
+            .where(player.lobby.lid.eq(lid))
+            .fetch();
+    return inLobby;
+  }  
 }

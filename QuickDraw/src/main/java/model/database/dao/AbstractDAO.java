@@ -47,4 +47,13 @@ public abstract class AbstractDAO<K,T> {
 	public <T> T find(K key){
 		return (T) getEntityManager().find(entityType, key);
 	}
+  
+  public T update(T entity){
+    return getEntityManager().merge(entity);
+    
+  }
+  
+  public void refresh(T entity){
+    getEntityManager().refresh(entity);
+  }
 }

@@ -34,5 +34,4 @@ public class Player implements Serializable {
   @Id @GeneratedValue private int user_id;
   private String username;
   private int score;
-  private boolean judge;
 }

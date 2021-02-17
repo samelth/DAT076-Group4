@@ -6,16 +6,17 @@ package model.entity;
  * and open the template in the editor.
  */
 
-import com.querydsl.jpa.impl.JPAQuery;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import model.database.entity.Player;
 import model.database.entity.Lobby;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.transaction.UserTransaction;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.GameSession;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,7 +37,7 @@ public class PlayerDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class)
+      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class, GameSession.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
@@ -46,31 +47,41 @@ public class PlayerDAOTest {
   @EJB
   private LobbyDAO lobbyDAO;
   
+  @Inject
+  private UserTransaction utx;
+
+  
   private static final int NR_OF_INSERTED_PLAYERS = 3;
-  private static final int SCORE_TOTAL = 9006;
+  private static final int SCORE_TOTAL = 600;
+  private Lobby lobby;
 
   @Before
-  public void init() {
-    Lobby lobby = new Lobby();
+  public void init() throws Exception {
+    utx.begin();
+    
+    lobby = new Lobby();
     Player p1 = new Player();
-    p1.setUsername("Karl");
+    p1.setUsername("player1");
+    p1.setScore(100);
     p1.setLobby(lobby);
-    p1.setScore(9001);
-    p1.setJudge(false);
     Player p2 = new Player();
-    p2.setUsername("Fawzi");
+    p2.setUsername("player2");
+    p2.setScore(200);
     p2.setLobby(lobby);
-    p2.setScore(2);
-    p2.setJudge(true);
     Player p3 = new Player();
-    p3.setUsername("Samuel");
+    p3.setUsername("player3");
+    p3.setScore(300);
     p3.setLobby(lobby);
-    p3.setScore(3);
-    p3.setJudge(false);
+    
     lobbyDAO.create(lobby);
     playerDAO.create(p1);
     playerDAO.create(p2);
     playerDAO.create(p3);
+    
+    List<Lobby> k = lobbyDAO.findAll();
+    k.forEach(lobbyDAO::refresh);
+    
+    utx.commit();
   }
   
   @After
@@ -78,51 +89,39 @@ public class PlayerDAOTest {
     playerDAO.findAll().forEach(p -> {
       playerDAO.remove(p);
     });
+    lobbyDAO.remove(lobby);
   }
   
   @Test
-  public void checkPlayerCountAndAddWordsToMakeMethodNameConventionCompliant() {
+  public void checkNumberOfPlayers() {
     Assert.assertEquals(NR_OF_INSERTED_PLAYERS, playerDAO.count());
   }
   
   @Test
-  public void checkScoreTotalAndAddWordsToMakeMethodNameConventionCompliant() {
+  public void checkTotalScore() {
     int t = 0;
-    final List<Player> ps = playerDAO.findAll();
-    for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
-      t += ps.get(i).getScore();
+    for (Player p : lobby.getPlayers()){
+      t = t + p.getScore();
     }
     Assert.assertEquals(SCORE_TOTAL, t);
   }
   
   @Test
-  public void checkUsernamesAndAddWordsToMakeMethodNameConventionCompliant() {
+  public void checkUsernames() {
     final List<String> ss = new ArrayList<>();
-    final List<Player> ps = playerDAO.findAll();
+    final List<Player> ps = lobby.getPlayers();
     for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
       ss.add(ps.get(i).getUsername());
     }
-    Assert.assertTrue(ss.contains("Karl") && ss.contains("Fawzi") && ss.contains("Samuel"));
+    Assert.assertTrue(ss.contains("player1") && ss.contains("player2") && ss.contains("player3"));
   }
   
   @Test
-  public void checkThatFawziIsJudge(){
-    int lid = 1;
-    Player judge = playerDAO.getJudge(lid);
-    
-    Assert.assertEquals("Fawzi", judge.getUsername());
-    
-  }
-  
-  @Test
-  public void checkThatFawziIsTheSupremeArbiterOfJusticeAndTheOthersAreHisLoyalSubjects() {
-    final Map<String, Boolean> bs = new HashMap<>();
-    final List<Player> ps = playerDAO.findAll();
-    for(int i = 0; i < NR_OF_INSERTED_PLAYERS; i++) {
-      bs.put(ps.get(i).getUsername(), ps.get(i).isJudge());
-    }
-    bs.forEach((s, b) -> {
-      Assert.assertEquals(b, s.equals("Fawzi") ? true : false);
-    });
+  public void checkGetPlayer(){
+    Player player = new Player();
+    player.setUsername("userTest");
+    playerDAO.create(player);
+    Player p = playerDAO.getPlayer(player.getUser_id());
+    Assert.assertEquals("userTest", p.getUsername());
   }
 }
