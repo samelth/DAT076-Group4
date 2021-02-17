@@ -58,6 +58,16 @@ public class LobbyDAOTest {
     Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
   }
   
+  @Test
+  public void checkFindLobby() {
+    Lobby lob = new Lobby();
+    lobbyDAO.create(lob);
+    Lobby found = lobbyDAO.find(lob.getLid());
+    
+    Assert.assertEquals(lob.getLid(), found.getLid());
+    
+  }
+  
   @Test 
   public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable() {
     Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());

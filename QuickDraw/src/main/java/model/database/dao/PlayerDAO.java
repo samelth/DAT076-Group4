@@ -38,7 +38,7 @@ public class PlayerDAO extends AbstractDAO<Integer,Player> {
             .fetchOne();
   }
   
-  public List<Player>findUsersInSameLobby(int lid) {
+  public List<Player> findUsersInSameLobby(int lid) {
     JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     QPlayer player = QPlayer.player;
     List<Player> inLobby = query
@@ -47,5 +47,18 @@ public class PlayerDAO extends AbstractDAO<Integer,Player> {
             .where(player.lobby.lid.eq(lid))
             .fetch();
     return inLobby;
-  }  
+  }
+  
+  public List<Player> sortedByScore(int lid){
+    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    QPlayer player = QPlayer.player;
+    
+    return query
+            .select(player)
+            .from(player)
+            .where(player.lobby.lid.eq(lid))
+            .orderBy(player.score.desc())
+            .fetch();
+  }
+  
 }
