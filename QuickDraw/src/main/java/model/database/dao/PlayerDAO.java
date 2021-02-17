@@ -19,7 +19,7 @@ import model.database.entity.QPlayer;
  * @author Karl Svensson
  */
 @Stateless
-public class PlayerDAO extends AbstractDAO<Player> {
+public class PlayerDAO extends AbstractDAO<Integer,Player> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   

@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<K,T> {
 
   private final Class<T> entityType;
 
@@ -44,4 +44,7 @@ public abstract class AbstractDAO<T> {
   public void remove(T entity) {
     getEntityManager().remove(getEntityManager().merge(entity));
   }
+	public <T> T find(K key){
+		return (T) getEntityManager().find(entityType, key);
+	}
 }

@@ -17,7 +17,7 @@ import model.database.entity.Lobby;
  * @author karlsvensson
  */
 @Stateless
-public class LobbyDAO extends AbstractDAO {
+public class LobbyDAO extends AbstractDAO<Integer,Lobby> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
     
@@ -28,4 +28,6 @@ public class LobbyDAO extends AbstractDAO {
   public List<Lobby>findUsersMatchingName() {
     throw new UnsupportedOperationException("Not yet implemented");
   }
+
+
 }
