@@ -10,9 +10,7 @@ import model.database.entity.Lobby;
 import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
-import model.database.dao.PlayerDAO;
 import model.database.entity.GameSession;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

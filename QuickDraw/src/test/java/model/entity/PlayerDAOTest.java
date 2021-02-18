@@ -121,13 +121,13 @@ public class PlayerDAOTest {
     Player player = new Player();
     player.setUsername("userTest");
     playerDAO.create(player);
-    Player p = playerDAO.getPlayer(player.getUser_id());
+    Player p = playerDAO.getPlayer(player);
     Assert.assertEquals("userTest", p.getUsername());
   }
   
   @Test
   public void checkScoreList(){
-    List<Player> list = playerDAO.sortedByScore(lobby.getLid());
+    List<Player> list = playerDAO.sortedByScore(lobby);
     
     Assert.assertEquals("player3", list.get(0).getUsername());
     Assert.assertEquals("player2", list.get(1).getUsername());

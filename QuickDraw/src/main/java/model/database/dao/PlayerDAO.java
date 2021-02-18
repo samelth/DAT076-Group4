@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
+import model.database.entity.Lobby;
 import model.database.entity.Player;
 import model.database.entity.QPlayer;
 
@@ -28,35 +29,35 @@ public class PlayerDAO extends AbstractDAO<Integer,Player> {
     super(Player.class);
   }
   
-  public Player getPlayer(int user_id) {
+  public Player getPlayer(Player p) {
     JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     QPlayer player = QPlayer.player;
     return query
             .select(player)
             .from(player)
-            .where(player.user_id.eq(user_id))
+            .where(player.user_id.eq(p.getUser_id()))
             .fetchOne();
   }
   
-  public List<Player> findUsersInSameLobby(int lid) {
+  public List<Player> findUsersInSameLobby(Lobby lobby) {
     JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     QPlayer player = QPlayer.player;
     List<Player> inLobby = query
             .select(player)
             .from(player)
-            .where(player.lobby.lid.eq(lid))
+            .where(player.lobby.lid.eq(lobby.getLid()))
             .fetch();
     return inLobby;
   }
   
-  public List<Player> sortedByScore(int lid){
+  public List<Player> sortedByScore(Lobby lobby){
     JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     QPlayer player = QPlayer.player;
     
     return query
             .select(player)
             .from(player)
-            .where(player.lobby.lid.eq(lid))
+            .where(player.lobby.lid.eq(lobby.getLid()))
             .orderBy(player.score.desc())
             .fetch();
   }

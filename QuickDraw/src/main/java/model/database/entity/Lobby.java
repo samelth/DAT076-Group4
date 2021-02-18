@@ -29,9 +29,4 @@ public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby") private List<GameSession> gameSessions;
   @Id @GeneratedValue private int lid;
   private int hostId;
-  
-  /**
-   * @return sorted list of top three players in the lobby. Where the first element corresponds to first place. 
-   */
-
 }
