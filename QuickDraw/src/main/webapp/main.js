@@ -102,5 +102,3 @@ canvas.addEventListener("mouseup", function(e){
 })
 */
 
-//TODO implement a timer for the counter 20,19...  
-//TODO syncronize the progressbar with the counter
