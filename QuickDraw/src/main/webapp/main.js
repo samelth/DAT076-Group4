@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-/* Time unit in ms*/
+/* Time units in ms*/
 let progressBarVal = 0;
-/* Time unit in ms*/
 var progressBarDelay = 1000;
+let totalPlayTime = 20;
+
 $("#butt").click(function(){
     console.log("clicked");
  });
@@ -16,6 +17,7 @@ $("#butt").click(function(){
     $("#startGame").click(function(){
       var gamecode = document.getElementById("gameCode");
       var username = document.getElementById("playerUsername");
+      var countdown = document.getElementById("countdown").innerHTML; 
       
       console.log(gamecode.value);
       console.log(username.value);
@@ -38,12 +40,25 @@ function startProgressBar(indentifier){
   } , progressBarDelay);
 }
 
+function playTime (countdown) {
+  setInterval( function(){
+  if(totalPlayTime <= 0){
+    clearInterval(playTime);
+    $(countdown).text("FINISHED");
+  } else {
+    $(countdown).text(totalPlayTime);
+  }
+  totalPlayTime -= 1;
+  }, progressBarDelay);
+}
+
 function updateProgressBar(){
   $("#p1").attr("aria-valuenow", progressBarVal); 
   $("#p1").css("width", progressBarVal + "%"); 
-  progressBarVal += 1;
-  console.log(x);
+  progressBarVal += 5; // Using 5 here as we're using 20 seconds playtime, 100/5 = 20
+  //console.log(x);
 }
+
 function copyToCB(textToCopyID){
   let selectedText = document.getElementById(textToCopyID);
   selectedText.select();
@@ -87,5 +102,3 @@ canvas.addEventListener("mouseup", function(e){
 })
 */
 
-//TODO implement a timer for the counter 20,19...  
-//TODO syncronize the progressbar with the counter
