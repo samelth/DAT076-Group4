@@ -34,8 +34,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DrawingWord implements Serializable{
+  //@ManyToMany(mappedBy = "drawingWord") private List<GameSession> gameSessions;
   @Id private String word;
-  @ManyToMany(mappedBy = "drawingWord") private List<GameSession> gameSessions;
   private int level;
   
 }
