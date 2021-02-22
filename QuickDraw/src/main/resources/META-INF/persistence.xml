@@ -4,6 +4,7 @@
   <persistence-unit name="Games" transaction-type="JTA">
     <jta-data-source>jdbc/GamesProd</jta-data-source>
     <class>model.database.entity.GameSession</class>
+    <class>model.database.entity.DrawingWord</class>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
     </properties>
