@@ -24,7 +24,7 @@ import javax.inject.Named;
  *
  * @author lewiv
  */
-@Named(value = "bbCreategame")
+@Named(value = "bbCreateGame")
 @ViewScoped
 public class BackingBeanCreateGame implements Serializable {
 	
