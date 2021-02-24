@@ -19,11 +19,8 @@ package model.database.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,12 +33,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameSession implements Serializable {
-  @JoinColumn(name = "lobby")
-  @ManyToOne private Lobby lobby;
-  @ManyToMany private List <DrawingWord> drawingWord;
-  @Id @GeneratedValue private int game_id;
-  private int round;
-  private int judgeId;
-
+public class DrawingWord implements Serializable{
+  //@ManyToMany(mappedBy = "drawingWord") private List<GameSession> gameSessions;
+  @Id private String word;
+  private int level;
+  
 }
