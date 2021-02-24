@@ -14,36 +14,52 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package frontend.view;
+package frontend.session;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.Lobby;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Param;
 
 /**
- *
+ * user Bean 
  * @author lewiv
  */
 
 @Data
-@Named(value = "backingbean")
-@ViewScoped
-public class Backingbean implements Serializable {
+@Named(value = "playerSession")
+@SessionScoped
+public class PlayerSessionBean implements Serializable {
 	@EJB
 	private PlayerDAO playerDAO;
 	@EJB
-	private LobbyDAO lobby;
-	private List<Player> players; 
+	private LobbyDAO lobbyDAO;
+	@Param
+	private int lobbyId= 0; // assoicated with an lobby. 
+	private String username;
+	Player player;
 	@PostConstruct
 	public void init(){
-		players = playerDAO.findAll();
+	}
+	public Lobby getLobby(){
+		return lobbyDAO.find(lobbyId);
+	}
+	public void setLobby(int lobbyId){
+		
+	}
+	public void joinLobby(){
+
 	}
 }

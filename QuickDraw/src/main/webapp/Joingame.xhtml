@@ -53,14 +53,14 @@
                     <div class="d-flex justify-content-center">
                       <label class="form-label">Lobby</label>
                     </div>
-                    <b:commandButton value="Join" action="#{pagecontroller.jumpToLobby(backingbean.lobbyId)}" look="primary">
+                    <b:commandButton value="Join" action="#{pagecontroller.jumpToLobby(playerSession.lobbyId)}" look="primary">
                       <f:actionListener></f:actionListener>
-                      <f:param name="lobbyId" value= "#{backingbean.lobbyId}"/>
+                      <f:param name="lobbyId" value= "#{playerSession.lobbyId}"/>
                     </b:commandButton>
-                    <p:inputText value="#{backingbean.lobbyId}"  onblur="#{backingbean.lobbyId}">
+                    <p:inputText value="#{playerSession.lobbyId}"  onblur="#{playerSession.lobbyId}">
                       <p:ajax event="keyup" update="hello" process="@this" /> 
                     </p:inputText>
-                    <h:outputText id="hello" value="#{validator.check(backingbean.lobbyId)}" />
+                    <h:outputText id="hello" value="#{validator.check(playerSession.lobbyId)}" />
                   </div>
                   <!-- Join Game button -->
    
