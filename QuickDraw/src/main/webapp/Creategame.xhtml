@@ -30,10 +30,11 @@
           <div class="col-sm">
             <div id ="t1">   
               <h:form>
-                <h:dataTable value="#{backingbean.players}" var="player"  rows="10">
-                  <h:column  >#{player.username}</h:column>
+                <h:dataTable value="#{backingbean.getLobby().players}" var="player" rows="10">
+                  <h:column>#{player.username}</h:column>
                 </h:dataTable>
               </h:form>
+              #{backingbean.lobbyId}
             </div>
           </div>
         </div>
