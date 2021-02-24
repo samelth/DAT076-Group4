@@ -21,7 +21,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- * Control of the website
+ * Control of pageNavigation
  * @author lewiv
  */
 @Named(value= "pagecontroller")
