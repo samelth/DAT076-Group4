@@ -41,6 +41,7 @@ public class GameSession implements Serializable {
   @ManyToOne private Lobby lobby;
   @ManyToMany private List <DrawingWord> drawingWord;
   @Id @GeneratedValue private int game_id;
+  private int level;
   private int round;
   private int judgeId;
 

@@ -18,7 +18,7 @@ import model.database.entity.Lobby;
  * @author karlsvensson
  */
 @Stateless
-public class GameSessionDAO extends AbstractDAO {
+public class GameSessionDAO extends AbstractDAO<Integer, GameSession> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
     
