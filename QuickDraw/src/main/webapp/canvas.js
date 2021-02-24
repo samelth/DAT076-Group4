@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 // When document is ready, execute script
 window.addEventListener('load', () =>{
   // Gets element with ID canvas
@@ -51,7 +52,7 @@ window.addEventListener('load', () =>{
     context.beginPath();
     context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
   }
-  
+
   // Mouse EventListers
   canvas.addEventListener('mousedown', startPosition);
   canvas.addEventListener('mouseup', endPosition);
@@ -65,4 +66,14 @@ window.addEventListener('resize', () =>{
   canvas.height = window.innerHeight*(1/3);
   canvas.width = window.innerWidth*(1/3);
 });
+
+function erase (e) {
+  // Might have to clean up? Can't access canvas or context from outside?
+  // Canvas removes drawings when resized, not sure why, not erase fuctions fault
+  const canvas = document.querySelector('#canvas');
+  const context = canvas.getContext('2d');
+  context.fillStyle = "white";
+  context.fillRect(0, 0, window.innerWidth*(1/3), window.innerHeight*(1/3));
+}
+
 
