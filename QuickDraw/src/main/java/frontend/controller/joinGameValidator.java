@@ -35,7 +35,6 @@ import static java.sql.Types.NULL;
  * Validates user before joining a game.
  * @author lewiv
  */
-@Named(value = "validator")
 @RequestScoped
 @FacesValidator("fooValidator")
 public class joinGameValidator implements Validator{
@@ -46,5 +45,8 @@ public class joinGameValidator implements Validator{
 	@Override
 	public void validate(FacesContext fc, UIComponent uic, Object t) throws ValidatorException {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	public String check(Integer a){
+		return "valid";
 	}
 }
