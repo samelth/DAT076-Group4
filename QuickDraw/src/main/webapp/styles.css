@@ -85,12 +85,11 @@ h1{
 }
 
 /* Drawing area placeholder*/
-.draw{
+canvas {
   background-color: #eeeeee;
   border-radius: 5px 5px 5px 5px;
   position: relative;
   text-align: center;
-  color: white;
 }
 
 .progress {
