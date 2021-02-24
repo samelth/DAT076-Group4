@@ -10,9 +10,8 @@ import model.database.entity.Lobby;
 import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
-import model.database.dao.PlayerDAO;
+import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -33,7 +32,7 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class)
+      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class, DrawingWord.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
@@ -56,6 +55,16 @@ public class LobbyDAOTest {
     lobbyDAO.remove(lobbyRemove); 
     final List<Lobby> listAfterRemove = lobbyDAO.findAll();
     Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
+  }
+  
+  @Test
+  public void checkFindLobby() {
+    Lobby lob = new Lobby();
+    lobbyDAO.create(lob);
+    Lobby found = lobbyDAO.find(lob.getLid());
+    
+    Assert.assertEquals(lob.getLid(), found.getLid());
+    
   }
   
   @Test 

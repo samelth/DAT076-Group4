@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -37,7 +38,7 @@ public class PlayerDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class, GameSession.class)
+      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class, GameSession.class, DrawingWord.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
@@ -121,7 +122,16 @@ public class PlayerDAOTest {
     Player player = new Player();
     player.setUsername("userTest");
     playerDAO.create(player);
-    Player p = playerDAO.getPlayer(player.getUser_id());
+    Player p = playerDAO.getPlayer(player);
     Assert.assertEquals("userTest", p.getUsername());
+  }
+  
+  @Test
+  public void checkScoreList(){
+    List<Player> list = playerDAO.sortedByScore(lobby);
+    
+    Assert.assertEquals("player3", list.get(0).getUsername());
+    Assert.assertEquals("player2", list.get(1).getUsername());
+    Assert.assertEquals("player1", list.get(2).getUsername());
   }
 }

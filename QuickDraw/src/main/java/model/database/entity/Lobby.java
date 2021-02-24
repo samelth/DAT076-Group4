@@ -29,24 +29,4 @@ public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby") private List<GameSession> gameSessions;
   @Id @GeneratedValue private int lid;
   private int hostId;
-  
-  
-  public void join(Player p) {
-    players.add(p);
-  }
-  
-  public void kick(Player p) {
-    players.remove(p);
-  }
-  
-  /**
-   * @return sorted list of top three players in the lobby. Where the first element corresponds to first place. 
-   */
-  public List<Player> topThree() {
-    return players
-            .stream()
-            .sorted((p1,p2) -> p2.getScore() - p1.getScore())
-            .limit(3)
-            .collect(Collectors.toList());
-  }
 }

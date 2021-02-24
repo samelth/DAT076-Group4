@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.Lobby;
 
+
 /**
  *
  * @author karlsvensson
@@ -28,6 +29,5 @@ public class LobbyDAO extends AbstractDAO<Integer,Lobby> {
   public List<Lobby>findUsersMatchingName() {
     throw new UnsupportedOperationException("Not yet implemented");
   }
-
-
+  
 }
