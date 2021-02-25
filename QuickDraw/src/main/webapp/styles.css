@@ -8,8 +8,9 @@ and open the template in the editor.
     Author     : Samuel Local
 */
 :root {
-  --background: #DFD575;
-  --front: #6D9C52;
+  --background: #26413c;
+  --front: #086788;
+  --babyblue: #98c1d9 ;
 }
 body{
   background-color: var(--background);
@@ -22,6 +23,10 @@ h1{
   font-weight: bold; 
   color: var(--front); 
   text-align: center;
+}
+
+h2 {
+  margin-top: .5rem;
 }
 
 /* Can be applied to text to get stroke effect */
@@ -43,7 +48,7 @@ h1{
 }
 
 .btn.btn-menu{
-  background-color: var(--front);
+  background-color: var(--babyblue);
   width: 150px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
@@ -58,7 +63,7 @@ h1{
 /* Countdown background */
 .countdown{
   height: 35px;
-  background-color: #90C472;
+  background-color: var(--babyblue);
   border-radius: 0px 0px 5px 0px;
   position: relative;
   text-align: center;
@@ -76,10 +81,10 @@ h1{
 
 /* Description background*/
 .description{
+  margin-top: 0.5rem;
   background-color: var(--front);
   border-radius: 5px 5px 0px 0px;
   text-align: center;
-  position: relative;
   color: white;
   height: 50px;
 }
