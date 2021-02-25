@@ -12,9 +12,22 @@ and open the template in the editor.
   --front: #086788;
   --babyblue: #98c1d9 ;
 }
-body{
+body {
   background-color: var(--background);
   font-family: 'Jaldi', sans-serif;
+}
+
+/*Change all fonts that wont inherit*/
+td {
+  font-family: 'Jaldi', sans-serif;
+}
+
+.backgroundblue {
+  background-color:var(--babyblue);
+}
+
+.backgroundteal {
+    background-color: var(--front);
 }
 
 h1{
@@ -49,6 +62,10 @@ h2 {
 /*Stroke & Shadow*/
 .stroke.shad{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 4px 4px 8px #000;
+  font-size: 120px;
+  font-weight: bold;
+  color: var(--babyblue);
+  text-align: center;
 }
 
 .btn.btn-menu{
@@ -76,10 +93,10 @@ h2 {
 
 /* Countdown text */
 .countdown p{
-   position: absolute;               /* 2 */
-   top: 50%;                         /* 3 */
+   position: absolute;
+   top: 50%;
    left: 50%;
-   transform: translate(-50%, -50%);    /* 4 */
+   transform: translate(-50%, -50%);
    font-size: 1.5em;
 }
 
@@ -93,9 +110,19 @@ h2 {
   height: 50px;
 }
 
+input {
+  width: 90%;
+  padding-left: 5px;
+  border: none;
+  border-radius: 3px;
+}
 /* Drawing area placeholder*/
 canvas {
   background-color: #eeeeee;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.roundedEdge {
   border-radius: 5px 5px 5px 5px;
 }
 
@@ -149,12 +176,6 @@ canvas {
   --bs-gutter-x: 0;
 }
 
-.cgbound{
-  min-height: 500px; 
-  min-width: 300px;
-  padding: 20px;
-  width: 400px;
-}
 #t1{
   min-height: 450px;
   font-size: 3em;
@@ -194,8 +215,8 @@ canvas {
   height: 100%;
 }
 
-.popup{
+.alertpopup{
   opacity: 0;
-  background: #aaf584;
-  color: black;
+  color: white;
+  border: none;
 }
