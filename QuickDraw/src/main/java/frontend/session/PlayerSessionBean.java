@@ -46,7 +46,7 @@ public class PlayerSessionBean implements Serializable {
 	private PlayerDAO playerDAO;
 	@EJB
 	private LobbyDAO lobbyDAO;
-	@Param
+  
 	private int lobbyId= 0; // assoicated with an lobby. 
 	private String username;
 	Player player;
@@ -75,6 +75,6 @@ public class PlayerSessionBean implements Serializable {
 	}
   
   public List<Player> playersInLobby(){
-    return playerDAO.findUsersInSameLobby(getLobby());
+    return playerDAO.findUsersInSameLobby(player.getLobby());
   }
 }

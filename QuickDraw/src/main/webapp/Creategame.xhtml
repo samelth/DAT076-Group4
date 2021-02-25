@@ -31,7 +31,7 @@
             <div id ="t1">   
               <h:form>
                 <h:dataTable value="#{playerSession.playersInLobby()}" var="player" rows="10">
-                  <h:column>#{player.username}</h:column>
+                  <h:column>#{player.getUsername()}</h:column>
                 </h:dataTable>
               </h:form>
               
