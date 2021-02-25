@@ -19,14 +19,16 @@ package frontend.view;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import lombok.Data;
 
 /**
  *
  * @author lewiv
  */
+@Data
 @Named(value = "bbJoinGame")
 @ViewScoped
 public class BackingBeanJoinGame implements Serializable {
-		String inputUserName;
+		String inputUsername;
 		String inputLobbyId;
 }
