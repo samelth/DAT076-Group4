@@ -29,6 +29,10 @@ h2 {
   margin-top: .5rem;
 }
 
+#createImg {
+  margin-top: .5rem;  
+}
+
 /* Can be applied to text to get stroke effect */
 .stroke{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -93,8 +97,6 @@ h2 {
 canvas {
   background-color: #eeeeee;
   border-radius: 5px 5px 5px 5px;
-  position: relative;
-  text-align: center;
 }
 
 .progress {

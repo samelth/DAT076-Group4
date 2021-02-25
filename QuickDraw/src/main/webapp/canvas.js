@@ -76,4 +76,27 @@ function erase (e) {
   context.fillRect(0, 0, window.innerWidth*(1/3), window.innerHeight*(1/3));
 }
 
+$(function() { 
+  $("#screenshot").click(function() { 
+    html2canvas($("#canvas"), { 
+      onrendered: function(canvas) { 
+        var imgsrc = canvas.toDataURL("image/png"); 
+        console.log(imgsrc); 
+        $("#newimg").attr('src', imgsrc); 
+        $("#img").show(); 
+        var dataURL = canvas.toDataURL(); 
+        $.ajax({ 
+          type: "POST", 
+          url: "script.php", 
+          data: { 
+              imgBase64: dataURL 
+          } 
+        }).done(function(o) { 
+          console.log('saved'); 
+        }); 
+      } 
+    }); 
+  }); 
+}); 
+
 
