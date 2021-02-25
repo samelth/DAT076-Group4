@@ -32,11 +32,11 @@
         <div class="col-2 roundedEdge backgroundteal">
           <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
             <h:form>
-              <h:dataTable value="#{playerSession.playersInLobby()}" var="player" rows="10">
+              <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
                 <h:column>#{player.getUsername()}</h:column>
               </h:dataTable>
             </h:form>
-            <div align="right" style="padding-top: 330px;padding-right: 8px">   
+            <div align="right" style="padding-top: 330px;padding-right: 8px">
               <button type="button" class="btn btn-menu" onclick="jump('Drawpage.xhtml')">Start Game</button>
             </div>
           </div>
@@ -46,7 +46,7 @@
  
     <!-- EMPTY ROW FOR SPACING -->  
     <div class="row" style="height:15px"></div>    
-    
+     
         <!--Buttonrow-->
     <div class="row">
       <div class="col-5"></div>
@@ -59,7 +59,7 @@
           </svg>
         </button>
           <text>Click to copy lobby ID: </text>
-          <input type="text" id="lobbycode" value="#{playerSession.lobbyId}" readonly="readonly"/> 
+          <input type="text" id="lobbycode" value="#{creategameController.getLid()}" readonly="readonly"/> 
       </div>
       <div class="col-5"></div>
     </div>

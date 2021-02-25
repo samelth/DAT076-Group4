@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 lewiv
+ * Copyright (C) 2021 Samuel Local
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,33 +14,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package frontend.session;
+package frontend.controller;
 
+import frontend.session.PlayerSessionBean;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
-import model.database.entity.Lobby;
 import model.database.entity.Player;
-import org.omnifaces.cdi.Param;
 
 /**
- * user Bean 
- * @author lewiv
+ *
+ * @author Samuel Local
  */
-
 @Data
-@Named(value = "playerSession")
-@SessionScoped
-public class PlayerSessionBean implements Serializable {
-	Player player;
+@Named("joingameController")
+@ViewScoped
+public class JoingameController implements Serializable {
+  @Inject PlayerSessionBean playerSessionBean;
+  
+  @EJB
+  private LobbyDAO lobbyDAO;
+  @EJB
+  private PlayerDAO playerDAO;
+  
+  private int inputLid;
+  private String inputUsername;
+  
+  public void joinLobby(){
+    playerSessionBean.setPlayer(new Player());
+		playerSessionBean.getPlayer().setUsername(inputUsername);
+		playerSessionBean.getPlayer().setLobby(lobbyDAO.find(inputLid));
+		playerDAO.create(playerSessionBean.getPlayer());
+  }
 }
