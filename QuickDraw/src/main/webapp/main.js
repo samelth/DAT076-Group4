@@ -24,7 +24,6 @@ $("#butt").click(function(){
     })
   }); 
 
-
 function jump(page){
   window.location.href = page;
 }
@@ -82,23 +81,4 @@ let toastElList = [].slice.call(document.querySelectorAll('.toast'))
 let toastList = toastElList.map(function (toastEl) {
   return new bootstrap.Toast(toastEl, option)
 })
-
-/*let canvas = document.getElementById("myCanvas");
-canvas.addEventListener("mousedown", function(e){
-  canvas.onmousemove= function(e){
-    let ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.moveTo(e.x,e.y); 
-     setTimeout(function (){
-      ctx.lineTo(e.x,e.y);
-      ctx.stroke();
-    } , 1000);
-    
-  }
-});
-
-canvas.addEventListener("mouseup", function(e){
-  canvas.onmousemove=null;
-})
-*/
 

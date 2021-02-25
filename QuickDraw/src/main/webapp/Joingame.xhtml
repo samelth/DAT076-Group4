@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
   <h:head>
     <meta charset="UTF-8"></meta>
     <!-- Bootstrap CSS -->
@@ -48,18 +49,23 @@
                       <div class="d-flex justify-content-center">
                       <label for="gameCode" class="form-label">Lobby Code</label>
                       </div>
-                      <h:inputText value="#{playerSession.lobbyId}" required="true"></h:inputText>
+                      <b:inputText value="#{bbJoinGame.inputLobbyId}" onblur="#{backingbean.lobbyId}" required="true">
+                          <p:ajax event="keyup" update="hello" process="@this" /> 
+                      </b:inputText>
                       
                       <div class="d-flex justify-content-center">
                       <label for="PlayerUsername" class="form-label">Username</label>
                       </div>
-                      <h:inputText value="#{playerSession.username}" required="true"></h:inputText>
+                      <b:inputText value="#{bbJoinGame.inputUsername}" 
+                                   onblur= "#{bbJoinGame.inputUsername}" required="true"></b:inputText>
                       
-                      <h:commandButton value="submit" action="Creategame">
-                        <f:actionListener binding="#{playerSession.joinLobby()}"></f:actionListener>
-                      </h:commandButton>
+                      <b:commandButton value="submit" action="Creategame"  >
+                        <f:actionListener binding="#{playerSession.setUsername(bbJoinGame.inputUsername)}"></f:actionListener> 
+                        <f:actionListener binding="#{playerSession.setLobbyId(converter.textToLobbyID(bbJoinGame.inputLobbyId))}"></f:actionListener> 
+                        <f:actionListener binding="#{playerSession.joinLobby()}"></f:actionListener>      
+                      </b:commandButton>
                     </h:form>
-                  
+                  <h:outputText id="hello" value="#{validator.checkUserExistsInLob(bbJoinGame.inputLobbyId, bbJoinGame.inputUsername)}"/>
                 </div>
                   
               </div>

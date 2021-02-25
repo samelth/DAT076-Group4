@@ -30,11 +30,11 @@
           <div class="col-sm">
             <div id ="t1">   
               <h:form>
-                <h:dataTable value="#{playerSession.getLobby().players}" var="player" rows="10">
+                <h:dataTable value="#{playerSession.playersInLobby()}" var="player" rows="10">
                   <h:column>#{player.username}</h:column>
                 </h:dataTable>
               </h:form>
-              #{playerSession.lobbyId}
+              
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="row ">
           <div class= "col-sm " >
             <div class= "greybox pad-10 mag-30">
-              <input type="text" class="inline lobby-code" id="lobbycode" value="#A3020"/>
+              <input type="text" class="inline lobby-code" id="lobbycode" value="#{playerSession.lobbyId}"/>
               <button type="button" id="butt" class="fright btn btn-primary" data-toggle="button" aria-pressed="false" onclick="copyToCB('lobbycode')">
                 Copy to clipboard
               </button>

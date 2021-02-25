@@ -63,13 +63,18 @@ public class PlayerSessionBean implements Serializable {
 		Player p = new Player();
 		p.setUsername(username);
 		p.setLobby(lobbyDAO.find(lobbyId));
+    player=p;
 		playerDAO.create(p);
 	}
 	
-	public void hostNewLobby(String username){
+	public void hostNewLobby(){
 		Lobby lob = new Lobby();
-		lob.setLid(lobbyId);
 		lobbyDAO.create(lob);
+    lobbyId=lob.getLid();
 		joinLobby();
 	}
+  
+  public List<Player> playersInLobby(){
+    return playerDAO.findUsersInSameLobby(getLobby());
+  }
 }

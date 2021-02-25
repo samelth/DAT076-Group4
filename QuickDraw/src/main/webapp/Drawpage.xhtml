@@ -20,7 +20,9 @@ and open the template in the editor.
     <script type="text/javascript" src="main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="main.js"></script>
+    <script src="canvas.js"></script>    
     <script>startProgressBar("#p1");</script>
+    <script>playTime("#countdown");</script>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <title>Drawpage</title>
@@ -55,7 +57,7 @@ and open the template in the editor.
       </div>
 
       <div class="col-1 countdown g-0">
-        <p>TIMER</p>
+        <p id="countdown"></p>
       </div>
 
       <div class="col-4"></div>
@@ -65,9 +67,11 @@ and open the template in the editor.
     <div class="row" style="height:15px"></div>
     
     <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:250px">
+    <div class="row">
       <div class="col-4"></div>
-      <div class="col-4 draw"></div>
+      <div class="col-4">
+        <canvas id="canvas"></canvas>
+      </div>
       <div class="col-4"></div>
       
     </div> 
@@ -77,15 +81,11 @@ and open the template in the editor.
 
       <div class="col-4 g-0">
         <br/>
-        <form action="index.xhtml">
-          <input type="submit" class="btn btn-menu" value="Start Menu" />
-        </form>
+        <button type="button" class="btn btn-menu" onclick="erase()">ERASE</button>
       </div>
 
       <div class="col-4"></div>
     </div>
 
-
-  
   </h:body>
 </html>
