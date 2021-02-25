@@ -35,7 +35,7 @@ import org.omnifaces.cdi.Param;
 
 /**
  *
- * @author lewiv
+ * @author lewiv, Karl Svensson
  */
 @Named(value = "bbDrawPage")
 @ViewScoped
@@ -51,7 +51,7 @@ public class BackingBeanDrawPage implements Serializable {
   private DrawingWord currentWord;
   private GameSession currentGame;
   
-  
+  //TODO: Fetch the game_id from the current gameSession
   private final int game_id = 1;
   
   @PostConstruct
