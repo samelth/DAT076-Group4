@@ -28,5 +28,5 @@ public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby") private List<Player> players;
   @OneToMany(mappedBy = "lobby") private List<GameSession> gameSessions;
   @Id @GeneratedValue private int lid;
-  private int hostId;
+  private Player host;
 }

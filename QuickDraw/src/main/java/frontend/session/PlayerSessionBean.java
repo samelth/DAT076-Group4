@@ -72,6 +72,7 @@ public class PlayerSessionBean implements Serializable {
 		lobbyDAO.create(lob);
     lobbyId=lob.getLid();
 		joinLobby();
+    lob.setHost(player);
 	}
   
   public List<Player> playersInLobby(){
