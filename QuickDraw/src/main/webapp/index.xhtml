@@ -52,21 +52,26 @@
             <div class="d-flex justify-content-center">
               <button type="button" class="btn btn-menu" onclick="window.location.href='Createlobby.xhtml'">Create Game</button>
             </div>
-              <h:form>
-                <div class="d-flex justify-content-center card">
-                  <div class="d-flex justify-content-center">
+            <h:form>
+            <p:growl showDetail="true"/>
                    <label for="gameCode" class="form-label">Username</label>
-                  </div>
                   <div class="d-flex justify-content-center">
-                    <h:inputText value="#{playerSession.username}"></h:inputText>
                   </div>
-                  <div class="d-flex justify-content-center">
-                    <h:commandButton value="Create" action="Creategame">
-                      <f:actionListener binding="#{playerSession.hostNewLobby()}"></f:actionListener>
-                    </h:commandButton>
-                  </div>
-                </div>
-              </h:form>
+            <div class="d-flex justify-content-center">
+              <p:inputText id="input" value="#{playerSession.username}">
+            <div class="d-flex justify-content-center">
+                <f:validator validatorId="usernameValidator"/>
+              </p:inputText>
+              
+            </div>
+            <div class="d-flex justify-content-center">
+              <p:commandButton value="Create" action="Creategame" validateClient="true" ajax="false">
+                <f:actionListener binding="#{playerSession.hostNewLobby()}"></f:actionListener>
+              </p:commandButton>
+              <p:message for="input" display="tooltip"/>
+            </div>
+            </div>
+            </h:form>
             <div class="d-flex justify-content-center">
               <button type="button" class="btn btn-menu" onclick="window.location.href='Joingame.xhtml'">Join Game</button>
             </div>

@@ -43,7 +43,7 @@ function playTime (countdown) {
   setInterval( function(){
   if(totalPlayTime <= 0){
     clearInterval(playTime);
-    $(countdown).text("FINISHED");
+    $(countdown).text("TIME!");
   } else {
     $(countdown).text(totalPlayTime);
   }

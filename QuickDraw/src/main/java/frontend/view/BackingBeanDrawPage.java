@@ -17,15 +17,61 @@
 package frontend.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.Query;
+import lombok.Data;
+import model.database.dao.DrawingWordDAO;
+import model.database.dao.GameSessionDAO;
+import model.database.entity.DrawingWord;
+import model.database.entity.GameSession;
+import org.omnifaces.cdi.Param;
 
 /**
  *
- * @author lewiv
+ * @author lewiv, Karl Svensson
  */
+@Data
 @Named(value = "bbDrawPage")
 @ViewScoped
 public class BackingBeanDrawPage implements Serializable {
+  
+  @EJB
+  DrawingWordDAO drawingWordDAO;
+  
+  @EJB
+  GameSessionDAO gameSessionDAO;
+  
+  private LinkedList<DrawingWord> words;
+  private DrawingWord currentWord;
+  private GameSession currentGame;
+  
+  //TODO: Fetch the game_id from the current gameSession
+  private final int game_id = 1;
+  
+  @PostConstruct
+  public void init(){
+    currentGame = gameSessionDAO.find(game_id);
+    words = new LinkedList<>(drawingWordDAO.getWordsByLevel(currentGame.getLevel()));
+    Collections.shuffle(words);    
+  }
+  
+  public String getNextWord(){
+    
+    try{
+    currentWord = words.remove();
+    }catch(NullPointerException e){
+      System.err.println("Error: No more words to draw");
+    }
+    
+    return currentWord.getWord();
+  }
 
 }
