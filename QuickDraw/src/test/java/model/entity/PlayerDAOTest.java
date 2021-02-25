@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -38,7 +39,7 @@ public class PlayerDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class, GameSession.class, DrawingWord.class)
+      .addClasses(PlayerDAO.class, Player.class, Lobby.class, LobbyDAO.class, GameSession.class, DrawingWord.class, Drawing.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
