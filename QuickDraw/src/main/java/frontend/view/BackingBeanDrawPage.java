@@ -27,6 +27,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.Query;
+import lombok.Data;
 import model.database.dao.DrawingWordDAO;
 import model.database.dao.GameSessionDAO;
 import model.database.entity.DrawingWord;
@@ -37,6 +38,7 @@ import org.omnifaces.cdi.Param;
  *
  * @author lewiv, Karl Svensson
  */
+@Data
 @Named(value = "bbDrawPage")
 @ViewScoped
 public class BackingBeanDrawPage implements Serializable {
