@@ -67,12 +67,12 @@ function copyToCB(textToCopyID){
       });
   $("#alert").animate({
       opacity: 1,
-      top: "-=5vh"
+      top: "-=8vh"
     },1000);
   setTimeout(function (){
     $("#alert").animate({
       opacity: 0,
-      top: "+=5vh"
+      top: "+=8vh"
     },1000)}
   ,2500);
 }

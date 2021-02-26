@@ -40,7 +40,7 @@ public class UsernameValidator implements Validator, ClientValidator {
 		}
 		String toValidate = username.toString(); 
 		if(toValidate.isEmpty()){
-			FacesMessage errMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Empty string", "Please insert text into the field");
+			FacesMessage errMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Empty string", "Please insert a username into the field");
 			//fc.getCurrentInstance().addMessage(null, errMsg);
 			throw new ValidatorException(errMsg);
 		}
