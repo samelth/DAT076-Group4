@@ -30,7 +30,7 @@ import model.database.entity.QDrawingWord;
  * @author Karl Svensson
  */
 @Stateless
-public class DrawingWordDAO extends AbstractDAO<String, DrawingWord> {
+public class DrawingWordDAO extends AbstractDAO<DrawingWord> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   

@@ -58,7 +58,7 @@ public class BackingBeanDrawPage implements Serializable {
   
   @PostConstruct
   public void init(){
-    currentGame = gameSessionDAO.find(game_id);
+    currentGame = gameSessionDAO.findGameSessionByGameId(game_id);
     words = new LinkedList<>(drawingWordDAO.getWordsByLevel(currentGame.getLevel()));
     Collections.shuffle(words);    
   }

@@ -5,20 +5,20 @@
  */
 package model.database.dao;
 
-import java.util.List;
+import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.GameSession;
-import model.database.entity.Lobby;
+import model.database.entity.QGameSession;
 
 /**
  *
  * @author karlsvensson
  */
 @Stateless
-public class GameSessionDAO extends AbstractDAO<Integer, GameSession> {
+public class GameSessionDAO extends AbstractDAO<GameSession> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
     
@@ -26,7 +26,13 @@ public class GameSessionDAO extends AbstractDAO<Integer, GameSession> {
     super(GameSession.class);
   }
   
-  public List<Lobby>findUsersMatchingName() {
-    throw new UnsupportedOperationException("Not yet implemented");
+  public GameSession findGameSessionByGameId(int gid) {
+    JPAQuery<GameSession> q = new JPAQuery<>(entityManager);
+    QGameSession gameSession = QGameSession.gameSession;
+    return q
+            .select(gameSession)
+            .from(gameSession)
+            .where(gameSession.game_id.eq(gid))
+            .fetchOne();
   }
 }

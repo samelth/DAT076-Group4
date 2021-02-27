@@ -42,13 +42,13 @@ public class JoingameController implements Serializable {
   @EJB
   private PlayerDAO playerDAO;
   
-  private int inputLid;
+  private String inputHexLid;
   private String inputUsername;
   
   public void joinLobby(){
     playerSessionBean.setPlayer(new Player());
 		playerSessionBean.getPlayer().setUsername(inputUsername);
-		playerSessionBean.getPlayer().setLobby(lobbyDAO.find(inputLid));
+		playerSessionBean.getPlayer().setLobby(lobbyDAO.findLobbyByHexLid(inputHexLid));
 		playerDAO.create(playerSessionBean.getPlayer());
   }
 }

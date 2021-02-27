@@ -27,7 +27,7 @@ import model.database.entity.Drawing;
  * @author Karl Svensson
  */
 @Stateless
-public class DrawingDAO extends AbstractDAO<String, Drawing> {
+public class DrawingDAO extends AbstractDAO<Drawing> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   

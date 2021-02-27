@@ -9,12 +9,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class AbstractDAO<K,T> {
+public abstract class AbstractDAO<T> {
 
   private final Class<T> entityType;
 
@@ -34,7 +35,7 @@ public abstract class AbstractDAO<K,T> {
   public void create(T entity) {
     getEntityManager().persist(entity);
   }
-
+  
   public List<T> findAll() {
     final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
     cq.select(cq.from(entityType));
@@ -44,13 +45,15 @@ public abstract class AbstractDAO<K,T> {
   public void remove(T entity) {
     getEntityManager().remove(getEntityManager().merge(entity));
   }
-	public <T> T find(K key){
-		return (T) getEntityManager().find(entityType, key);
-	}
+  
+  public int removeAll() {
+    final CriteriaDelete<T> cd = getEntityManager().getCriteriaBuilder().createCriteriaDelete(entityType);
+    cd.from(entityType);
+    return getEntityManager().createQuery(cd).executeUpdate();
+  }
   
   public T update(T entity){
     return getEntityManager().merge(entity);
-    
   }
   
   public void refresh(T entity){

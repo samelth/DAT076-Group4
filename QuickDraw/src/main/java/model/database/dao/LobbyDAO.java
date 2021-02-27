@@ -5,12 +5,13 @@
  */
 package model.database.dao;
 
-import java.util.List;
+import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.Lobby;
+import model.database.entity.QLobby;
 
 
 /**
@@ -18,7 +19,7 @@ import model.database.entity.Lobby;
  * @author karlsvensson
  */
 @Stateless
-public class LobbyDAO extends AbstractDAO<Integer,Lobby> {
+public class LobbyDAO extends AbstractDAO<Lobby> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
     
@@ -26,8 +27,24 @@ public class LobbyDAO extends AbstractDAO<Integer,Lobby> {
     super(Lobby.class);
   }
   
-  public List<Lobby>findUsersMatchingName() {
-    throw new UnsupportedOperationException("Not yet implemented");
+  public Lobby findLobby(Lobby l) {
+    JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
+    QLobby lobby = QLobby.lobby;
+    return q
+            .select(lobby)
+            .from(lobby)
+            .where(lobby.lid.eq(l.getLid()))
+            .fetchOne();
+  }
+  
+  public Lobby findLobbyByHexLid(String hexLid) {
+    JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
+    QLobby lobby = QLobby.lobby;
+    return q
+            .select(lobby)
+            .from(lobby)
+            .where(lobby.lid.eq(Integer.valueOf(hexLid, 16)))
+            .fetchOne();
   }
   
 }

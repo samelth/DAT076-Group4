@@ -20,7 +20,7 @@ import model.database.entity.QPlayer;
  * @author Karl Svensson
  */
 @Stateless
-public class PlayerDAO extends AbstractDAO<Integer,Player> {
+public class PlayerDAO extends AbstractDAO<Player> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   
@@ -29,37 +29,35 @@ public class PlayerDAO extends AbstractDAO<Integer,Player> {
     super(Player.class);
   }
   
-  public Player getPlayer(Player p) {
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+  public List<Player> findUsersInSameLobby(Lobby lobby) {
+    JPAQuery<List<Player>> query = new JPAQuery<>(entityManager);
     QPlayer player = QPlayer.player;
     return query
             .select(player)
             .from(player)
-            .where(player.user_id.eq(p.getUser_id()))
-            .fetchOne();
-  }
-  
-  public List<Player> findUsersInSameLobby(Lobby lobby) {
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
-    QPlayer player = QPlayer.player;
-    List<Player> inLobby = query
-            .select(player)
-            .from(player)
             .where(player.lobby.lid.eq(lobby.getLid()))
             .fetch();
-    return inLobby;
   }
   
-  public List<Player> sortedByScore(Lobby lobby){
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+  public List<Player> findUsersInSameLobbySortedByScore(Lobby lobby){
+    JPAQuery<List<Player>> query = new JPAQuery<>(entityManager);
     QPlayer player = QPlayer.player;
-    
     return query
             .select(player)
             .from(player)
             .where(player.lobby.lid.eq(lobby.getLid()))
             .orderBy(player.score.desc())
             .fetch();
+  }
+  
+  public Player findPlayer(Player p) {
+    JPAQuery<Player> query = new JPAQuery<>(entityManager);
+    QPlayer player = QPlayer.player;
+    return query
+            .select(player)
+            .from(player)
+            .where(player.user_id.eq(p.getUser_id()))
+            .fetchOne();
   }
   
 }
