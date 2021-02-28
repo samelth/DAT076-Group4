@@ -19,6 +19,8 @@ package frontend.view;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -29,6 +31,8 @@ import lombok.Data;
 @Named(value = "bbJoinGame")
 @ViewScoped
 public class BackingBeanJoinGame implements Serializable {
+		@NotEmpty(message = "Please insert a valid Username")			
 		String inputUsername;
-		String inputLobbyId;
+		@NotEmpty(message = "Please insert a valid id")		
+		String inputLobbyHexLid;
 }
