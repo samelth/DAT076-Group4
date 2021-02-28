@@ -44,8 +44,6 @@ public class IndexController implements Serializable {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlayerDAO playerDAO;
-  
-	@Size(min=2,max=5)
 	@NotEmpty
 	private String inputUsername;
   
