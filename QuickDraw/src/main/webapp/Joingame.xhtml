@@ -49,22 +49,23 @@
                       <div class="d-flex justify-content-center">
                       <label for="gameCode" class="form-label">Lobby Code</label>
                       </div>
-                      <b:inputText value="#{joingameController.inputLid}" onblur="#{backingbean.lobbyId}" required="true">
-                          <p:ajax event="keyup" update="hello" process="@this" /> 
+                      <b:inputText value="#{bbJoinGame.inputHexLid}" onblur="#{bbJoinGame.inputHexLid}" required="true">
+                        <!-- Lobby Code input field  <p:ajax event="keyup" update="hello" process="@this" />   -->
                       </b:inputText>
                       
                       <div class="d-flex justify-content-center">
                       <label for="PlayerUsername" class="form-label">Username</label>
                       </div>
-                      <b:inputText value="#{joingameController.inputUsername}" 
+                      <b:inputText value="#{bbJoinGame.inputUsername}" 
                                    onblur= "#{bbJoinGame.inputUsername}" required="true"></b:inputText>
+
                       
                       <b:commandButton value="submit" action="Creategame"  >
                         <f:actionListener binding="#{joingameController.joinLobby()}"></f:actionListener> 
-                            
+         
                       </b:commandButton>
+
                     </h:form>
-                  <h:outputText id="hello" value="#{validator.checkUserExistsInLob(bbJoinGame.inputLobbyId, bbJoinGame.inputUsername)}"/>
                 </div>
                   
               </div>

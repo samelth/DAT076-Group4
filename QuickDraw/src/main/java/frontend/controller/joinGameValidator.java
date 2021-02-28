@@ -36,17 +36,63 @@ import static java.sql.Types.NULL;
  * @author lewiv
  */
 @RequestScoped
+@Named(value = "validator")
 @FacesValidator("fooValidator")
 public class joinGameValidator implements Validator{
+	
+	private final static String LOBBY_NOT_FOUND_MSG = "Lobby doesn't exist"; 
+	private final static String INVALID_FORMAT_LOBBYID_MSG = "Please insert a valid lobbyID";
+	private final static String USER_ALREADY_EXIST_MSG = "The user already exists"; 
+	
+	private  final Converter conv = new Converter();
 	@EJB				
 	LobbyDAO lobbyDAO;
 
-	// TODO 
+	
 	@Override
 	public void validate(FacesContext fc, UIComponent uic, Object t) throws ValidatorException {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
-	public String check(Integer a){
-		return "valid";
+	
+	public String checkUserExistsInLob(String lobbyId, String username){
+		@Nullable
+		Lobby lob = null;
+		int lobId;
+		boolean isValid = false; 
+		if (lobbyId == null){
+			return LOBBY_NOT_FOUND_MSG;
+		}
+		try{
+			 lobId = conv.textToLobbyID(lobbyId);
+		}catch(NumberFormatException e){
+			return INVALID_FORMAT_LOBBYID_MSG;
+		}
+		if(doesLobbyExist(lobId)){
+		 lob = lobbyDAO.find(lobId);
+		}else{
+		 return LOBBY_NOT_FOUND_MSG;
+		}
+		
+		boolean isUsernameInLobby =
+						lob.getPlayers()
+						.stream()
+						.anyMatch(
+							player -> player.getUsername() == username
+						);
+		if(isUsernameInLobby){
+			return USER_ALREADY_EXIST_MSG;
+		}
+		return "";
 	}
+
+	private boolean doesLobbyExist(Integer id){
+		if(id == null){
+			return false;
+		}
+		if(lobbyDAO.find(id) == null ){
+				return false;
+		}
+		return true;
+	}
+	
 }
