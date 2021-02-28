@@ -44,8 +44,8 @@ public class CreategameContoller implements Serializable{
     return playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
   }
    
-   public int getLid(){
-     return playerSessionBean.getPlayer().getLobby().getLid();
+   public String getHexLid(){
+     return Integer.toHexString(playerSessionBean.getPlayer().getLobby().getLid()).toUpperCase();
    }
    
 }
