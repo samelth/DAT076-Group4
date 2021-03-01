@@ -44,9 +44,8 @@ public class joinGameValidator implements Validator{
 	private  LobbyDAO lobbyDAO;
 	
 	/**
-	 * validates user input for username and the lobby code
-	 * checks if the lobby exist and the username inputted is unique within the lobby. 
-	 * for that lobby
+	 * Validates user input for username and the lobby code.
+	 * Checks if the lobby exist and the username inputted is unique within the lobby. 
 	 * @param fc FacesContext.
 	 * @param uic UIComponent to grab other components
 	 * @param t Object to check for validation
