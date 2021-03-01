@@ -17,6 +17,7 @@
 package frontend.controller;
 
 import frontend.session.PlayerSessionBean;
+import frontend.view.BackingBeanIndex;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -44,14 +45,14 @@ public class IndexController implements Serializable {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlayerDAO playerDAO;
-	@NotEmpty
-	private String inputUsername;
+	
+  @Inject BackingBeanIndex indexView;
   
   public void hostNewLobby(){
     Lobby lob = new Lobby();
 		lobbyDAO.create(lob);
     playerSessionBean.setPlayer(new Player());
-		playerSessionBean.getPlayer().setUsername(inputUsername);
+		playerSessionBean.getPlayer().setUsername(indexView.getInputUsername());
 		playerSessionBean.getPlayer().setLobby(lob);
 		playerDAO.create(playerSessionBean.getPlayer());
     lob.setHost(playerSessionBean.getPlayer());

@@ -31,8 +31,8 @@
         <div class="col-2">
           <h:form>
             <p:growl showDetail="true"/>
-            <p:inputText placeholder="Username" id="input" value="#{indexController.inputUsername}"></p:inputText>
-            <p:commandButton style="float:right;" value="NEW GAME" action="Creategame" validateClient="true" ajax="false">
+            <p:inputText placeholder="Username" id="input" value="#{bbIndex.inputUsername}"></p:inputText>
+            <p:commandButton styleClass="ui-button-info" style="float:right;" value="NEW GAME" action="Creategame" validateClient="true" ajax="false">
               <f:actionListener binding="#{indexController.hostNewLobby()}"></f:actionListener>
             </p:commandButton>
           </h:form>

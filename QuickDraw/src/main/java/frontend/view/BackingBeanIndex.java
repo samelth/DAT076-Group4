@@ -19,6 +19,7 @@ package frontend.view;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 /**
@@ -29,5 +30,6 @@ import lombok.Data;
 @Named(value = "bbIndex")
 @ViewScoped
 public class BackingBeanIndex implements Serializable {
-
+    @NotEmpty(message = "Please insert a valid Username")			
+		String inputUsername;
 }
