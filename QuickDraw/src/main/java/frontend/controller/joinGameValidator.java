@@ -1,4 +1,4 @@
-/*
+	/*
  * Copyright (C) 2021 lewiv
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,37 +16,70 @@
  */
 package frontend.controller;
 
-import javax.annotation.Nullable;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import model.database.dao.LobbyDAO;
 import model.database.entity.Lobby;
-
-import static java.sql.Types.NULL;
 
 /**
  * Validates user before joining a game.
  * @author lewiv
  */
 @RequestScoped
-@FacesValidator("fooValidator")
+@FacesValidator(value = "joinGameValidator")
 public class joinGameValidator implements Validator{
+	
+	private static final String ERROR_MESSAGE_LOBBY_NOT_EXIST = "Lobby doesn't exists";
+	private static final String ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY = "Username already in lobby";
+	
 	@EJB				
-	LobbyDAO lobbyDAO;
-
-	// TODO 
+	private  LobbyDAO lobbyDAO;
+	
+	/**
+	 * validates user input for username and the lobby code
+	 * checks if the lobby exist and the username inputted is unique within the lobby. 
+	 * for that lobby
+	 * @param fc FacesContext.
+	 * @param uic UIComponent to grab other components
+	 * @param t Object to check for validation
+	 * @throws ValidatorException
+	 * @see javax.faces.validator.Validator
+	 */
 	@Override
 	public void validate(FacesContext fc, UIComponent uic, Object t) throws ValidatorException {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		final UIInput lidComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
+		
+		//Input to validate
+		final String username =  t.toString();
+		final String lobbyHexLid = (String) lidComponent.getValue();
+		
+		final Lobby lobby = lobbyDAO.findLobbyByHexLid(lobbyHexLid);
+	
+		final boolean lobbyNotExist = (null == lobby);
+		if (lobbyNotExist) {
+			throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));
+		}	
+		final boolean usernameExistinLobby = usernameExistinLobby(lobby,username); 
+		if (usernameExistinLobby) {
+			throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY));
+		}	
 	}
-	public String check(Integer a){
-		return "valid";
-	}
+	/**
+	 * @param l lobby 
+	 * @param username username to check if it exist in the lobby. 
+	 * @return True if the username already exists in a lobby. False otherwise. 
+	 */
+	private boolean usernameExistinLobby(final Lobby l, final String username){
+		return l.getPlayers()
+						.stream()
+						.anyMatch(player -> player.getUsername().equals(username));
+	} 
 }
