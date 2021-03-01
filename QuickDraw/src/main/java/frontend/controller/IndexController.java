@@ -22,6 +22,8 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
@@ -42,8 +44,8 @@ public class IndexController implements Serializable {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlayerDAO playerDAO;
-  
-  private String inputUsername;
+	@NotEmpty
+	private String inputUsername;
   
   public void hostNewLobby(){
     Lobby lob = new Lobby();
