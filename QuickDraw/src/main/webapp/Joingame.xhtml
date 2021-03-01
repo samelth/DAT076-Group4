@@ -51,6 +51,7 @@
                       </div>
                       <b:inputText value="#{bbJoinGame.inputLobbyHexLid}" 
                                    onblur="#{bbJoinGame.inputLobbyHexLid}" 
+                                   id="lobbyHexLidInput"
                                    />
                       <p:message for="@previous"/>
                       <div class="d-flex justify-content-center">
@@ -58,7 +59,11 @@
                       </div>
                       <b:inputText value="#{bbJoinGame.inputUsername}" 
                                    onblur= "#{bbJoinGame.inputUsername}" 
-                                   required="true"/>    
+                                   required="true"
+                                   id="usernameInput"
+                                   > 
+                        <f:validator validatorId="joinGameValidator" /> 
+                      </b:inputText>
                       <p:message for="@previous"/>
                       <p:commandButton validateClient="true" ajax="false" action="Creategame">
                         <f:actionListener binding="#{joingameController.joinLobby()}" class= "btn btn-primary btn-sm"/> 
