@@ -105,11 +105,11 @@ h2 {
 }
 
 .ui-button-info {
+  height: 40px;
   background-color: var(--babyblue) !important;
+  border-color: var(--babyblue) !important;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
-  border:1px #ccc solid;
-  hover: transparent;
 }
 
  .ui-growl-item-container, .ui-growl-item {
