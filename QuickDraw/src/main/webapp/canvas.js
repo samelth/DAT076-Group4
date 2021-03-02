@@ -76,15 +76,20 @@ function erase (e) {
   context.fillRect(0, 0, window.innerWidth*(1/3), window.innerHeight*(1/3));
 }
 
-$(function() { 
+$(function () { 
   $("#screenshot").click(function() { 
     html2canvas($("#canvas"), { 
       onrendered: function(canvas) { 
-        var imgsrc = canvas.toDataURL("image/png"); 
+        var imgsrc = canvas.toDataURL("image/png");
+        
+        
         console.log(imgsrc); 
         $("#newimg").attr('src', imgsrc); 
         $("#img").show(); 
-        var dataURL = canvas.toDataURL(); 
+        var dataURL = canvas.toDataURL();
+        var hidden = document.getElementById("form:dataURL");
+        hidden.value = dataURL;
+        
         $.ajax({ 
           type: "POST", 
           url: "script.php", 
