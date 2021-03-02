@@ -38,4 +38,9 @@ public class DrawingWord implements Serializable{
   @Id private String word;
   private int level;
   
+  @Override
+  public String toString() {
+    return this.word;
+  }
+  
 }
