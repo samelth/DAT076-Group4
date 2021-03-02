@@ -35,3 +35,4 @@ nbdist/
 *.prefs
 
 QuickDraw/faces-config.NavData
+QuickDraw/nbactions.xml
