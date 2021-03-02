@@ -19,8 +19,10 @@ package frontend.controller;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanDrawPage;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -60,6 +62,7 @@ public class DrawingpageController implements Serializable {
   private GameSession currentGame;
   private final int game_id = 1;
   private String url;
+  private Drawing d;
   
   @PostConstruct
   public void init(){
@@ -79,9 +82,10 @@ public class DrawingpageController implements Serializable {
   }
   
   public void addToDB(){
-    Drawing d = new Drawing();
+    char[] url = drawPageView.getImgURL().toCharArray();
+    d = new Drawing();
     d.setPlayer(playerSessionBean.getPlayer());
-    d.setUrl(drawPageView.getImgURL());
+    d.setUrl(url);
     drawingDAO.create(d);
   }
   
