@@ -34,7 +34,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Drawing implements Serializable {
-  @Id private String url;
-  @ManyToOne
+  @Id @ManyToOne
   private Player player;
+  private char [] url;
+  
 }
