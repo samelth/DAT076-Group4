@@ -16,36 +16,23 @@
  */
 package model.database.dao;
 
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
-import model.database.entity.DrawingWord;
-import model.database.entity.QDrawingWord;
+import model.database.entity.Drawing;
 
 /**
  *
  * @author Karl Svensson
  */
 @Stateless
-public class DrawingWordDAO extends AbstractDAO<DrawingWord> {
+public class DrawingDAO extends AbstractDAO<Drawing> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   
-  public DrawingWordDAO(){
-    super(DrawingWord.class);
+  public DrawingDAO() {
+    super(Drawing.class);
   }
   
-  public List<DrawingWord> getWordsByLevel(int level){
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
-    QDrawingWord drawingWord = QDrawingWord.drawingWord;
-    
-    return query
-            .select(drawingWord)
-            .from(drawingWord)
-            .where(drawingWord.level.eq(level))
-            .fetch();
-  }
 }

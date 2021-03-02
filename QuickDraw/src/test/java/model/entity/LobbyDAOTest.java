@@ -7,9 +7,9 @@ package model.entity;
 
 import model.database.entity.Player;
 import model.database.entity.Lobby;
-import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
+import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,50 +32,37 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class, DrawingWord.class)
+      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class, DrawingWord.class, Drawing.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
 
   @EJB
   private LobbyDAO lobbyDAO;
-  private static final int NR_OF_INSERTED_LOBBIES = 3;
+  
+  private Lobby l;
    
   @Before
   public void init() {
-    for (int i = 0; i < NR_OF_INSERTED_LOBBIES; i++){
-    lobbyDAO.create(new Lobby());
-    }
-  }
- 
-  @Test 
-  public void checkThatLobbyDoesNotExistAfterRemove() {
-    final List<Lobby> listBeforeRemove = lobbyDAO.findAll();
-    final Lobby lobbyRemove = listBeforeRemove.get(0);
-    lobbyDAO.remove(lobbyRemove); 
-    final List<Lobby> listAfterRemove = lobbyDAO.findAll();
-    Assert.assertFalse(listAfterRemove.contains(lobbyRemove));
-  }
-  
-  @Test
-  public void checkFindLobby() {
-    Lobby lob = new Lobby();
-    lobbyDAO.create(lob);
-    Lobby found = lobbyDAO.find(lob.getLid());
-    
-    Assert.assertEquals(lob.getLid(), found.getLid());
-    
-  }
-  
-  @Test 
-  public void checkThatNumberOfLobbiesInsertedEqualsTheCountOfTheTable() {
-    Assert.assertEquals(NR_OF_INSERTED_LOBBIES , lobbyDAO.count());
+    l = new Lobby();
   }
   
   @After
-  public void tearDown() {
-    lobbyDAO.findAll().forEach(lob -> {
-      lobbyDAO.remove(lob);
-    });
+  public void clean() {
+    lobbyDAO.removeAll();
+  }
+
+  @Test
+  public void checkFindLobby() {
+    lobbyDAO.create(l);
+    Assert.assertEquals(l, lobbyDAO.findLobby(l));
+  }
+  
+  @Test
+  public void checkFindLobbyByHexLid() {
+    lobbyDAO.create(l);
+    int lid = lobbyDAO.findLobby(l).getLid();
+    String hexLid = Integer.toHexString(lid);
+    Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
   }
 }

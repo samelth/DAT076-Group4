@@ -18,7 +18,28 @@
             30
         </session-timeout>
     </session-config>
+    <servlet>
+      <servlet-name>FacesServlet</servlet-name>
+      <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>FacesServlet</servlet-name>
+      <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+      <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <context-param>
+      
+      <!-- 
+        To enable make beans work proplerly with strings empty
+        string following must be set. See: 
+        https://javaee.github.io/tutorial/bean-validation003.html#GKCRG 
+      -->
+      <param-name>
+          javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+      </param-name>
+      <param-value>true</param-value>
+    </context-param>
 </web-app>

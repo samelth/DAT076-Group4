@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Karl Svensson
+ * Copyright (C) 2021 lewiv
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,35 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.database.entity;
+package frontend.session;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import model.database.dao.LobbyDAO;
+import model.database.dao.PlayerDAO;
+import model.database.entity.Lobby;
+import model.database.entity.Player;
+import org.omnifaces.cdi.Param;
 
 /**
- *
- * @author Karl Svensson
+ * user Bean 
+ * @author lewiv
  */
-@Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class GameSession implements Serializable {
-  @JoinColumn(name = "lobby")
-  @ManyToOne private Lobby lobby;
-  @ManyToMany private List <DrawingWord> drawingWord;
-  @Id @GeneratedValue private int game_id;
-  private int level;
-  private int round;
-  private int judgeId;
 
+@Data
+@Named(value = "playerSession")
+@SessionScoped
+public class PlayerSessionBean implements Serializable {
+	Player player;
 }

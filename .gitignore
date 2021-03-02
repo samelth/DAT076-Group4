@@ -33,3 +33,5 @@ nbdist/
 *.dat
 
 *.prefs
+
+QuickDraw/faces-config.NavData

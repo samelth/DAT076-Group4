@@ -8,20 +8,70 @@ and open the template in the editor.
     Author     : Samuel Local
 */
 :root {
-  --background: #DFD575;
-  --front: #6D9C52;
+  --background: #26413c;
+  --front: #086788;
+  --babyblue: #98c1d9;
 }
-body{
+body {
   background-color: var(--background);
   font-family: 'Jaldi', sans-serif;
 }
 
+/*Change all fonts that wont inherit*/
+td {
+  font-family: 'Jaldi', sans-serif;
+}
+
+/*BACKGROUNDS*/
+.backgroundblue {
+  background-color:var(--babyblue);
+}
+
+.backgroundteal {
+  background-color: var(--front);
+}
+.bgGreen{
+  background-color: var(--front);
+}
+.bg-white{
+  background-color: grey;
+}
+
+.greybox {
+  background-color: white;
+  height: 60px;
+}
+
+.description{
+  margin-top: 0.5rem;
+  background-color: var(--front);
+  border-radius: 5px 5px 0px 0px;
+  text-align: center;
+  color: white;
+  height: 50px;
+}
+
+/*HEADERS*/
 h1{
   font-family: 'Jaldi', sans-serif;
   font-size: 120px; 
   font-weight: bold; 
   color: var(--front); 
   text-align: center;
+}
+
+h2 {
+  margin-top: .5rem;
+}
+
+.result h3 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+#createImg {
+  margin-top: .5rem;  
 }
 
 /* Can be applied to text to get stroke effect */
@@ -40,25 +90,46 @@ h1{
 /*Stroke & Shadow*/
 .stroke.shad{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 4px 4px 8px #000;
+  font-size: 120px;
+  font-weight: bold;
+  color: var(--babyblue);
+  text-align: center;
 }
 
 .btn.btn-menu{
-  background-color: var(--front);
+  background-color: var(--babyblue);
   width: 150px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
   box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 8px #000;
 }
 
-.btn.btn-menu.purple{
-  background-color: #8358A7;
-  float: right;
+.ui-button-info {
+  height: 40px;
+  background-color: var(--babyblue) !important;
+  border-color: var(--babyblue) !important;
+  font-family: 'Jaldi', sans-serif;
+  font-weight: bold;
 }
 
+ .ui-growl-item-container, .ui-growl-item {
+  background-color: var(--babyblue);
+  color: white;
+}
+
+body .ui-growl .ui-growl-item-container.ui-growl-error, body .ui-growl .ui-growl-item-container.ui-growl-fatal {
+  color: white !important;
+  border: 1px solid white;
+  border-width: 0 0 0 6px;
+}
+/*Had to do icon and image separate, otherwise they gain the border of the previous CSS*/
+body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui-growl .ui-growl-item-container.ui-growl-error .ui-icon {
+  color: white;
+}
 /* Countdown background */
 .countdown{
   height: 35px;
-  background-color: #90C472;
+  background-color: var(--babyblue);
   border-radius: 0px 0px 5px 0px;
   position: relative;
   text-align: center;
@@ -67,45 +138,46 @@ h1{
 
 /* Countdown text */
 .countdown p{
-   position: absolute;               /* 2 */
-   top: 50%;                         /* 3 */
+   position: absolute;
+   top: 50%;
    left: 50%;
-   transform: translate(-50%, -50%);    /* 4 */
+   transform: translate(-50%, -50%);
    font-size: 1.5em;
 }
 
-/* Description background*/
-.description{
-  background-color: var(--front);
-  border-radius: 5px 5px 0px 0px;
-  text-align: center;
-  position: relative;
-  color: white;
-  height: 50px;
+body .ui-inputfield {
+  width: 50%;
+  padding-left: 10px;
+  border-radius: 2px;
+  background: white;
+  font-size: 1em;
+  margin-right: 1.5rem;
+  border-radius: 5px 5px 5px 5px;
 }
 
-/* Drawing area placeholder*/
-.draw{
-  background-color: #eeeeee;
+body .ui-inputfield.ui-state-error {
+  border: none;
   border-radius: 5px 5px 5px 5px;
-  position: relative;
-  text-align: center;
-  color: white;
+}
+
+canvas {
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.roundedEdge {
+  border-radius: 5px 5px 5px 5px;
 }
 
 .progress {
   border-radius: 0px 0px 0px 5px;
 }
 
+/*RESULT*/
 .result {
   background-color: #4682B4;
   position: relative;
   color: white;
-}
-
-.result h3 {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .result.left {
@@ -143,31 +215,9 @@ h1{
   --bs-gutter-x: 0;
 }
 
-.cgbound{
-  min-height: 500px; 
-  min-width: 300px;
-  padding: 20px;
-  width: 400px;
-}
 #t1{
   min-height: 450px;
-}
-.greybox {
-  background-color: white;
-  height: 60px;
-}
-.bgGreen{
-  background-color: var(--front);
-}
-.bg-white{
-  background-color: grey;
-}
-.pad-10{
-  padding: 10px;
-}
-
-.mag-30{
-  margin-top:  30px;
+  font-size: 3em;
 }
 
 .fright{
@@ -182,13 +232,19 @@ h1{
 }
 .lobby-code{
   border: none;
-  width: 50%;
+  width: 10%;
   font-size: 40px;
   height: 100%;
 }
 
-.popup{
+.alertpopup{
   opacity: 0;
-  background: #aaf584;
-  color: black;
+  color: white;
+  border: none;
+  padding-left: 17%;
+  font-size: 2rem;
+}
+
+.alert {
+    height: 75px;
 }

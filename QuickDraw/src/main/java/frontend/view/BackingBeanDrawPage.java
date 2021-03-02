@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Karl Svensson
+ * Copyright (C) 2021 lewiv
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,35 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.database.entity;
+package frontend.view;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  *
- * @author Karl Svensson
+ * @author lewiv, Karl Svensson
  */
 @Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class GameSession implements Serializable {
-  @JoinColumn(name = "lobby")
-  @ManyToOne private Lobby lobby;
-  @ManyToMany private List <DrawingWord> drawingWord;
-  @Id @GeneratedValue private int game_id;
-  private int level;
-  private int round;
-  private int judgeId;
-
+@Named(value = "bbDrawPage")
+@ViewScoped
+public class BackingBeanDrawPage implements Serializable {
+  String imgURL;
 }

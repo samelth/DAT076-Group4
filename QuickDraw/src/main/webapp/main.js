@@ -24,7 +24,6 @@ $("#butt").click(function(){
     })
   }); 
 
-
 function jump(page){
   window.location.href = page;
 }
@@ -44,7 +43,7 @@ function playTime (countdown) {
   setInterval( function(){
   if(totalPlayTime <= 0){
     clearInterval(playTime);
-    $(countdown).text("FINISHED");
+    $(countdown).text("TIME!");
   } else {
     $(countdown).text(totalPlayTime);
   }
@@ -68,12 +67,12 @@ function copyToCB(textToCopyID){
       });
   $("#alert").animate({
       opacity: 1,
-      top: "-=5vh"
+      top: "-=8vh"
     },1000);
   setTimeout(function (){
     $("#alert").animate({
       opacity: 0,
-      top: "+=5vh"
+      top: "+=8vh"
     },1000)}
   ,2500);
 }
@@ -82,23 +81,4 @@ let toastElList = [].slice.call(document.querySelectorAll('.toast'))
 let toastList = toastElList.map(function (toastEl) {
   return new bootstrap.Toast(toastEl, option)
 })
-
-/*let canvas = document.getElementById("myCanvas");
-canvas.addEventListener("mousedown", function(e){
-  canvas.onmousemove= function(e){
-    let ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.moveTo(e.x,e.y); 
-     setTimeout(function (){
-      ctx.lineTo(e.x,e.y);
-      ctx.stroke();
-    } , 1000);
-    
-  }
-});
-
-canvas.addEventListener("mouseup", function(e){
-  canvas.onmousemove=null;
-})
-*/
 
