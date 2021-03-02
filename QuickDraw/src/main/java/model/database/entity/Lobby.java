@@ -7,11 +7,11 @@ package model.database.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby") private List<Player> players;
-  @OneToMany(mappedBy = "lobby") private List<GameSession> gameSessions;
+  @OneToOne private GameSession gameSession;
   @Id @GeneratedValue private int lid;
   private Player host;
+  
+  @Override
+  public String toString() {
+    return String.valueOf(this.lid);
+  }
 }

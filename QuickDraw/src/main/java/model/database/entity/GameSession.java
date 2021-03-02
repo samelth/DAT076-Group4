@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,8 +39,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GameSession implements Serializable {
   @JoinColumn(name = "lobby")
-  @ManyToOne private Lobby lobby;
-  @ManyToMany private List <DrawingWord> drawingWord;
+  @OneToOne private Lobby lobby;
+  @ManyToMany private List <DrawingWord> drawingWords;
   @Id @GeneratedValue private int game_id;
   private int level;
   private int round;

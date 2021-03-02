@@ -24,7 +24,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.dao.DrawingWordDAO;
+import model.database.dao.GameSessionDAO;
+import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.GameSession;
 import model.database.entity.Player;
 
 /**
@@ -39,13 +43,33 @@ public class CreategameContoller implements Serializable{
    
   @EJB
   private PlayerDAO playerDAO;
+  @EJB
+  private GameSessionDAO gameSessionDAO;
+  @EJB
+  private DrawingWordDAO drawingWordDAO;
+  @EJB
+  private LobbyDAO lobbyDAO;
+  
    
-   public List<Player> playersInLobby(){
+  public List<Player> playersInLobby(){
     return playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
   }
    
-   public String getHexLid(){
-     return Integer.toHexString(playerSessionBean.getPlayer().getLobby().getLid()).toUpperCase();
-   }
+  public String getHexLid(){
+    return Integer.toHexString(playerSessionBean.getPlayer().getLobby().getLid()).toUpperCase();
+  }
+   
+  public void startNewGame() {
+    
+    GameSession gs = new GameSession();
+    gs.setLevel(1); //TODO: fetch level from input
+    gs.setRound(1);
+    gs.setJudgeId(playerSessionBean.getPlayer().getUser_id()); //TODO: random judge
+    gs.setLobby(playerSessionBean.getPlayer().getLobby());
+    gs.setDrawingWords(drawingWordDAO.getWordsByLevel(1)); //TODO: fetch level from input
+    playerSessionBean.getPlayer().getLobby().setGameSession(gs);
+    this.gameSessionDAO.create(gs);
+    lobbyDAO.update(playerSessionBean.getPlayer().getLobby());
+  }
    
 }
