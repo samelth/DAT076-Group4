@@ -20,6 +20,7 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.entity.DrawingWord;
 
 
 /**
@@ -30,5 +31,6 @@ import lombok.Data;
 @Named(value = "bbDrawPage")
 @ViewScoped
 public class BackingBeanDrawPage implements Serializable {
+  DrawingWord drawingWord;
   String imgURL;
 }
