@@ -19,11 +19,6 @@ package frontend.controller;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanDrawPage;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -33,8 +28,6 @@ import model.database.dao.DrawingDAO;
 import model.database.dao.DrawingWordDAO;
 import model.database.dao.GameSessionDAO;
 import model.database.entity.Drawing;
-import model.database.entity.DrawingWord;
-import model.database.entity.GameSession;
 
 /**
  *
@@ -45,45 +38,27 @@ import model.database.entity.GameSession;
 @ViewScoped
 public class DrawingpageController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
-  
   @Inject BackingBeanDrawPage drawPageView;
-  
   @EJB
   DrawingWordDAO drawingWordDAO;
-  
   @EJB
   GameSessionDAO gameSessionDAO;
-  
   @EJB
   DrawingDAO drawingDAO;
   
-  private LinkedList<DrawingWord> words;
-  private DrawingWord currentWord;
-  private GameSession currentGame;
-  private final int game_id = 1;
-  private String url;
-  private Drawing d;
-  
-  @PostConstruct
-  public void init(){
-    currentGame = gameSessionDAO.findGameSessionByGameId(game_id);
-    words = new LinkedList<>(drawingWordDAO.getWordsByLevel(currentGame.getLevel()));
-    Collections.shuffle(words);    
-  }
-  
-  public String getNextWord(){
-    
-    try{
-    currentWord = words.remove();
-    }catch(NullPointerException e){
-      System.err.println("Error: No more words to draw");
-    }
-    return currentWord.getWord();
+  public void nextWord(){
+    this.drawPageView.setDrawingWord(playerSessionBean
+            .getPlayer()
+            .getLobby()
+            .getGameSession()
+            .getDrawingWords().get(0));
+    playerSessionBean.getPlayer().getLobby().getGameSession().getDrawingWords().remove(0);
   }
   
   public void addToDB(){
-    char[] url = drawPageView.getImgURL().toCharArray();
-    d = new Drawing();
+    char[] url;
+    url = drawPageView.getImgURL().toCharArray();
+    Drawing d = new Drawing();
     d.setPlayer(playerSessionBean.getPlayer());
     d.setUrl(url);
     drawingDAO.create(d);

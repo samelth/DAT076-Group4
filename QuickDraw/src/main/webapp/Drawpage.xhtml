@@ -32,6 +32,7 @@ and open the template in the editor.
     <title>Drawpage</title>
   </h:head>
   <h:body>
+    #{drawingController.nextWord()}
     <!-- EMPTY ROW FOR SPACING -->  
     <div class="row" style="height:150px">
       <h1 class="stroke shad">Draw!</h1>
@@ -43,7 +44,7 @@ and open the template in the editor.
 
       <div class="col-4 description g-0">
 
-        <h2 align="center">Thing to draw: #{drawingController.nextWord}</h2>
+        <h2 align="center">Thing to draw: #{bbDrawPage.drawingWord}</h2>
 
         <h2 align="center">IMPORTED WORDS</h2>
 
