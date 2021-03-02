@@ -18,7 +18,6 @@ package model.entity;
 
 import java.util.List;
 import javax.ejb.EJB;
-import junit.framework.Assert;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.Drawing;
@@ -32,6 +31,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
