@@ -9,6 +9,7 @@ import model.database.entity.Player;
 import model.database.entity.Lobby;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
+import model.database.dao.PlayerDAO;
 import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
@@ -23,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  *
  * @author Karl Svensson <Svensson.Karl@iCloud.com>
@@ -32,24 +35,29 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class, Player.class, GameSession.class, DrawingWord.class, Drawing.class)
+      .addClasses(LobbyDAO.class, Lobby.class, Player.class, PlayerDAO.class, GameSession.class, DrawingWord.class, Drawing.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
 
   @EJB
   private LobbyDAO lobbyDAO;
+  @EJB
+  private PlayerDAO playerDAO;
   
   private Lobby l;
+  private Player p;
    
   @Before
   public void init() {
     l = new Lobby();
+    p = new Player();
   }
   
   @After
   public void clean() {
     lobbyDAO.removeAll();
+    playerDAO.removeAll(); 
   }
 
   @Test
@@ -64,5 +72,18 @@ public class LobbyDAOTest {
     int lid = lobbyDAO.findLobby(l).getLid();
     String hexLid = Integer.toHexString(lid);
     Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
+  }
+
+  
+  @Test 
+  public void testLobbyCascade() {
+    l.addPlayer(p); 
+    lobbyDAO.create(l);
+    
+    final boolean lobbyListHasPlayer = lobbyDAO.findLobby(l).getPlayers().contains(p);
+    final boolean playerInPlayerTable = playerDAO.findPlayer(p).equals(p);
+    
+    assertTrue(lobbyListHasPlayer);
+    assertTrue(playerInPlayerTable);
   }
 }
