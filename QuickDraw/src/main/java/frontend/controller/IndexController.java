@@ -51,6 +51,7 @@ public class IndexController implements Serializable {
     final Lobby lob = new Lobby();
     player.setUsername(indexView.getInputUsername());
     lob.addPlayer(player);
+    lob.setHost(player);
     playerSessionBean.setPlayer(player);
     lobbyDAO.create(lob);
   }
