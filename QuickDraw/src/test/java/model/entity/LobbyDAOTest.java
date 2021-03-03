@@ -42,11 +42,14 @@ public class LobbyDAOTest {
 
   @EJB
   private LobbyDAO lobbyDAO;
+
   @EJB
   private PlayerDAO playerDAO;
   
   private Lobby l;
   private Player p;
+
+
    
   @Before
   public void init() {
@@ -57,7 +60,8 @@ public class LobbyDAOTest {
   @After
   public void clean() {
     lobbyDAO.removeAll();
-    playerDAO.removeAll(); 
+    lobbyDAO.removeAll(); 
+
   }
 
   @Test
@@ -85,5 +89,5 @@ public class LobbyDAOTest {
     
     assertTrue(lobbyListHasPlayer);
     assertTrue(playerInPlayerTable);
-  }
+  } 
 }
