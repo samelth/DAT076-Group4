@@ -9,7 +9,6 @@ import model.database.entity.Player;
 import model.database.entity.Lobby;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
-import model.database.dao.PlayerDAO;
 import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
@@ -42,6 +41,7 @@ public class LobbyDAOTest {
 
   @EJB
   private LobbyDAO lobbyDAO;
+<<<<<<< HEAD
 
   @EJB
   private PlayerDAO playerDAO;
@@ -50,18 +50,24 @@ public class LobbyDAOTest {
   private Player p;
 
 
+=======
+  
+  private Lobby l;
+>>>>>>> Revert "added tests for cascading"
    
   @Before
   public void init() {
     l = new Lobby();
-    p = new Player();
   }
   
   @After
   public void clean() {
     lobbyDAO.removeAll();
+<<<<<<< HEAD
     lobbyDAO.removeAll(); 
 
+=======
+>>>>>>> Revert "added tests for cascading"
   }
 
   @Test
@@ -77,6 +83,7 @@ public class LobbyDAOTest {
     String hexLid = Integer.toHexString(lid);
     Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
   }
+<<<<<<< HEAD
 
   
   @Test 
@@ -90,4 +97,6 @@ public class LobbyDAOTest {
     assertTrue(lobbyListHasPlayer);
     assertTrue(playerInPlayerTable);
   } 
+=======
+>>>>>>> Revert "added tests for cascading"
 }
