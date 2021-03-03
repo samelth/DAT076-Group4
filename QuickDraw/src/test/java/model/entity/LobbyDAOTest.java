@@ -9,7 +9,6 @@ import model.database.entity.Player;
 import model.database.entity.Lobby;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
-import model.database.dao.PlayerDAO;
 import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
 import model.database.entity.GameSession;
@@ -40,21 +39,17 @@ public class LobbyDAOTest {
 
   @EJB
   private LobbyDAO lobbyDAO;
-  private PlayerDAO playerDAO;
   
   private Lobby l;
-  private Player p; 
    
   @Before
   public void init() {
     l = new Lobby();
-    p = new Player();
   }
   
   @After
   public void clean() {
     lobbyDAO.removeAll();
-    lobbyDAO.removeAll(); 
   }
 
   @Test
@@ -69,11 +64,5 @@ public class LobbyDAOTest {
     int lid = lobbyDAO.findLobby(l).getLid();
     String hexLid = Integer.toHexString(lid);
     Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
-  }
-  @Test 
-  public void lobbyCascade() {
-    l.getPlayers().add(p); 
-    lobbyDAO.create(l);
-    Assert.assertTrue(playerDAO.findPlayer(p).equals(p));
   }
 }
