@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 
 
 
+
 /**
  *
  * @author Karl Svensson
@@ -33,7 +34,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "lobby")
 public class Player implements Serializable {
-
   @OneToMany(mappedBy = "player")
   private List<Drawing> drawings;
   @JoinColumn(name = "lobby")
@@ -41,4 +41,13 @@ public class Player implements Serializable {
   @Id @GeneratedValue private int user_id;
   private String username;
   private int score;
+  
+  /**
+   * @see model.database.entity.Lobby#addPlayer() 
+   * @param lobby 
+   */
+  public void setLobby(Lobby lobby) {
+    this.lobby = lobby;
+    lobby.getPlayers().add(this);
+  }
 }

@@ -69,14 +69,11 @@ public class PlayerDAOTest {
   
   @Test
   public void testFindUsersInSameLobby() {
-    p1.setLobby(l1);
-    p2.setLobby(l1);
-    p3.setLobby(l2);
+    l1.addPlayer(p1);
+    l1.addPlayer(p2);
+    l2.addPlayer(p3);
     lobbyDAO.create(l1);
     lobbyDAO.create(l2);
-    playerDAO.create(p1);
-    playerDAO.create(p2);
-    playerDAO.create(p3);
     final List<Player> ps1 = playerDAO.findUsersInSameLobby(l1);
     final List<Player> ps2 = playerDAO.findUsersInSameLobby(l2);
     Assert.assertTrue(ps1.contains(p1) && ps1.contains(p2));
@@ -86,16 +83,13 @@ public class PlayerDAOTest {
   
   @Test
   public void testFindUsersInSameLobbySortedByScore() {
-    p1.setLobby(l1);
-    p2.setLobby(l1);
-    p3.setLobby(l1);
     p1.setScore(1);
     p2.setScore(2);
     p3.setScore(3);
+    l1.addPlayer(p1);
+    l1.addPlayer(p2);
+    l1.addPlayer(p3);
     lobbyDAO.create(l1);
-    playerDAO.create(p1);
-    playerDAO.create(p2);
-    playerDAO.create(p3);
     final List<Player> ps1 = playerDAO.findUsersInSameLobbySortedByScore(l1);
     for(int i = 0; i < ps1.size() - 1; i++) {
       Assert.assertTrue(ps1.get(i).getScore() > ps1.get(i + 1).getScore());
