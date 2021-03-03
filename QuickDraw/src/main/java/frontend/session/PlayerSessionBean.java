@@ -90,6 +90,9 @@ public class PlayerSessionBean implements Serializable {
   }
   
   public Player getHost() {
+    if(player == null || player.getLobby() == null){
+      return null; 
+    }
     return player.getLobby().getHost(); 
   }
 }
