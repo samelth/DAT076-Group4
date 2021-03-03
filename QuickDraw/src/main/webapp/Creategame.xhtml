@@ -7,7 +7,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+      
   <h:head>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
@@ -44,9 +46,24 @@
                 <f:actionListener binding="#{creategameController.startNewGame()}"></f:actionListener>
               </p:commandButton>
             </h:form>
+            
           </div>
         </div>
-      <div class="col-5"></div>
+      <div class="col-2">
+          <p:outputPanel>
+            <p:dataScroller id="messages" value="#{bbCreateGame.messages}" var="msg" mode="inline" scrollHeight="500">
+                #{msg.userName}: #{msg.content}
+              </p:dataScroller>
+            </p:outputPanel>
+        <h:form>
+          <p:inputText value="#{bbCreateGame.newMessage}"></p:inputText>
+          <p:commandButton value="Send" action="#{chatControllerBean.onPostNewMessage}">
+          </p:commandButton>
+        </h:form>
+        <o:socket scope="application" channel="messageChannel">
+          <f:ajax event="newMsg" render="messages"></f:ajax>
+        </o:socket>
+      </div>
     </div>
  
     <!-- EMPTY ROW FOR SPACING -->  

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 lewiv
+ * Copyright (C) 2021 Samuel Local
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,31 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package frontend.view;
+package model.chat;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import lombok.Data;
-import model.chat.Chat;
-import model.chat.Message;
 
 /**
  *
- * @author lewiv
+ * @author Samuel Local
  */
 @Data
-@Named(value = "bbCreateGame")
-@ViewScoped
-public class BackingBeanCreateGame implements Serializable {
-	@EJB
-  private Chat chat;
+@Singleton
+public class Chat {
+  private List<Message> messages;
   
-  String newMessage;
   
-  public List<Message> getMessages(){
-    return chat.getMessages();
+  @PostConstruct
+  private void init(){
+    messages = new ArrayList<>();
+  }
+  
+  public void add(Message msg){
+    messages.add(0,msg);
   }
 }
