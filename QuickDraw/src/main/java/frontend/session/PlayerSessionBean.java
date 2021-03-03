@@ -19,6 +19,7 @@ package frontend.session;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -33,6 +34,8 @@ import model.database.entity.Lobby;
 import model.database.entity.Player;
 import org.omnifaces.cdi.Param;
 
+import static java.util.Optional.empty;
+
 /**
  * user Bean 
  * @author lewiv
@@ -43,4 +46,50 @@ import org.omnifaces.cdi.Param;
 @SessionScoped
 public class PlayerSessionBean implements Serializable {
 	Player player;
+  
+  public boolean isJudge(){
+    // null check guarding from run time null point exception. 
+    // Reason why its done this way :
+    // Avoid multiple ifs to check every getter that it returns null. 
+    Optional<Player> host = Optional.of(player)
+            .map(Player::getLobby)
+            .map(Lobby::getHost);
+
+    if(host.isEmpty()){
+      return false;
+    }
+    final boolean isPlayerTheHost = host.get().equals(player);
+    if(isPlayerTheHost) {
+      return true; 
+    }
+    return false;
+  }
+  
+  public void setUsername(String username) {
+    player.setUsername(username);
+  }
+  
+  public String getUsername(String username) {
+    return player.getUsername();
+  }
+  
+  public void setScore(int score) {
+    player.setScore(score); 
+  }
+  
+  public int getScore(int score) {
+    return player.getScore(); 
+  }
+  
+  public void setLobby(Lobby l) {
+    player.setLobby(l); 
+  }
+  
+  public Lobby getLobby() {
+    return player.getLobby(); 
+  }
+  
+  public Lobby getHost() {
+    return player.getLobby(); 
+  }
 }
