@@ -81,15 +81,13 @@ $(function () {
     html2canvas($("#canvas"), { 
       onrendered: function(canvas) { 
         var imgsrc = canvas.toDataURL("image/png");
-        
-        
         console.log(imgsrc); 
         $("#newimg").attr('src', imgsrc); 
         $("#img").show(); 
         var dataURL = canvas.toDataURL();
         var hidden = document.getElementById("form:dataURL");
         hidden.value = dataURL;
-        
+        document.getElementById("form:subbtn").click();
         $.ajax({ 
           type: "POST", 
           url: "script.php", 
@@ -97,7 +95,7 @@ $(function () {
               imgBase64: dataURL 
           } 
         }).done(function(o) { 
-          console.log('saved'); 
+          console.log('saved');
         }); 
       } 
     }); 

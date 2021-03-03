@@ -99,10 +99,12 @@ and open the template in the editor.
       <!--Could be used for pencil size?-->
       <div class="col-2"></div>
       <div class="col-1" align="right">
-        <button id="screenshot" type="button" class="btn btn-menu">TEST</button>
+        <button id="screenshot" type="button" class="btn btn-menu">SUBMIT</button>
         <h:form id="form">
           <h:inputHidden id="dataURL" value="#{bbDrawPage.imgURL}"/>
-          <h:commandButton value="SUBMIT" action="#{drawingController.addToDB()}"/>
+          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="index">
+            <f:actionListener binding="#{drawingController.addToDB()}"></f:actionListener>
+          </p:commandButton>
         </h:form>
         
       </div>
