@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
@@ -30,6 +31,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "lobby")
 public class Player implements Serializable {
 
   @OneToMany(mappedBy = "player")
