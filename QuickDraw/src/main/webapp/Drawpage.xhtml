@@ -102,7 +102,7 @@ and open the template in the editor.
         <button id="screenshot" type="button" class="btn btn-menu">SUBMIT</button>
         <h:form id="form">
           <h:inputHidden id="dataURL" value="#{bbDrawPage.imgURL}"/>
-          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="index">
+          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="Result">
             <f:actionListener binding="#{drawingController.addToDB()}"></f:actionListener>
           </p:commandButton>
         </h:form>
