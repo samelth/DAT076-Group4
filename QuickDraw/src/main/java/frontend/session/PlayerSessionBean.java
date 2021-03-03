@@ -89,7 +89,7 @@ public class PlayerSessionBean implements Serializable {
     return player.getLobby(); 
   }
   
-  public Lobby getHost() {
-    return player.getLobby(); 
+  public Player getHost() {
+    return player.getLobby().getHost(); 
   }
 }
