@@ -43,7 +43,7 @@
         </div>
       <div class="col-5">
             <h:form>
-              <p:commandButton rendered = "#{playerSession.isJudge()}" styleClass="ui-button-info" style="float:left; margin-left: 15px;" value="START GAME" action="Drawpage" validateClient="true" ajax="false">
+              <p:commandButton rendered = "#{playerSession.isHost()}" styleClass="ui-button-info" style="float:left; margin-left: 15px;" value="START GAME" action="Drawpage" validateClient="true" ajax="false">
                 <f:actionListener binding="#{creategameController.startNewGame()}"></f:actionListener>
               </p:commandButton>
             </h:form>

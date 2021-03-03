@@ -47,7 +47,7 @@ import static java.util.Optional.empty;
 public class PlayerSessionBean implements Serializable {
 	Player player;
   
-  public boolean isJudge(){
+  public boolean isHost(){
     // null check guarding from run time null point exception. 
     // Reason why its done this way :
     // Avoid multiple ifs to check every getter that it returns null. 
