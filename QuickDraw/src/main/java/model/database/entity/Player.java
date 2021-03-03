@@ -19,12 +19,9 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-<<<<<<< Updated upstream
-=======
-import lombok.Getter;
->>>>>>> Stashed changes
+
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 
 
