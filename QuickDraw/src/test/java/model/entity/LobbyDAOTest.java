@@ -57,7 +57,7 @@ public class LobbyDAOTest {
   @After
   public void clean() {
     lobbyDAO.removeAll();
-    lobbyDAO.removeAll(); 
+    playerDAO.removeAll(); 
   }
 
   @Test
