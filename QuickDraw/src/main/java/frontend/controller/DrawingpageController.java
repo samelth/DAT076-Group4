@@ -16,6 +16,7 @@
  */
 package frontend.controller;
 
+import frontend.session.LobbySessionBean;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanDrawPage;
 import java.io.Serializable;
@@ -38,6 +39,7 @@ import model.database.entity.Drawing;
 @ViewScoped
 public class DrawingpageController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
+  @Inject LobbySessionBean lobbySessionBean;
   @Inject BackingBeanDrawPage drawPageView;
   @EJB
   DrawingWordDAO drawingWordDAO;
@@ -47,8 +49,7 @@ public class DrawingpageController implements Serializable {
   DrawingDAO drawingDAO;
   
   public void nextWord(){
-    this.drawPageView.setDrawingWord(playerSessionBean
-            .getPlayer()
+    this.drawPageView.setDrawingWord(lobbySessionBean
             .getLobby()
             .getGameSession()
             .getDrawingWords().get(0));
