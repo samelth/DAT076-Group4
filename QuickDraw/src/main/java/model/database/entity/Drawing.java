@@ -37,5 +37,6 @@ public class Drawing implements Serializable {
   @Id @ManyToOne
   private Player player;
   private char [] url;
-  
+  private GameSession gameSession;
+  private int round;
 }
