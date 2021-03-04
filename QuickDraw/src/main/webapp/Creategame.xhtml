@@ -40,7 +40,7 @@
                 <h:column>#{player.getUsername()}</h:column>
               </h:dataTable>
             </h:form>
-            <o:socket scope="application" channel="messageChannel">
+            <o:socket channel="messageChannel" user="#{playerSession.player}">
               <f:ajax event="playerJoined" render="playerList"></f:ajax>
             </o:socket>
           </div>

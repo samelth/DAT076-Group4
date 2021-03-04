@@ -19,6 +19,7 @@ package frontend.controller;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanJoinGame;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -55,6 +56,7 @@ public class JoingameController implements Serializable {
 		playerSessionBean.setUsername(joinGameView.getInputUsername());
 		playerSessionBean.setLobby(lobbyDAO.findLobbyByHexLid(joinGameView.getInputLobbyHexLid()));
 		playerDAO.create(playerSessionBean.getPlayer());
-    messageChannel.send("playerJoined");
+    Collection<Player> recepients = playerDAO.findUsersInSameLobby(playerSessionBean.getLobby());
+    messageChannel.send("playerJoined",recepients);
   }
 }
