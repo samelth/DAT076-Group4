@@ -61,6 +61,8 @@ public class DrawingpageController implements Serializable {
     Drawing d = new Drawing();
     d.setPlayer(playerSessionBean.getPlayer());
     d.setUrl(url);
+    d.setGameSession(playerSessionBean.getLobby().getGameSession());
+    d.setRound(playerSessionBean.getLobby().getGameSession().getRound());
     drawingDAO.create(d);
   }
   
