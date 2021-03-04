@@ -49,4 +49,14 @@ public class DrawingDAO extends AbstractDAO<Drawing> {
             .fetchFirst();
   
   }
+  public Drawing find(Drawing d) {
+    JPAQuery<Drawing> q = new JPAQuery<>(entityManager);
+    QDrawing drawingWord = QDrawing.drawing;
+    return q
+            .select(drawingWord)
+            .from(drawingWord)
+            .where(drawingWord.player.eq(d.getPlayer()))
+            .fetchOne();
+  }
+  
 }

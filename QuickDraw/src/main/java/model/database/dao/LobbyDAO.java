@@ -27,7 +27,7 @@ public class LobbyDAO extends AbstractDAO<Lobby> {
     super(Lobby.class);
   }
   
-  public Lobby findLobby(Lobby l) {
+  public Lobby find(Lobby l) {
     JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
     QLobby lobby = QLobby.lobby;
     return q

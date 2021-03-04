@@ -52,7 +52,7 @@ public class DrawingpageController implements Serializable {
             .getLobby()
             .getGameSession()
             .getDrawingWords().get(0));
-    playerSessionBean.getPlayer().getLobby().getGameSession().getDrawingWords().remove(0);
+    playerSessionBean.getDrawingWords().remove(0);
   }
   
   public void addToDB(){
