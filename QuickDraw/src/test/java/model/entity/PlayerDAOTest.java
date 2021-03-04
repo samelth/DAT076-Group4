@@ -97,9 +97,10 @@ public class PlayerDAOTest {
     p1.setScore(6);
     p2.setScore(5);
     p3.setScore(4);
-    playerDAO.update(p1);
-    playerDAO.update(p2);
-    playerDAO.update(p3);
+    l1.updatePlayer(p1);
+    l1.updatePlayer(p2);
+    l1.updatePlayer(p3);
+    lobbyDAO.update(l1);
     final List<Player> ps2 = playerDAO.findUsersInSameLobbySortedByScore(l1);
     for(int i = 0; i < ps2.size() - 1; i++) {
       Assert.assertTrue(ps2.get(i).getScore() > ps2.get(i + 1).getScore());
@@ -107,7 +108,7 @@ public class PlayerDAOTest {
   }
   
   @Test
-  public void testFindPlayer() {
+  public void testFind() {
     playerDAO.create(p1);
     playerDAO.create(p2);
     playerDAO.create(p3);
@@ -115,4 +116,5 @@ public class PlayerDAOTest {
     Assert.assertEquals(p2, playerDAO.find(p2));
     Assert.assertEquals(p3, playerDAO.find(p3));
   }
+  
 }
