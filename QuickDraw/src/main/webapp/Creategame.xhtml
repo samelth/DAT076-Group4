@@ -60,7 +60,7 @@
           <p:commandButton value="Send" action="#{chatControllerBean.onPostNewMessage}">
           </p:commandButton>
         </h:form>
-        <o:socket scope="application" channel="messageChannel">
+        <o:socket channel="messageChannel" user="#{playerSession.getPlayer()}">
           <f:ajax event="newMsg" render="messages"></f:ajax>
         </o:socket>
       </div>

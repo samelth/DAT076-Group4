@@ -42,11 +42,8 @@ public class ChatControllerBean {
   private BackingBeanCreateGame backingBeanCreateGame;
   @EJB
   private PlayerDAO playerDAO;
-  
-  
   @EJB
   private Chat chat;
-  
   @Inject @Push
   private PushContext messageChannel;
   
@@ -55,7 +52,8 @@ public class ChatControllerBean {
   
   public void onPostNewMessage(){
     chat.add(new Message(playerSessionBean.getPlayer().getUsername(),backingBeanCreateGame.getNewMessage()));
-    messageChannel.send("newMsg");
+    Collection<Player> recipients = playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
+    messageChannel.send("newMsg",recipients);
   }
  
 }
