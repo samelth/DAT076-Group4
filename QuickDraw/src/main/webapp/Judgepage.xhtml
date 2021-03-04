@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2021 Karl Svensson
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+  <h:head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+          crossorigin="anonymous"></link>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Jaldi&#38;display=swap" rel="stylesheet"></link>
+    <link rel="stylesheet" href="styles.css"></link>
+    <script src="main.js"></script>
+    <script src="canvas.js"></script>   
+    <script>startProgressBar("#p1");</script>
+    <script>playTime("#countdown");</script>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title>Judgepage</title>
+  </h:head>
+  <h:body>
+    
+    <!-- EMPTY ROW FOR SPACING -->  
+    <div class="row" style="height:150px">
+      <h1 class="stroke shad">Draw!</h1>
+    </div>
+    
+    <!-- DESCRIPTION -->
+    <div class="row">
+      <div class="col-4"></div>
+
+      <div class="col-4 description g-0">
+
+        <h2 align="center">Thing to draw: #{bbDrawPage.drawingWord}</h2>
+
+        <h2 align="center">IMPORTED WORDS</h2>
+
+      </div>
+
+      <div class="col-4"></div>
+    </div>
+    
+    <!-- EMPTY ROW FOR SPACING -->  
+    <div class="row" style="height:5px  "></div> 
+
+    <!-- ROW 2 -->
+    <div class="row">
+      <div class="col-4 "></div>
+
+      <div class="col-3 g-0">
+        <!-- Progress bar container, animated -->
+          <div class="progress" style="height:35px;">          
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="height:35px; background-color:#086788" align="left" id="p1" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>               
+      </div>
+
+      <div class="col-1 countdown g-0">
+        <p id="countdown"></p>
+      </div>
+
+      <div class="col-4"></div>
+    </div>
+    
+    <!-- EMPTY ROW FOR SPACING -->  
+    <div class="row" style="height:15px"></div>
+    
+    <!-- EMPTY ROW FOR SPACING -->  
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+          <canvas id="judgeCanvas">
+            <div id="" style="display:none;"> 
+                <img src="" id="imageObj" class="top" /> 
+            </div> 
+          </canvas>
+      </div>
+      <div class="col-4"></div>
+    </div> 
+    
+    <div class="row">
+      <div class="col-4"></div>
+
+      <div class="col-1">
+        <button type="button" class="btn btn-menu" onclick="erase()">ERASE</button>
+      </div>
+      <!--Could be used for pencil size?-->
+      <div class="col-2"></div>
+      <div class="col-1" align="right">
+        <button id="screenshot" type="button" class="btn btn-menu">SUBMIT</button>
+        <h:form id="form">
+          <h:inputHidden id="dataURL" value="#{bbDrawPage.imgURL}"/>
+          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="Result">
+            <f:actionListener binding="#{drawingController.addToDB()}"></f:actionListener>
+          </p:commandButton>
+        </h:form>
+        
+      </div>
+      <div class="col-4"></div>
+    </div>
+
+  </h:body>
+</html>
