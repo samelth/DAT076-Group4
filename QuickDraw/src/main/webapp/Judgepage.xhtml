@@ -47,18 +47,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
     <!-- EMPTY ROW FOR SPACING -->  
     <div class="row" style="height:150px">
-      <h1 class="stroke shad">Draw!</h1>
+      <h1 class="stroke shad">Judge!</h1>
     </div>
-    
+    #{judgeController.getDrawingUrl()}
     <!-- DESCRIPTION -->
     <div class="row">
       <div class="col-4"></div>
 
       <div class="col-4 description g-0">
-
-        <h2 align="center">Thing to draw: #{bbDrawPage.drawingWord}</h2>
-
-        <h2 align="center">IMPORTED WORDS</h2>
+        
+        <h2 align="center">JUDGE THAT DRAWING</h2>
 
       </div>
 
@@ -92,34 +90,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <!-- EMPTY ROW FOR SPACING -->  
     <div class="row">
       <div class="col-4"></div>
+      
       <div class="col-4">
-          <canvas id="judgeCanvas">
-            <div id="" style="display:none;"> 
-                <img src="" id="imageObj" class="top" /> 
-            </div> 
-          </canvas>
+          
+        <img src="#{bbJudge.imgURL}" id="newimg" class="top" /> 
+          
       </div>
       <div class="col-4"></div>
     </div> 
     
     <div class="row">
       <div class="col-4"></div>
-
-      <div class="col-1">
-        <button type="button" class="btn btn-menu" onclick="erase()">ERASE</button>
-      </div>
-      <!--Could be used for pencil size?-->
-      <div class="col-2"></div>
-      <div class="col-1" align="right">
-        <button id="screenshot" type="button" class="btn btn-menu">SUBMIT</button>
-        <h:form id="form">
-          <h:inputHidden id="dataURL" value="#{bbDrawPage.imgURL}"/>
-          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="Result">
-            <f:actionListener binding="#{drawingController.addToDB()}"></f:actionListener>
+       
+      <div class="col-4">
+        <h:form>
+          <p:growl showDetail="true"/>
+          <p:inputText placeholder="Drawing Word" id="input" value="#{bbJudge.guessed}"></p:inputText>
+          <p:commandButton styleClass="ui-button-info" style="float:right;" value="SUBMIT" validateClient="true" ajax="false">
+            <f:actionListener binding="#{judgeController.getDrawingUrl()}"></f:actionListener>
           </p:commandButton>
         </h:form>
-        
       </div>
+      <!--Could be used for pencil size?-->
+      
       <div class="col-4"></div>
     </div>
 
