@@ -5,13 +5,11 @@
  */
 package model.database.dao;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.GameSession;
-import model.database.entity.QGameSession;
 
 /**
  *
@@ -27,12 +25,6 @@ public class GameSessionDAO extends AbstractDAO<GameSession> {
   }
   
   public GameSession find(GameSession g) {
-    JPAQuery<GameSession> q = new JPAQuery<>(entityManager);
-    QGameSession gameSession = QGameSession.gameSession;
-    return q
-            .select(gameSession)
-            .from(gameSession)
-            .where(gameSession.game_id.eq(g.getGame_id()))
-            .fetchOne();
+    return getEntityManager().find(g.getClass(), g.getGame_id());
   }
 }
