@@ -29,5 +29,6 @@ import lombok.Data;
 @Named(value = "bbJudge")
 @ViewScoped
 public class BackingBeanJudgePage implements Serializable{
-  
+  String imgURL;
+  String guessed;
 }

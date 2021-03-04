@@ -17,11 +17,15 @@
 package frontend.controller;
 
 import frontend.session.PlayerSessionBean;
+import frontend.view.BackingBeanJudgePage;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.dao.DrawingDAO;
+import model.database.entity.Drawing;
 
 /**
  *
@@ -32,5 +36,17 @@ import lombok.Data;
 @ViewScoped
 public class JudgepageController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
+  @Inject BackingBeanJudgePage backingBeanJudgePage;
+  
+  @EJB
+  DrawingDAO drawingDAO;
+  
+  public void getDrawingUrl(){
+    Drawing d = drawingDAO.findDByRoundandGameSession(playerSessionBean.getLobby().getGameSession());
+    String url = String.valueOf(d.getUrl());
+    backingBeanJudgePage.setImgURL(url);
+    drawingDAO.remove(d);
+  }
+  
   
 }
