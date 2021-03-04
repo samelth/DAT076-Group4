@@ -42,7 +42,7 @@
             </h:form>
             <o:socket channel="messageChannel" user="#{playerSession.player}">
               <f:ajax event="playerJoined" render="playerList"></f:ajax>
-              <f:ajax event="gameStart" ></f:ajax>
+              <f:ajax event="gameStart" listener="#{pagecontroller.jumpToDrawPage()}"></f:ajax>
             </o:socket>
           </div>
         </div>
