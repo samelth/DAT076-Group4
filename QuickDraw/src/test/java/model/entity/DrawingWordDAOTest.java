@@ -78,6 +78,13 @@ public class DrawingWordDAOTest {
     Assert.assertEquals(found.get(0).getWord(), word);
   }
   
+  @Test
+  public void testFind() {
+    DrawingWord w = new DrawingWord("apa",1);
+    drawingWordDAO.create(w);
+    Assert.assertEquals(w, drawingWordDAO.find(w));
+  }
+  
   @After
   public void tearDown() {
     drawingWordDAO.findAll().forEach(p -> {
