@@ -59,9 +59,9 @@ public class LobbyDAOTest {
     lobbyDAO.removeAll();
     playerDAO.removeAll(); 
   }
-
+  
   @Test
-  public void checkFindLobby() {
+  public void checkFind() {
     lobbyDAO.create(l);
     Assert.assertEquals(l, lobbyDAO.find(l));
   }
@@ -73,19 +73,5 @@ public class LobbyDAOTest {
     String hexLid = Integer.toHexString(lid);
     Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
   }
-
-
-  
-  @Test 
-  public void testLobbyCascade() {
-    l.addPlayer(p);
-    lobbyDAO.create(l);
-    
-    final boolean lobbyListHasPlayer = lobbyDAO.find(l).getPlayers().contains(p);
-    final boolean playerInPlayerTable = playerDAO.find(p).equals(p);
-    
-    assertTrue(lobbyListHasPlayer);
-    assertTrue(playerInPlayerTable);
-  } 
 
 }
