@@ -100,4 +100,8 @@ public class PlayerSessionBean implements Serializable {
     }
     return player.getLobby().getHost(); 
   }
+  
+  public int getUser_id(){
+    return player.getUser_id();
+  }
 }
