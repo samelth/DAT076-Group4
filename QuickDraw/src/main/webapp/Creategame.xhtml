@@ -39,7 +39,6 @@
               <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
                 <h:column>#{player.getUsername()}</h:column>
               </h:dataTable>
-              <p:commandButton value="Update" action="#{creategameController.updateLobby()}" styleClass="ui-button-info"></p:commandButton>
             </h:form>
             <o:socket scope="application" channel="messageChannel">
               <f:ajax event="playerJoined" render="playerList"></f:ajax>
