@@ -35,6 +35,7 @@ import model.database.entity.Player;
 import org.omnifaces.cdi.Param;
 
 import static java.util.Optional.empty;
+import model.database.entity.DrawingWord;
 
 /**
  * user Bean 
@@ -71,6 +72,10 @@ public class PlayerSessionBean implements Serializable {
   
   public String getUsername(String username) {
     return player.getUsername();
+  }
+  
+  public List<DrawingWord> getDrawingWords(){
+    return getLobby().getGameSession().getDrawingWords();
   }
   
   public void setScore(int score) {
