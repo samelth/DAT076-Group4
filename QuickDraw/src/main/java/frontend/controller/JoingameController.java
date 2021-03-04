@@ -16,7 +16,6 @@
  */
 package frontend.controller;
 
-import frontend.session.LobbySessionBean;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanJoinGame;
 import java.io.Serializable;
@@ -38,7 +37,6 @@ import model.database.entity.Player;
 @ViewScoped
 public class JoingameController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
-  @Inject LobbySessionBean lobbySessionBean;
   
   @EJB
   private LobbyDAO lobbyDAO;
@@ -50,7 +48,7 @@ public class JoingameController implements Serializable {
   public void joinLobby(){
     playerSessionBean.setPlayer(new Player());
 		playerSessionBean.setUsername(joinGameView.getInputUsername());
-		lobbySessionBean.setLobby(lobbyDAO.findLobbyByHexLid(joinGameView.getInputLobbyHexLid()));
+		playerSessionBean.setLobby(lobbyDAO.findLobbyByHexLid(joinGameView.getInputLobbyHexLid()));
 		playerDAO.create(playerSessionBean.getPlayer());
   }
 }

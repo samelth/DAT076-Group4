@@ -16,7 +16,6 @@
  */
 package frontend.controller;
 
-import frontend.session.LobbySessionBean;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanIndex;
 import java.io.Serializable;
@@ -39,7 +38,6 @@ import model.database.entity.Player;
 @ViewScoped
 public class IndexController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
-  @Inject LobbySessionBean lobbySessionBean;
   
   @EJB
   private LobbyDAO lobbyDAO;
@@ -55,7 +53,6 @@ public class IndexController implements Serializable {
     lob.addPlayer(player);
     lob.setHost(player);
     playerSessionBean.setPlayer(player);
-    lobbySessionBean.setLobby(lob);
     lobbyDAO.create(lob);
   }
 }

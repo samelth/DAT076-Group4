@@ -16,7 +16,6 @@
  */
 package frontend.controller;
 
-import frontend.session.LobbySessionBean;
 import frontend.session.PlayerSessionBean;
 import java.io.Serializable;
 import java.util.List;
@@ -41,7 +40,6 @@ import model.database.entity.Player;
 @ViewScoped
 public class CreategameContoller implements Serializable{
   @Inject PlayerSessionBean playerSessionBean;
-  @Inject LobbySessionBean lobbySessionBean;
    
   @EJB
   private PlayerDAO playerDAO;
@@ -54,11 +52,11 @@ public class CreategameContoller implements Serializable{
   
    
   public List<Player> playersInLobby(){
-    return playerDAO.findUsersInSameLobby(lobbySessionBean.getLobby());
+    return playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
   }
    
   public String getHexLid(){
-    return Integer.toHexString(lobbySessionBean.getLobby().getLid()).toUpperCase();
+    return Integer.toHexString(playerSessionBean.getPlayer().getLobby().getLid()).toUpperCase();
   }
    
   public void startNewGame() {
@@ -67,11 +65,11 @@ public class CreategameContoller implements Serializable{
     gs.setLevel(1); //TODO: fetch level from input
     gs.setRound(1);
     gs.setJudgeId(playerSessionBean.getUser_id()); //TODO: random judge
-    gs.setLobby(lobbySessionBean.getLobby());
+    gs.setLobby(playerSessionBean.getLobby());
     gs.setDrawingWords(drawingWordDAO.getWordsByLevel(1)); //TODO: fetch level from input, shuffle words
-    lobbySessionBean.getLobby().setGameSession(gs);
+    playerSessionBean.getLobby().setGameSession(gs);
     this.gameSessionDAO.create(gs);
-    lobbyDAO.update(lobbySessionBean.getLobby());
+    lobbyDAO.update(playerSessionBean.getLobby());
   }
    
 }
