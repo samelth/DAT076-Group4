@@ -26,13 +26,13 @@ public class GameSessionDAO extends AbstractDAO<GameSession> {
     super(GameSession.class);
   }
   
-  public GameSession findGameSessionByGameId(int gid) {
+  public GameSession find(GameSession g) {
     JPAQuery<GameSession> q = new JPAQuery<>(entityManager);
     QGameSession gameSession = QGameSession.gameSession;
     return q
             .select(gameSession)
             .from(gameSession)
-            .where(gameSession.game_id.eq(gid))
+            .where(gameSession.game_id.eq(g.getGame_id()))
             .fetchOne();
   }
 }

@@ -111,8 +111,8 @@ public class PlayerDAOTest {
     playerDAO.create(p1);
     playerDAO.create(p2);
     playerDAO.create(p3);
-    Assert.assertEquals(p1, playerDAO.findPlayer(p1));
-    Assert.assertEquals(p2, playerDAO.findPlayer(p2));
-    Assert.assertEquals(p3, playerDAO.findPlayer(p3));
+    Assert.assertEquals(p1, playerDAO.find(p1));
+    Assert.assertEquals(p2, playerDAO.find(p2));
+    Assert.assertEquals(p3, playerDAO.find(p3));
   }
 }
