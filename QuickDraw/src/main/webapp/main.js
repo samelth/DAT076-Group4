@@ -44,6 +44,7 @@ function playTime (countdown) {
   if(totalPlayTime <= 0){
     clearInterval(playTime);
     $(countdown).text("TIME!");
+    $("#screenshot").click();
   } else {
     $(countdown).text(totalPlayTime);
   }

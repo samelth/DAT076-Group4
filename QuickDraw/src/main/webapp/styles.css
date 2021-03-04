@@ -123,7 +123,6 @@ h2 {
     color: white;
 }
 
-
 .ui-button-info {
   height: 40px;
   background-color: var(--babyblue) !important;
@@ -179,6 +178,7 @@ body .ui-inputfield {
   background: white;
   font-size: 1em;
   margin-right: 1.5rem;
+  margin-top: .5rem;
   border-radius: 5px 5px 5px 5px;
 }
 
