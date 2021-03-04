@@ -27,6 +27,8 @@ import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -36,6 +38,9 @@ import model.database.entity.Player;
 @Named("joingameController")
 @ViewScoped
 public class JoingameController implements Serializable {
+  @Inject @Push 
+  private PushContext messageChannel;
+        
   @Inject PlayerSessionBean playerSessionBean;
   
   @EJB
@@ -44,11 +49,12 @@ public class JoingameController implements Serializable {
   private PlayerDAO playerDAO;
 	
 	@Inject BackingBeanJoinGame joinGameView;
-	
+  
   public void joinLobby(){
     playerSessionBean.setPlayer(new Player());
 		playerSessionBean.setUsername(joinGameView.getInputUsername());
 		playerSessionBean.setLobby(lobbyDAO.findLobbyByHexLid(joinGameView.getInputLobbyHexLid()));
 		playerDAO.create(playerSessionBean.getPlayer());
+    messageChannel.send("playerJoined");
   }
 }

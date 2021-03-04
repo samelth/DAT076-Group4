@@ -30,6 +30,8 @@ import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.GameSession;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -71,5 +73,4 @@ public class CreategameContoller implements Serializable{
     this.gameSessionDAO.create(gs);
     lobbyDAO.update(playerSessionBean.getLobby());
   }
-   
 }

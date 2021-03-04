@@ -43,7 +43,7 @@ public class IndexController implements Serializable {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlayerDAO playerDAO;
-	
+  
   @Inject BackingBeanIndex indexView;
   
   public void hostNewLobby(){
