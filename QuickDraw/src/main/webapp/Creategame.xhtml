@@ -39,23 +39,20 @@
                 <h:column>#{player.getUsername()}</h:column>
               </h:dataTable>
             </h:form>
+          </div>
+        </div>
+      <div class="col-5">
             <h:form>
-              <p:commandButton styleClass="ui-button-info" style="float:right;" value="NEW GAME" action="Drawpage" validateClient="true" ajax="false">
+              <p:commandButton rendered = "#{playerSession.isHost()}" styleClass="ui-button-info" style="float:left; margin-left: 15px;" value="START GAME" action="Drawpage" validateClient="true" ajax="false">
                 <f:actionListener binding="#{creategameController.startNewGame()}"></f:actionListener>
               </p:commandButton>
             </h:form>
-          </div>
-        </div>
-      <div class="col-5"></div>
+      </div>
     </div>
- 
-    <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:15px"></div>    
-     
         <!--Buttonrow-->
     <div class="row">
       <div class="col-5"></div>
-        <div class="col-2 roundedEdge backgroundblue">
+        <div class="col-2 roundedEdge backgroundblue" style="margin-top: 15px">
           <!--Copy to clipboard function with icon-->
           <button type="button" id="butt" class="btn" data-toggle="button" aria-pressed="false" onclick="copyToCB('lobbycode')">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard">

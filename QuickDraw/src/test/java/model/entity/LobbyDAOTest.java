@@ -74,6 +74,7 @@ public class LobbyDAOTest {
     Assert.assertEquals(l, lobbyDAO.findLobbyByHexLid(hexLid));
   }
 
+
   
   @Test 
   public void testLobbyCascade() {
@@ -85,5 +86,6 @@ public class LobbyDAOTest {
     
     assertTrue(lobbyListHasPlayer);
     assertTrue(playerInPlayerTable);
-  }
+  } 
+
 }
