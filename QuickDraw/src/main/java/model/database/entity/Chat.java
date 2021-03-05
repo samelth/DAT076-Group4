@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 lewiv
+ * Copyright (C) 2021 Samuel Local
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,30 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package frontend.view;
+package model.database.entity;
 
-import frontend.session.PlayerSessionBean;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import model.database.dao.ChatDAO;
-import model.database.entity.Chat;
-import model.database.entity.Message;
+import lombok.NoArgsConstructor;
 
 /**
  *
- * @author lewiv
+ * @author Samuel Local
  */
 @Data
-@Named(value = "bbCreateGame")
-@ViewScoped
-public class BackingBeanCreateGame implements Serializable {
-
-  String newMessage;
-  List<Message> messages;
-  
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class Chat implements Serializable {
+  @OneToMany
+  private List<Message> messages;
+  @Id @GeneratedValue private int chat_id;
+  @OneToOne private Lobby lobby;
 }

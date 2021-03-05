@@ -32,6 +32,7 @@ public class Lobby implements Serializable {
   @OneToOne private GameSession gameSession;
   @Id @GeneratedValue private int lid;
   private Player host;
+  @OneToOne private Chat chat;
   
   @Override
   public String toString() {
