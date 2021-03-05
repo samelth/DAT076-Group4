@@ -101,6 +101,13 @@ public class PlayerSessionBean implements Serializable {
     return player.getLobby().getHost(); 
   }
   
+  public Player getJudge() {
+    if(player == null || player.getLobby() == null){
+      return null; 
+    }
+    return player.getLobby().getGameSession().getJudgeId();
+  }
+  
   public int getUser_id(){
     return player.getUser_id();
   }
