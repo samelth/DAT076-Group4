@@ -58,6 +58,7 @@
             <o:socket channel="messageChannel" user="#{playerSession.player}">
               <f:ajax event="playerJoined" render="playerList"></f:ajax>
               <f:ajax event="gameStart" listener="#{pagecontroller.jumpToDrawPage()}"></f:ajax>
+              <f:ajax event="newMsg" render="messages"></f:ajax>
             </o:socket>
           </div>
         </div>
@@ -72,9 +73,6 @@
           <p:commandButton value="Send" action="#{creategameController.onPostNewMessage()}">
           </p:commandButton>
         </h:form>
-        <o:socket channel="messageChannel" user="#{playerSession.getPlayer()}">
-          <f:ajax event="newMsg" render="messages"></f:ajax>
-        </o:socket>
       </div>
     </div>
  

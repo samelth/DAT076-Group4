@@ -69,7 +69,7 @@ public class CreategameContoller implements Serializable{
   public String getHexLid(){
     return Integer.toHexString(playerSessionBean.getPlayer().getLobby().getLid()).toUpperCase();
   }
-   
+  
   public void startNewGame() {
     GameSession gs = new GameSession();
     gs.setLevel(1); //TODO: fetch level from input
