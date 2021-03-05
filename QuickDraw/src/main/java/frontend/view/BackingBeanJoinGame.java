@@ -31,8 +31,9 @@ import lombok.Data;
 @Named(value = "bbJoinGame")
 @ViewScoped
 public class BackingBeanJoinGame implements Serializable {
-		@NotEmpty(message = "Please insert a valid Username")			
-		String inputUsername;
-		@NotEmpty(message = "Please insert a valid id")		
-		String inputLobbyHexLid;
+
+  @NotEmpty(message = "Please insert a username")
+  String inputUsername;
+  @NotEmpty(message = "Please insert a valid lobby ID")
+  String inputLobbyHexLid;
 }
