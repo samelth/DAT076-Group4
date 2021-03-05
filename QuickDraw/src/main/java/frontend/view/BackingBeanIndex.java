@@ -30,6 +30,7 @@ import lombok.Data;
 @Named(value = "bbIndex")
 @ViewScoped
 public class BackingBeanIndex implements Serializable {
-    @NotEmpty(message = "Please insert a valid Username")			
-		String inputUsername;
+
+  @NotEmpty(message = "Please insert a username")
+  String inputUsername;
 }

@@ -29,5 +29,5 @@ import lombok.Data;
 @Named(value = "bbCreateGame")
 @ViewScoped
 public class BackingBeanCreateGame implements Serializable {
-	
+
 }
