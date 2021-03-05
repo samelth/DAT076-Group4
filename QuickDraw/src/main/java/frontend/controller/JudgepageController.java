@@ -37,16 +37,31 @@ import model.database.entity.Drawing;
 public class JudgepageController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
   @Inject BackingBeanJudgePage backingBeanJudgePage;
+  @Inject RequestWord requestWord;
   
   @EJB
   DrawingDAO drawingDAO;
   
   public void getDrawingUrl(){
+    
+    try{
     Drawing d = drawingDAO.findDByRoundandGameSession(playerSessionBean.getLobby().getGameSession());
     String url = String.valueOf(d.getUrl());
     backingBeanJudgePage.setImgURL(url);
     drawingDAO.remove(d);
+    } catch(NullPointerException exception){
+      backingBeanJudgePage.setImgURL("");
+    }
   }
   
-  
+  public void compare(){
+    String guessed = backingBeanJudgePage.getGuessed();
+    String drawingword = requestWord.nextWord().getWord();
+    if(guessed.equalsIgnoreCase(drawingword)){
+      backingBeanJudgePage.setResult("YOU GUESSED RIGHT!");
+    }
+    else{
+      backingBeanJudgePage.setGuessed("YOU GUESSED WRONG");
+    }
+  }
 }

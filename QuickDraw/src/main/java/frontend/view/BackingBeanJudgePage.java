@@ -31,4 +31,5 @@ import lombok.Data;
 public class BackingBeanJudgePage implements Serializable{
   String imgURL;
   String guessed;
+  String result;
 }

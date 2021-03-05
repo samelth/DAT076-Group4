@@ -16,13 +16,17 @@
  */
 package frontend.controller;
 
+import frontend.session.PlayerSessionBean;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+import model.database.dao.GameSessionDAO;
 
 /**
  * Control of pageNavigation
@@ -31,8 +35,16 @@ import javax.inject.Named;
 @Named(value= "pagecontroller")
 @RequestScoped
 public class pageController {
+  @Inject PlayerSessionBean playerSessionBean;
+  
+  @EJB
+  GameSessionDAO gameSessionDAO;
+  
 	 public void jumpToDrawPage(){
     try {
+      
+      playerSessionBean.getLobby().setGameSession(gameSessionDAO
+              .findGameSessionByLobby(playerSessionBean.getLobby()));
       FacesContext.getCurrentInstance().getExternalContext().redirect("Drawpage.xhtml");
     } catch (IOException ex) {
       Logger.getLogger(pageController.class.getName()).log(Level.SEVERE, null, ex);
