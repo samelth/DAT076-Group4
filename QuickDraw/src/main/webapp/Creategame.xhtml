@@ -48,17 +48,18 @@
 
     <div class="row">
       <div class="col-5"></div>
-      <div class="col-2 roundedEdge backgroundteal">
-        <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
-          <h:form id="playerList">
-            <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
-              <h:column>#{player.getUsername()}</h:column>
-            </h:dataTable>
-          </h:form>
-          <o:socket channel="messageChannel" user="#{playerSession.player}">
-            <f:ajax event="playerJoined" render="playerList"></f:ajax>
-            <f:ajax event="gameStart" ></f:ajax>
-          </o:socket>
+        <div class="col-2 roundedEdge backgroundteal">
+          <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
+            <h:form id="playerList">
+              <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
+                <h:column>#{player.getUsername()}</h:column>
+              </h:dataTable>
+            </h:form>
+            <o:socket channel="messageChannel" user="#{playerSession.player}">
+              <f:ajax event="playerJoined" render="playerList"></f:ajax>
+              <f:ajax event="gameStart" listener="#{pagecontroller.jumpToDrawPage()}"></f:ajax>
+            </o:socket>
+          </div>
         </div>
       </div>
       <div class="col-5">

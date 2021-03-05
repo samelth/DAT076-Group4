@@ -16,8 +16,12 @@
  */
 package frontend.controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -27,7 +31,11 @@ import javax.inject.Named;
 @Named(value= "pagecontroller")
 @RequestScoped
 public class pageController {
-	public String jumpToLobby(int lobbyId){
-		return "Creategame.xhtml?lobbyID=" + lobbyId;
-	}
+	 public void jumpToDrawPage(){
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("Drawpage.xhtml");
+    } catch (IOException ex) {
+      Logger.getLogger(pageController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   }
 }
