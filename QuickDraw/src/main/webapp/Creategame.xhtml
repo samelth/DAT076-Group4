@@ -57,7 +57,7 @@
             </p:outputPanel>
         <h:form>
           <p:inputText value="#{bbCreateGame.newMessage}"></p:inputText>
-          <p:commandButton value="Send" action="#{chatControllerBean.onPostNewMessage}">
+          <p:commandButton value="Send" action="#{creategameController.onPostNewMessage()}">
           </p:commandButton>
         </h:form>
         <o:socket channel="messageChannel" user="#{playerSession.getPlayer()}">

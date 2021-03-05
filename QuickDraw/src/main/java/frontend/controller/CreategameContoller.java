@@ -17,19 +17,25 @@
 package frontend.controller;
 
 import frontend.session.PlayerSessionBean;
+import frontend.view.BackingBeanCreateGame;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import model.chat.Chat;
+import model.chat.Message;
 import model.database.dao.DrawingWordDAO;
 import model.database.dao.GameSessionDAO;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.GameSession;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -49,7 +55,12 @@ public class CreategameContoller implements Serializable{
   private DrawingWordDAO drawingWordDAO;
   @EJB
   private LobbyDAO lobbyDAO;
-  
+  @Inject @Push
+  private PushContext messageChannel;
+  @Inject
+  private BackingBeanCreateGame backingBeanCreateGame;
+  @EJB
+  private Chat chat;
    
   public List<Player> playersInLobby(){
     return playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
@@ -70,6 +81,12 @@ public class CreategameContoller implements Serializable{
     playerSessionBean.getPlayer().getLobby().setGameSession(gs);
     this.gameSessionDAO.create(gs);
     lobbyDAO.update(playerSessionBean.getPlayer().getLobby());
+  }
+  
+  public void onPostNewMessage(){
+    chat.add(new Message(playerSessionBean.getPlayer().getUsername(),backingBeanCreateGame.getNewMessage()));
+    Collection<Player> recipients = playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
+    messageChannel.send("newMsg",recipients);
   }
    
 }
