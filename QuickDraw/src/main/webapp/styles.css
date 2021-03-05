@@ -51,6 +51,13 @@ td {
   height: 50px;
 }
 
+/*Adds a different color to the host*/
+tbody>tr:nth-child(1) { /* etc */
+    color: #ecd680;
+    font-weight: bold;
+    
+}
+
 /*HEADERS*/
 h1{
   font-family: 'Jaldi', sans-serif;
