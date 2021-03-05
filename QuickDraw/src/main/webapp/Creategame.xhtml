@@ -48,19 +48,20 @@
 
     <div class="row">
       <div class="col-5"></div>
-        <div class="col-2 roundedEdge backgroundteal">
-          <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
-            <h:form id="playerList">
-              <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
-                <h:column>#{player.getUsername()}</h:column>
-              </h:dataTable>
-            </h:form>
-            <o:socket channel="messageChannel" user="#{playerSession.player}">
-              <f:ajax event="playerJoined" render="playerList"></f:ajax>
-              <f:ajax event="gameStart" listener="#{pagecontroller.jumpToDrawPage()}"></f:ajax>
+      <div class="col-2 roundedEdge backgroundteal">
+        <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
+          <h:form id="playerList">          
+            <h:dataTable value="#{creategameController.playersInLobby()}" var="player" rows="10">
+              <h:column class="flex">#{player.getUsername()}</h:column>
+            </h:dataTable>
+            <span class="ref"> </span>
+
+          </h:form>
+          <o:socket channel="messageChannel" user="#{playerSession.player}">
+            <f:ajax event="playerJoined" render="playerList"></f:ajax>
+            <f:ajax event="gameStart" listener="#{pagecontroller.jumpToDrawPage()}"></f:ajax>
+          </o:socket>
               <f:ajax event="newMsg" render="messages"></f:ajax>
-            </o:socket>
-          </div>
         </div>
       <div class="col-2">
           <p:outputPanel>
@@ -74,15 +75,23 @@
           </p:commandButton>
         </h:form>
       </div>
-    </div>
- 
-    <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:15px"></div>    
-     
-        <!--Buttonrow-->
-      <div class="col-5">
-
+      <div class="col-2 roundedEdge backgroundblue rules" style="margin-left: 15px;">
+        <h3>Game tips and rules</h3>
+        <p> • Draw the given word within 20 seconds and submit
+        </p>
+        <p> • The erase button with clear the whole canvas, be careful!
+        </p>          
+        <p> • Use your time efficiently! First submit gets the most points!
+        </p>
+        <p> • Drawings will be automatically submitted after 20 seconds, giving 0 points
+        </p>
+        <p> • Last, but not least: ENJOY THE GAME!
+        </p>          
       </div>
+      <div class="col-3">
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-5"></div>

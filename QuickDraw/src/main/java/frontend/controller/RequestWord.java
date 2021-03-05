@@ -14,28 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.database.entity;
+package frontend.controller;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import frontend.session.PlayerSessionBean;
+import frontend.view.BackingBeanDrawPage;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import model.database.entity.DrawingWord;
 
 /**
  *
  * @author Karl Svensson
  */
-@Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class Drawing implements Serializable {
-  @Id @ManyToOne
-  private Player player;
-  private char [] url;
-  private GameSession gameSession;
-  private int round;
+@Named(value = "requester")
+@RequestScoped
+public class RequestWord {
+  @Inject PlayerSessionBean playerSessionBean;
+  
+  public DrawingWord nextWord(){
+    
+    return playerSessionBean.getDrawingWords().remove(0);
+  }
 }

@@ -20,6 +20,7 @@ body {
 /*Change all fonts that wont inherit*/
 td {
   font-family: 'Jaldi', sans-serif;
+  padding-right: 2px;
 }
 
 /*BACKGROUNDS*/
@@ -51,6 +52,21 @@ td {
   height: 50px;
 }
 
+/*DATATABLES AND CHILDREN*/
+/*Adds a different color to the host*/
+tbody>tr:nth-child(1) { /* etc */
+  color: #ecd680;
+  font-weight: bold;
+}
+
+/*Adds (host) text to host*/
+tbody>tr:nth-child(1)::before {
+  font-weight: bold;
+  color: #ecd680;
+  content: "(host)";
+  padding-right: 5px;
+}
+
 /*HEADERS*/
 h1{
   font-family: 'Jaldi', sans-serif;
@@ -67,11 +83,12 @@ h2 {
   color: var(--babyblue);
 }
 
-.result h3 {
-  display: inline-block;
-  vertical-align: middle;
+.rules h3, .rules p {
+  color: var(--background);
+  margin-top: 15px;
+  margin-left: 35px;
+  margin-right: 35px;
 }
-
 
 #createImg {
   margin-top: .5rem;  
@@ -101,6 +118,7 @@ h2 {
 
 .btn.btn-menu{
   background-color: var(--babyblue);
+  height: 40px;
   width: 140px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
@@ -205,40 +223,8 @@ canvas {
 }
 
 /*RESULT*/
-
 .margin {
   margin-bottom: 1rem;
-}
-.result {
-  background-color: #4682B4;
-  position: relative;
-  color: white;
-}
-
-
-.result.left {
-  border-radius: 5px 0px 0px 0px;
-  text-align: left;
-  padding-left: 10px;
-  height: 50px;
-  line-height: 50px;
-}
-
-.result.right {
-  border-radius: 0px 5px 0px 0px;
-  text-align: right;
-  padding-right: 10px;
-  height: 50px;
-  line-height: 50px;
-}
-
-.result.bottom {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border-radius: 0px 0px 5px 5px;
-  text-align: center;
-  height: 35px;
-  line-height: 35px;
 }
 
 .scoreboard {
@@ -250,32 +236,15 @@ canvas {
   --bs-gutter-x: 0;
 }
 
+/*Datatable*/
 #t1{
-  min-height: 450px;
-  font-size: 3em;
+  font-size: 1.45em;
   padding-left: .5em;
-
+  margin-top: 10px;
 }
 
 #main {
   margin-top: 15px;
-}
-
-.fright{
-  float: right;
-  display: inline;
-}
-
-.inline{
-  display : inline;
-}.align-items {
-
-}
-.lobby-code{
-  border: none;
-  width: 10%;
-  font-size: 40px;
-  height: 100%;
 }
 
 .alertpopup{

@@ -16,11 +16,15 @@
  */
 package model.database.dao;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 import model.database.entity.Drawing;
+import model.database.entity.GameSession;
+import model.database.entity.QDrawing;
+
 
 /**
  *
@@ -35,6 +39,16 @@ public class DrawingDAO extends AbstractDAO<Drawing> {
     super(Drawing.class);
   }
   
+  public Drawing findDByRoundandGameSession(GameSession gs){
+    JPAQuery<Drawing> query = new JPAQuery<>(entityManager);
+    QDrawing drawing = QDrawing.drawing;
+    return query
+            .select(drawing)
+            .from(drawing)
+            .where(drawing.gameSession.game_id.eq(gs.getGame_id()).and(drawing.round.eq(gs.getRound())))
+            .fetchFirst();
+  
+  }
   public Drawing find(Drawing d) {
     return getEntityManager().find(d.getClass(), d.getPlayer());
   }

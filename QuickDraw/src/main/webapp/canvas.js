@@ -60,11 +60,24 @@ window.addEventListener('load', () =>{
   canvas.addEventListener('mouseleave', endPosition);
 });
 
-window.addEventListener('resize', () =>{
-  //Resizing to relative window size
-  const canvas = document.querySelector('#canvas');
-  canvas.height = window.innerHeight*(1/3);
-  canvas.width = window.innerWidth*(1/3);
+
+
+$(function loadCanvas(){
+  $("#loadcanvas").click(function(){
+    var dataURL = document.getElementById("dataURL");
+    var canvas = document.getElementById("judgeCanvas");
+    var context = canvas.getContext("2d");
+    
+    canvas.height = window.innerHeight*(1/3);
+    canvas.width = window.innerWidth*(1/3);
+
+    var imageObj = new Image();
+    imageObj.onload = function(){
+      context.drawImage(this, 0, 0);
+    };
+    imageObj.src = dataURL;
+  });
+  
 });
 
 function erase (e) {

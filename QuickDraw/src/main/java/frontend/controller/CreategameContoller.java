@@ -84,9 +84,10 @@ public class CreategameContoller implements Serializable{
     GameSession gs = new GameSession();
     gs.setLevel(1); //TODO: fetch level from input
     gs.setRound(1);
-    gs.setJudgeId(playerSessionBean.getUser_id()); //TODO: random judge
+    gs.setJudgeId(playerSessionBean.getHost()); //TODO: random judge
     gs.setLobby(playerSessionBean.getLobby());
-    gs.setDrawingWords(drawingWordDAO.getWordsByLevel(1)); //TODO: fetch level from input, shuffle words
+    gs.setDrawingWords(drawingWordDAO.getWordsByLevel(1));
+    //TODO: fetch level from input, shuffle words
     playerSessionBean.getLobby().setGameSession(gs);
     this.gameSessionDAO.create(gs);
     lobbyDAO.update(playerSessionBean.getLobby());
