@@ -16,6 +16,7 @@
  */
 package model.database.dao;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
