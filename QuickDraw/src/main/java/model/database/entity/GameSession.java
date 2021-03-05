@@ -44,6 +44,6 @@ public class GameSession implements Serializable {
   @Id @GeneratedValue private int game_id;
   private int level;
   private int round;
-  private int judgeId;
+  private Player judgeId;
 
 }
