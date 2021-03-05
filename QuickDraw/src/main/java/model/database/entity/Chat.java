@@ -14,30 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.chat;
+package model.database.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Samuel Local
  */
 @Data
-@Singleton
-public class Chat {
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class Chat implements Serializable {
+  @OneToMany
   private List<Message> messages;
-  
-  
-  @PostConstruct
-  private void init(){
-    messages = new ArrayList<>();
-  }
-  
-  public void add(Message msg){
-    messages.add(0,msg);
-  }
+  @Id @GeneratedValue private int chat_id;
+  @OneToOne private Lobby lobby;
 }

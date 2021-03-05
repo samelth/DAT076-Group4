@@ -26,11 +26,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import model.chat.Chat;
-import model.chat.Message;
+import model.database.dao.ChatDAO;
+import model.database.entity.Chat;
+import model.database.entity.Message;
 import model.database.dao.DrawingWordDAO;
 import model.database.dao.GameSessionDAO;
 import model.database.dao.LobbyDAO;
+import model.database.dao.MessageDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.GameSession;
 import model.database.entity.Player;
@@ -55,15 +57,23 @@ public class CreategameContoller implements Serializable{
   private DrawingWordDAO drawingWordDAO;
   @EJB
   private LobbyDAO lobbyDAO;
+  @EJB
+  private MessageDAO messageDAO;
+  @EJB
+  private ChatDAO chatDAO;
+  
   @Inject @Push
   private PushContext messageChannel;
   @Inject
   private BackingBeanCreateGame backingBeanCreateGame;
-  @EJB
-  private Chat chat;
+
    
   public List<Player> playersInLobby(){
     return playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
+  }
+  
+  public List<Message> messagesInLobbyChat(){
+    return messageDAO.messages(playerSessionBean.getLobby().getChat());
   }
    
   public String getHexLid(){
@@ -85,8 +95,14 @@ public class CreategameContoller implements Serializable{
   }
   
   public void onPostNewMessage(){
-    chat.add(new Message(playerSessionBean.getPlayer().getUsername(),backingBeanCreateGame.getNewMessage()));
+    final Message msg = new Message();
+    msg.setChat(playerSessionBean.getLobby().getChat());
+    msg.setUserName(playerSessionBean.getPlayer().getUsername());
+    msg.setContent(backingBeanCreateGame.getNewMessage());
+    messageDAO.create(msg);
+    chatDAO.update(chatDAO.findChatByLobby(playerSessionBean.getLobby()));
     Collection<Player> recipients = playerDAO.findUsersInSameLobby(playerSessionBean.getPlayer().getLobby());
+    backingBeanCreateGame.setMessages(playerSessionBean.getLobby().getChat().getMessages());
     messageChannel.send("newMsg",recipients);
   }
    

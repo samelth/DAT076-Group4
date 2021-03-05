@@ -64,7 +64,7 @@
         </div>
       <div class="col-2">
           <p:outputPanel>
-            <p:dataScroller id="messages" value="#{bbCreateGame.messages}" var="msg" mode="inline" scrollHeight="500">
+            <p:dataScroller id="messages" value="#{creategameController.messagesInLobbyChat()}" var="msg" mode="inline" scrollHeight="500">
                 #{msg.userName}: #{msg.content}
               </p:dataScroller>
             </p:outputPanel>

@@ -16,14 +16,17 @@
  */
 package frontend.view;
 
+import frontend.session.PlayerSessionBean;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import model.chat.Chat;
-import model.chat.Message;
+import model.database.dao.ChatDAO;
+import model.database.entity.Chat;
+import model.database.entity.Message;
 
 /**
  *
@@ -33,12 +36,8 @@ import model.chat.Message;
 @Named(value = "bbCreateGame")
 @ViewScoped
 public class BackingBeanCreateGame implements Serializable {
-	@EJB
-  private Chat chat;
-  
+
   String newMessage;
+  List<Message> messages;
   
-  public List<Message> getMessages(){
-    return chat.getMessages();
-  }
 }

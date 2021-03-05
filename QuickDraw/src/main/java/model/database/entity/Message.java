@@ -14,10 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.chat;
+package model.database.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -25,7 +31,12 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class Message {
+@NoArgsConstructor
+@Entity
+public class Message implements Serializable{
+  @Id @GeneratedValue private int msg_id;
+  @ManyToOne private Chat chat;
+  
   private String userName;
   private String content;
 }

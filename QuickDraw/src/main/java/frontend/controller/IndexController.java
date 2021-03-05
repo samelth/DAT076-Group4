@@ -19,14 +19,18 @@ package frontend.controller;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanIndex;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.dao.ChatDAO;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
+import model.database.entity.Chat;
 import model.database.entity.Lobby;
+import model.database.entity.Message;
 import model.database.entity.Player;
 
 
@@ -43,6 +47,8 @@ public class IndexController implements Serializable {
   @EJB
   private LobbyDAO lobbyDAO;
   @EJB
+  private ChatDAO chatDAO;
+  @EJB
   private PlayerDAO playerDAO;
   
   @Inject BackingBeanIndex indexView;
@@ -50,10 +56,16 @@ public class IndexController implements Serializable {
   public void hostNewLobby(){
     final Player player = new Player();
     final Lobby lob = new Lobby();
+    final Chat chat = new Chat();
+    chatDAO.create(chat);
     player.setUsername(indexView.getInputUsername());
     lob.addPlayer(player);
     lob.setHost(player);
+    lob.setChat(chat);
     playerSessionBean.setPlayer(player);
     lobbyDAO.create(lob);
+    chat.setLobby(lob);
+    chatDAO.update(chat);
+
   }
 }
