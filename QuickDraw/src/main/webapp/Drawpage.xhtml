@@ -82,12 +82,13 @@ and open the template in the editor.
       <div class="col-4"></div>
 
       <div class="col-1">
-        <button id="erase" type="button" class="btn btn-menu" onclick="erase()">ERASE</button>
+        <button id="erase" type="button" class="btn btn-menu" style="font-size: 1.25rem;" onclick="erase()">ERASE</button>
       </div>
+      
       <!--Could be used for pencil size?-->
       <div class="col-2"></div>
       <div class="col-1" align="right">
-        <button id="screenshot" type="button" class="btn btn-menu">SUBMIT</button>
+        <button id="screenshot" type="button" class="btn btn-menu" style="font-size: 1.25rem;">SUBMIT</button>
         <h:form id="form">
           <h:inputHidden id="dataURL" value="#{bbDrawPage.imgURL}"/>
           <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="Result">

@@ -67,6 +67,13 @@ h2 {
   color: var(--babyblue);
 }
 
+.rules h3, .rules p {
+  color: var(--background);
+  margin-top: 15px;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
 .result h3 {
   display: inline-block;
   vertical-align: middle;
@@ -101,6 +108,7 @@ h2 {
 
 .btn.btn-menu{
   background-color: var(--babyblue);
+  height: 40px;
   width: 140px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
