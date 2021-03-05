@@ -28,6 +28,9 @@ import model.database.dao.DrawingDAO;
 import model.database.dao.DrawingWordDAO;
 import model.database.dao.GameSessionDAO;
 import model.database.entity.Drawing;
+import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -39,20 +42,24 @@ import model.database.entity.Drawing;
 public class DrawingpageController implements Serializable {
   @Inject PlayerSessionBean playerSessionBean;
   @Inject BackingBeanDrawPage drawPageView;
+  @Inject RequestWord requestWord;
   @EJB
   DrawingWordDAO drawingWordDAO;
   @EJB
   GameSessionDAO gameSessionDAO;
   @EJB
   DrawingDAO drawingDAO;
+  @Inject @Push
+  private PushContext judgeChannel;
   
   public void nextWord(){
-    this.drawPageView.setDrawingWord(playerSessionBean
-            .getPlayer()
-            .getLobby()
-            .getGameSession()
-            .getDrawingWords().get(0));
-    playerSessionBean.getDrawingWords().remove(0);
+    this.drawPageView.setDrawingWord(requestWord.nextWord());
+//    this.drawPageView.setDrawingWord(playerSessionBean
+//            .getPlayer()
+//            .getLobby()
+//            .getGameSession()
+//            .getDrawingWords().get(0));
+//    playerSessionBean.getDrawingWords().remove(0);
   }
   
   public void addToDB(){
@@ -61,7 +68,11 @@ public class DrawingpageController implements Serializable {
     Drawing d = new Drawing();
     d.setPlayer(playerSessionBean.getPlayer());
     d.setUrl(url);
+    d.setGameSession(playerSessionBean.getLobby().getGameSession());
+    d.setRound(playerSessionBean.getLobby().getGameSession().getRound());
     drawingDAO.create(d);
+    Player judge = playerSessionBean.getJudge();
+    judgeChannel.send("newdrawing", judge);
   }
   
 }

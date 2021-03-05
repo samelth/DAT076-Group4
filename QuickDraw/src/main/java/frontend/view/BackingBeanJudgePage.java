@@ -14,28 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.database.entity;
+package frontend.view;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Karl Svensson
  */
 @Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class Drawing implements Serializable {
-  @Id @ManyToOne
-  private Player player;
-  private char [] url;
-  private GameSession gameSession;
-  private int round;
+@Named(value = "bbJudge")
+@ViewScoped
+public class BackingBeanJudgePage implements Serializable{
+  String imgURL;
+  String guessed;
+  String result;
 }
