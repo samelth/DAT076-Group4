@@ -126,14 +126,14 @@ public class AbstractDAOTest {
     p2.setScore(2);
     playerDAO.create(p1);
     playerDAO.create(p2);
-    Assert.assertEquals(1, playerDAO.findPlayer(p1).getScore());
-    Assert.assertEquals(2, playerDAO.findPlayer(p2).getScore());
+    Assert.assertEquals(1, playerDAO.find(p1).getScore());
+    Assert.assertEquals(2, playerDAO.find(p2).getScore());
     p1.setScore(3);
     p2.setScore(4);
     playerDAO.update(p1);
     playerDAO.update(p2);
-    Assert.assertEquals(3, playerDAO.findPlayer(p1).getScore());
-    Assert.assertEquals(4, playerDAO.findPlayer(p2).getScore());
+    Assert.assertEquals(3, playerDAO.find(p1).getScore());
+    Assert.assertEquals(4, playerDAO.find(p2).getScore());
   }
   
   /*

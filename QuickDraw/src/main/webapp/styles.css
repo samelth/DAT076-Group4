@@ -62,6 +62,9 @@ h1{
 
 h2 {
   margin-top: .5rem;
+  margin-left: .5rem;
+  padding-left: 1rem;
+  color: var(--babyblue);
 }
 
 .result h3 {
@@ -98,10 +101,26 @@ h2 {
 
 .btn.btn-menu{
   background-color: var(--babyblue);
-  width: 150px;
+  width: 140px;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
-  box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 8px #000;
+}
+
+.btn.joingame {
+  height: 40px;
+  width: 100%;
+  margin-top: .5rem;
+  background-color: var(--babyblue) !important;
+  border-color: var(--babyblue) !important;
+  font-family: 'Jaldi', sans-serif;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: var(--background);
+}
+
+/*Needed due to commandbutton not allowing for inheritence*/
+#join:hover, #erase:hover, #screenshot:hover, #main:hover {
+  color: white;
 }
 
 .ui-button-info {
@@ -110,9 +129,10 @@ h2 {
   border-color: var(--babyblue) !important;
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
+  color: var(--background);
 }
 
- .ui-growl-item-container, .ui-growl-item {
+.ui-growl-item-container, .ui-growl-item {
   background-color: var(--babyblue);
   color: white;
 }
@@ -122,6 +142,12 @@ body .ui-growl .ui-growl-item-container.ui-growl-error, body .ui-growl .ui-growl
   border: 1px solid white;
   border-width: 0 0 0 6px;
 }
+
+/*Had to add FONT COLOR separately, not working in .ui-button-info, gets overridden by theme.css*/
+body .ui-button.ui-button-info {
+  color: var(--background);
+}
+
 /*Had to do icon and image separate, otherwise they gain the border of the previous CSS*/
 body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui-growl .ui-growl-item-container.ui-growl-error .ui-icon {
   color: white;
@@ -138,11 +164,11 @@ body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui
 
 /* Countdown text */
 .countdown p{
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   font-size: 1.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
 }
 
 body .ui-inputfield {
@@ -152,7 +178,10 @@ body .ui-inputfield {
   background: white;
   font-size: 1em;
   margin-right: 1.5rem;
+  margin-top: .5rem;
   border-radius: 5px 5px 5px 5px;
+  outline: none !important;
+  outline-color: var(--babyblue);
 }
 
 body .ui-inputfield.ui-state-error {
@@ -161,6 +190,8 @@ body .ui-inputfield.ui-state-error {
 }
 
 canvas {
+  margin-top: 10px;
+  margin-bottom: 3px;
   background-color: white;
   border-radius: 5px 5px 5px 5px;
 }
@@ -174,11 +205,16 @@ canvas {
 }
 
 /*RESULT*/
+
+.margin {
+  margin-bottom: 1rem;
+}
 .result {
   background-color: #4682B4;
   position: relative;
   color: white;
 }
+
 
 .result.left {
   border-radius: 5px 0px 0px 0px;
@@ -208,7 +244,6 @@ canvas {
 .scoreboard {
   margin-left: 15px;
   border-radius: 5px 5px 5px 5px;
-  background-color: tomato;
 }
 
 .row {
@@ -218,6 +253,12 @@ canvas {
 #t1{
   min-height: 450px;
   font-size: 3em;
+  padding-left: .5em;
+
+}
+
+#main {
+  margin-top: 15px;
 }
 
 .fright{
@@ -246,5 +287,5 @@ canvas {
 }
 
 .alert {
-    height: 75px;
+  height: 75px;
 }

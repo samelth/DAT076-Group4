@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Karl Svensson
+ * Copyright (C) 2021 emps
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,80 +16,61 @@
  */
 package model.entity;
 
-import java.util.List;
 import javax.ejb.EJB;
-import org.junit.Assert;
-import model.database.dao.DrawingWordDAO;
+import model.database.dao.GameSessionDAO;
+import model.database.dao.PlayerDAO;
+import model.database.entity.Drawing;
 import model.database.entity.DrawingWord;
+import model.database.entity.GameSession;
+import model.database.entity.Lobby;
+import model.database.entity.Player;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  *
- * @author Karl Svensson
+ * @author emps
  */
 @RunWith(Arquillian.class)
-public class DrawingWordDAOTest {
+public class GameSessionDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(DrawingWord.class, DrawingWordDAO.class)
+      .addClasses(GameSessionDAO.class, Lobby.class, Player.class, PlayerDAO.class, GameSession.class, DrawingWord.class, Drawing.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
-  
+
   @EJB
-  private DrawingWordDAO drawingWordDAO;
+  private GameSessionDAO gameSessionDAO;
   
+  private GameSession gs1;
+  private GameSession gs2;
   
   @Before
-  public void init(){
-    DrawingWord w1 = new DrawingWord();
-    DrawingWord w2 = new DrawingWord();
-    DrawingWord w3 = new DrawingWord();
-    DrawingWord w4 = new DrawingWord();
-    w1.setWord("horse");
-    w1.setLevel(1);
-    w2.setWord("submarine");
-    w2.setLevel(2);
-    w3.setWord("car");
-    w3.setLevel(3);
-    w4.setWord("statue_of_liberty");
-    w4.setLevel(4);
-    
-    drawingWordDAO.create(w1);
-    drawingWordDAO.create(w2);
-    drawingWordDAO.create(w3);
-    drawingWordDAO.create(w4);
+  public void init() {
+    gs1 = new GameSession();
+    gs2 = new GameSession();
   }
   
-  @Test
-  public void checkFindByLevel(){
-    int level = 3;
-    String word = "car";
-    List<DrawingWord> found = drawingWordDAO.getWordsByLevel(level);
-    Assert.assertEquals(found.get(0).getWord(), word);
+  @After
+  public void clean() {
+    gameSessionDAO.removeAll();
   }
   
   @Test
   public void testFind() {
-    DrawingWord w = new DrawingWord("apa",1);
-    drawingWordDAO.create(w);
-    Assert.assertEquals(w, drawingWordDAO.find(w));
-  }
-  
-  @After
-  public void tearDown() {
-    drawingWordDAO.findAll().forEach(p -> {
-      drawingWordDAO.remove(p);
-    });
-    
+    gameSessionDAO.create(gs1);
+    gameSessionDAO.create(gs2);
+    Assert.assertEquals(gs1, gameSessionDAO.find(gs1));
+    Assert.assertEquals(gs2, gameSessionDAO.find(gs2));
   }
 }

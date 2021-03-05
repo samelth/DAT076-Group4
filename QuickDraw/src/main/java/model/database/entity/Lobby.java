@@ -42,7 +42,7 @@ public class Lobby implements Serializable {
    * According to hibernates recommendations
    * a developer must make sure the bidirectional relationship is always in sync at all times. 
    * Hence the removePlayer() and addPlayer() is implemented in this way. 
-   * @see <a href="https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html></a>
+   * @see <a href="https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html />
    * @param p the player to add to the lobby
    */
   public void addPlayer(Player p) {
@@ -58,7 +58,13 @@ public class Lobby implements Serializable {
     players.remove(p);
     p.setLobby(null);
   }
-   
+  
+  public void updatePlayer(Player p) {
+    if(players.remove(p)) {
+      players.add(p);
+    }
+  }
+  
   public List<Player> getPlayers(){
     return players;
   }

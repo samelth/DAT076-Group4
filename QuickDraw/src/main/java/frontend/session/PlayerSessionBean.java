@@ -17,13 +17,14 @@
 package frontend.session;
 
 import java.io.Serializable;
-
+import java.util.List;
+import java.util.Optional;
 import javax.enterprise.context.SessionScoped;
-
 import javax.inject.Named;
 import lombok.Data;
-
+import model.database.entity.Lobby;
 import model.database.entity.Player;
+import model.database.entity.DrawingWord;
 
 /**
  * user Bean 
@@ -35,4 +36,61 @@ import model.database.entity.Player;
 @SessionScoped
 public class PlayerSessionBean implements Serializable {
 	Player player;
+  
+  public boolean isHost(){
+    // null check guarding from run time null point exception. 
+    // Reason why its done this way :
+    // Avoid multiple ifs to check every getter that it returns null. 
+    Optional<Player> host = Optional.of(player)
+            .map(Player::getLobby)
+            .map(Lobby::getHost);
+
+    if(host.isEmpty()){
+      return false;
+    }
+    final boolean isPlayerTheHost = host.get().equals(player);
+    if(isPlayerTheHost) {
+      return true; 
+    }
+    return false;
+  }
+  
+  public void setUsername(String username) {
+    player.setUsername(username);
+  }
+  
+  public String getUsername(String username) {
+    return player.getUsername();
+  }
+  
+  public List<DrawingWord> getDrawingWords(){
+    return getLobby().getGameSession().getDrawingWords();
+  }
+  
+  public void setScore(int score) {
+    player.setScore(score); 
+  }
+  
+  public int getScore(int score) {
+    return player.getScore(); 
+  }
+  
+  public void setLobby(Lobby l) {
+    player.setLobby(l); 
+  }
+  
+  public Lobby getLobby() {
+    return player.getLobby(); 
+  }
+  
+  public Player getHost() {
+    if(player == null || player.getLobby() == null){
+      return null; 
+    }
+    return player.getLobby().getHost(); 
+  }
+  
+  public int getUser_id(){
+    return player.getUser_id();
+  }
 }

@@ -44,7 +44,7 @@ public class IndexController implements Serializable {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlayerDAO playerDAO;
-	
+  
   @Inject BackingBeanIndex indexView;
   
   public void hostNewLobby(){
@@ -52,6 +52,7 @@ public class IndexController implements Serializable {
     final Lobby lob = new Lobby();
     player.setUsername(indexView.getInputUsername());
     lob.addPlayer(player);
+    lob.setHost(player);
     playerSessionBean.setPlayer(player);
     lobbyDAO.create(lob);
   }

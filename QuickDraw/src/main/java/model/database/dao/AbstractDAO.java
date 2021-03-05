@@ -36,6 +36,8 @@ public abstract class AbstractDAO<T> {
     getEntityManager().persist(entity);
   }
   
+  public abstract T find(T entity);
+  
   public List<T> findAll() {
     final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
     cq.select(cq.from(entityType));

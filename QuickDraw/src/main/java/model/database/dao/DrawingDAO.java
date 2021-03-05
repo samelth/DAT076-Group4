@@ -35,4 +35,8 @@ public class DrawingDAO extends AbstractDAO<Drawing> {
     super(Drawing.class);
   }
   
+  public Drawing find(Drawing d) {
+    return getEntityManager().find(d.getClass(), d.getPlayer());
+  }
+  
 }

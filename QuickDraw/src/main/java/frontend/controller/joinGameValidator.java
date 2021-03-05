@@ -17,6 +17,7 @@
 package frontend.controller;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -30,15 +31,16 @@ import model.database.entity.Lobby;
 
 /**
  * Validates user before joining a game.
+ *
  * @author lewiv
  */
 @RequestScoped
 @FacesValidator(value = "joinGameValidator")
 public class joinGameValidator implements Validator {
 
-  private static final String ERROR_MESSAGE_LOBBY_NOT_EXIST = "Lobby doesn't exists";
-  private static final String ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY = "Username already in lobby";
-
+  private static final String ERROR_MESSAGE_LOBBY_NOT_EXIST = "Lobby doesn't exist";
+  private static final String ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY = "Username taken, choose another";
+  private static final String ERROR_MESSAGE_INCORRECT_FORMAT = "Please don't leave the fields empty";
   @EJB
   private LobbyDAO lobbyDAO;
 
@@ -54,14 +56,21 @@ public class joinGameValidator implements Validator {
    */
   @Override
   public void validate(FacesContext fc, UIComponent uic, Object t) throws ValidatorException {
+
     final UIInput lidComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
 
     //Input to validate
+    if (lidComponent == null || t == null) {
+      return;
+    }
     final String username = t.toString();
     final String lobbyHexLid = (String) lidComponent.getValue();
-
-    final Lobby lobby = lobbyDAO.findLobbyByHexLid(lobbyHexLid);
-
+    Lobby lobby = null;
+    try {
+      lobby = lobbyDAO.findLobbyByHexLid(lobbyHexLid);
+    } catch (EJBException e) {
+      throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));
+    }
     final boolean lobbyNotExist = (null == lobby);
     if (lobbyNotExist) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));

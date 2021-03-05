@@ -48,4 +48,8 @@ public class DrawingWordDAO extends AbstractDAO<DrawingWord> {
             .where(drawingWord.level.eq(level))
             .fetch();
   }
+  
+  public DrawingWord find(DrawingWord dw) {
+    return getEntityManager().find(dw.getClass(), dw.getWord());
+  }
 }
