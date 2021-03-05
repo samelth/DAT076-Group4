@@ -16,7 +16,6 @@
  */
 package model.database.dao;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,13 +49,7 @@ public class DrawingDAO extends AbstractDAO<Drawing> {
   
   }
   public Drawing find(Drawing d) {
-    JPAQuery<Drawing> q = new JPAQuery<>(entityManager);
-    QDrawing drawingWord = QDrawing.drawing;
-    return q
-            .select(drawingWord)
-            .from(drawingWord)
-            .where(drawingWord.player.eq(d.getPlayer()))
-            .fetchOne();
+    return getEntityManager().find(d.getClass(), d.getPlayer());
   }
   
 }

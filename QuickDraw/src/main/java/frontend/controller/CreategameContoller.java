@@ -18,6 +18,7 @@ package frontend.controller;
 
 import frontend.session.PlayerSessionBean;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -30,6 +31,8 @@ import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.GameSession;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -49,6 +52,8 @@ public class CreategameContoller implements Serializable{
   private DrawingWordDAO drawingWordDAO;
   @EJB
   private LobbyDAO lobbyDAO;
+  
+  @Inject @Push PushContext messageChannel;
   
    
   public List<Player> playersInLobby(){
@@ -70,6 +75,7 @@ public class CreategameContoller implements Serializable{
     playerSessionBean.getLobby().setGameSession(gs);
     this.gameSessionDAO.create(gs);
     lobbyDAO.update(playerSessionBean.getLobby());
+    Collection<Player> recipients = playerDAO.findUsersInSameLobby(playerSessionBean.getLobby());
+    messageChannel.send("gameStart",recipients);
   }
-   
 }

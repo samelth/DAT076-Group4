@@ -28,13 +28,7 @@ public class LobbyDAO extends AbstractDAO<Lobby> {
   }
   
   public Lobby find(Lobby l) {
-    JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
-    QLobby lobby = QLobby.lobby;
-    return q
-            .select(lobby)
-            .from(lobby)
-            .where(lobby.lid.eq(l.getLid()))
-            .fetchOne();
+    return getEntityManager().find(l.getClass(), l.getLid());
   }
   
   public Lobby findLobbyByHexLid(String hexLid) {

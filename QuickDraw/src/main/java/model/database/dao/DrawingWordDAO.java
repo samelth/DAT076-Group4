@@ -50,12 +50,6 @@ public class DrawingWordDAO extends AbstractDAO<DrawingWord> {
   }
   
   public DrawingWord find(DrawingWord dw) {
-    JPAQuery<DrawingWord> q = new JPAQuery<>(entityManager);
-    QDrawingWord drawingWord = QDrawingWord.drawingWord;
-    return q
-            .select(drawingWord)
-            .from(drawingWord)
-            .where(drawingWord.word.eq(dw.getWord()))
-            .fetchOne();
+    return getEntityManager().find(dw.getClass(), dw.getWord());
   }
 }

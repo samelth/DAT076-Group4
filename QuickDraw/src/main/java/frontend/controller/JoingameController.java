@@ -19,6 +19,7 @@ package frontend.controller;
 import frontend.session.PlayerSessionBean;
 import frontend.view.BackingBeanJoinGame;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -27,6 +28,8 @@ import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlayerDAO;
 import model.database.entity.Player;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
@@ -36,6 +39,9 @@ import model.database.entity.Player;
 @Named("joingameController")
 @ViewScoped
 public class JoingameController implements Serializable {
+  @Inject @Push 
+  private PushContext messageChannel;
+        
   @Inject PlayerSessionBean playerSessionBean;
   
   @EJB
@@ -44,11 +50,13 @@ public class JoingameController implements Serializable {
   private PlayerDAO playerDAO;
 	
 	@Inject BackingBeanJoinGame joinGameView;
-	
+  
   public void joinLobby(){
     playerSessionBean.setPlayer(new Player());
 		playerSessionBean.setUsername(joinGameView.getInputUsername());
 		playerSessionBean.setLobby(lobbyDAO.findLobbyByHexLid(joinGameView.getInputLobbyHexLid()));
 		playerDAO.create(playerSessionBean.getPlayer());
+    Collection<Player> recepients = playerDAO.findUsersInSameLobby(playerSessionBean.getLobby());
+    messageChannel.send("playerJoined",recepients);
   }
 }

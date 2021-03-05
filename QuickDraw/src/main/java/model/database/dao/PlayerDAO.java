@@ -51,13 +51,7 @@ public class PlayerDAO extends AbstractDAO<Player> {
   }
   
   public Player find(Player p) {
-    JPAQuery<Player> query = new JPAQuery<>(entityManager);
-    QPlayer player = QPlayer.player;
-    return query
-            .select(player)
-            .from(player)
-            .where(player.user_id.eq(p.getUser_id()))
-            .fetchOne();
+    return getEntityManager().find(p.getClass(), p.getUser_id());
   }
   
 }

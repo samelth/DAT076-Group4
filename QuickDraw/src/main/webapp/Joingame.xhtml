@@ -22,8 +22,6 @@
 
     <script src="main.js"></script>
     <script src="canvas.js"></script>   
-    <script>startProgressBar("#p1");</script>
-    <script>playTime("#countdown");</script>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <title>Join Game</title>
@@ -43,21 +41,18 @@
           <p:inputText placeholder="Lobby ID"
                        id="lobbyHexLidInput"
                        value="#{bbJoinGame.inputLobbyHexLid}"
-                       onblur= "#{bbJoinGame.inputLobbyHexLid}"
-                       required="true">
+                       >
           </p:inputText>
           
           <p:inputText placeholder="Username"
                        id="usernameInput"
                        value="#{bbJoinGame.inputUsername}"
-                       onblur= "#{bbJoinGame.inputUsername}" 
-                       required="true"
                        >
           <f:validator validatorId="joinGameValidator"/> 
           </p:inputText>
 
           <p:commandButton value="JOIN LOBBY" styleClass="ui-button-info" validateClient="true" ajax="false" action="Creategame">
-            <f:actionListener binding="#{joingameController.joinLobby()}"/> 
+            <f:actionListener binding="#{joingameController.joinLobby()}"/>
           </p:commandButton>
         </h:form>
       </div>
