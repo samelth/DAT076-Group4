@@ -20,7 +20,6 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
