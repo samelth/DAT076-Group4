@@ -65,7 +65,6 @@ public class CreategameContoller implements Serializable{
   }
    
   public void startNewGame() {
-    
     GameSession gs = new GameSession();
     gs.setLevel(1); //TODO: fetch level from input
     gs.setRound(1);
