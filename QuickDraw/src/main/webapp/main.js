@@ -68,12 +68,12 @@ function copyToCB(textToCopyID){
       });
   $("#alert").animate({
       opacity: 1,
-      top: "-=8vh"
+      top: "-=8.2vh"
     },1000);
   setTimeout(function (){
     $("#alert").animate({
       opacity: 0,
-      top: "+=8vh"
+      top: "+=8.2vh"
     },1000)}
   ,2500);
 }

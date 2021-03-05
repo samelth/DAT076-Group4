@@ -17,24 +17,13 @@
 package frontend.session;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import model.database.dao.LobbyDAO;
-import model.database.dao.PlayerDAO;
 import model.database.entity.Lobby;
 import model.database.entity.Player;
-import org.omnifaces.cdi.Param;
-
-import static java.util.Optional.empty;
 import model.database.entity.DrawingWord;
 
 /**
