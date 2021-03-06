@@ -10,35 +10,34 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
+import model.database.entity.Game;
 import model.database.entity.Lobby;
-import model.database.entity.QLobby;
-
+import model.database.entity.QGame;
 
 /**
  *
  * @author karlsvensson
  */
 @Stateless
-public class LobbyDAO extends AbstractDAO<Lobby> {
+public class GameDAO extends AbstractDAO<Game> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
     
-  public LobbyDAO(){
-    super(Lobby.class);
+  public GameDAO(){
+    super(Game.class);
   }
   
-  public Lobby find(Lobby l) {
-    return getEntityManager().find(l.getClass(), l.getLobby_id());
+  public Game find(Game g) {
+    return getEntityManager().find(g.getClass(), g.getGame_id());
   }
   
-  public Lobby findLobbyByHexLid(String hexLid) {
-    JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
-    QLobby lobby = QLobby.lobby;
-    return q
-            .select(lobby)
-            .from(lobby)
-            .where(lobby.lobby_id.eq(Integer.valueOf(hexLid, 16)))
+  public Game findGameByLobby(Lobby l) {
+    JPAQuery<Game> query = new JPAQuery<>(entityManager);
+    QGame game = QGame.game;
+    return query
+            .select(game)
+            .from(game)
+            .where(game.lobby.eq(l))
             .fetchOne();
   }
-  
 }

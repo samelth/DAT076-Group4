@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Samuel Local
+ * Copyright (C) 2021 Karl Svensson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,9 @@
  */
 package model.database.entity;
 
-import java.io.Serializable; 
-import java.util.List; 
+import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,15 +26,21 @@ import lombok.NoArgsConstructor;
 
 /**
  *
- * @author Samuel Local
+ * @author Karl Svensson
  */
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Chat implements Serializable {
-  @OneToMany private List<Message> messages;
-  @Id @GeneratedValue @EqualsAndHashCode.Include private int chat_id;
-  @OneToOne private Lobby lobby;
+public class Word implements Serializable{
+  //@ManyToMany private List<GameSession> gameSessions;
+  @Id @EqualsAndHashCode.Include private String word;
+  private int lvl;
+  
+  @Override
+  public String toString() {
+    return this.word;
+  }
+  
 }

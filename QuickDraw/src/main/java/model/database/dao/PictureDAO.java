@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Samuel Local
+ * Copyright (C) 2021 Karl Svensson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,34 +21,36 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
-import model.database.entity.Chat;
-import model.database.entity.Lobby;
-import model.database.entity.QChat;
+import model.database.entity.Picture;
+import model.database.entity.Game;
+import model.database.entity.QPicture;
+
 
 /**
  *
- * @author Samuel Local
+ * @author Karl Svensson
  */
 @Stateless
-public class ChatDAO extends AbstractDAO<Chat> {
+public class PictureDAO extends AbstractDAO<Picture> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   
-  public ChatDAO(){
-    super(Chat.class);
+  public PictureDAO() {
+    super(Picture.class);
   }
-
-  public Chat find(Chat c) {
-    return getEntityManager().find(c.getClass(), c.getChat_id());
+  
+  public Picture findDByRoundandGameSession(Game gs){
+    JPAQuery<Picture> query = new JPAQuery<>(entityManager);
+    QPicture picture = QPicture.picture;
+    return query
+            .select(picture)
+            .from(picture)
+            .where(picture.game.game_id.eq(gs.getGame_id()).and(picture.round.eq(gs.getRound())))
+            .fetchFirst();
+  
   }
-
-  public Chat findChatByLobby(Lobby lob) {
-    JPAQuery<Chat> q = new JPAQuery<>(entityManager);
-    QChat chat = QChat.chat;
-    return q
-            .select(chat)
-            .from(chat)
-            .where(chat.lobby.lobby_id.eq(lob.getLobby_id()))
-            .fetchOne();
+  public Picture find(Picture d) {
+    return getEntityManager().find(d.getClass(), d.getPleb());
   }
+  
 }

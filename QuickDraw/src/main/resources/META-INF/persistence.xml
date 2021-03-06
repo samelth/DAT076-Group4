@@ -3,8 +3,13 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="Games" transaction-type="JTA">
     <jta-data-source>jdbc/GamesProd</jta-data-source>
-    <class>model.database.entity.GameSession</class>
-    <class>model.database.entity.DrawingWord</class>
+    <class>model.database.entity.Chat</class>
+    <class>model.database.entity.Game</class>
+    <class>model.database.entity.Lobby</class>
+    <class>model.database.entity.Message</class>
+    <class>model.database.entity.Picture</class>
+    <class>model.database.entity.Pleb</class>
+    <class>model.database.entity.Word</class>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
     </properties>
