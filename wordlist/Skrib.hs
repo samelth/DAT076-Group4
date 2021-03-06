@@ -41,7 +41,7 @@ avg' xs = sum xs' / (read $ show $ length xs') where
   xs' = [r | (QuickDrawWord _ r) <- xs]
 
 stddev xs =
-  let a      = avg' xs
+  let a          = avg' xs
       variance   = avg deviations
       deviations = map (\(QuickDrawWord _ r) -> (r - a)^2) xs
   in sqrt variance
@@ -61,7 +61,7 @@ filterInside s xs =
   in filter (\(QuickDrawWord _ r) -> abs (sigma r a d) < abs s) xs
 
 toSQL :: (String,Int) -> String
-toSQL (s,n) = "INSERT INTO APP.DRAWINGWORD (WORD, \"LEVEL\") VALUES ('" <> s <> "', " <> show n <> ");"
+toSQL (s,n) = "INSERT INTO APP.WORD (WORD, \"LVL\") VALUES ('" <> s <> "', " <> show n <> ");"
 
 main = do
   s <- readFile "skribblioWordList.txt"
