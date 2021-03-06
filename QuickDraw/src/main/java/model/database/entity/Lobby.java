@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -26,17 +27,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL) 
-  private List<Player> players = new ArrayList<Player>();
-  @OneToOne private GameSession gameSession;
-  @Id @GeneratedValue private int lid;
-  private Player host;
+  private List<Pleb> plebs = new ArrayList<Pleb>();
+  @OneToOne private Game game;
+  @Id @GeneratedValue @EqualsAndHashCode.Include private int lobby_id;
+  private Pleb host;
   @OneToOne private Chat chat;
   
   @Override
   public String toString() {
-    return String.valueOf(this.lid);
+    return String.valueOf(this.lobby_id);
   }
   
    /**
@@ -46,31 +48,31 @@ public class Lobby implements Serializable {
    * @see <a href="https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html />
    * @param p the player to add to the lobby
    */
-  public void addPlayer(Player p) {
-    players.add(p);
+  public void addPleb(Pleb p) {
+    plebs.add(p);
     p.setLobby(this);
   }
   
   /**
-   * @see addPlayer
+   * @see addPlayer#addUser
    * @param p the player to add to the lobby
    */
-  public void removePlayer(Player p) {
-    players.remove(p);
+  public void removePleb(Pleb p) {
+    plebs.remove(p);
     p.setLobby(null);
   }
   
-  public void updatePlayer(Player p) {
-    if(players.remove(p)) {
-      players.add(p);
+  public void updatePleb(Pleb p) {
+    if(plebs.remove(p)) {
+      plebs.add(p);
     }
   }
   
-  public List<Player> getPlayers(){
-    return players;
+  public List<Pleb> getPlebs(){
+    return plebs;
   }
   
-  public Player getHost(){
+  public Pleb getHost(){
     return host;
   }
   

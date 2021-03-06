@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Samuel Local
+ * Copyright (C) 2021 Karl Svensson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,38 +17,39 @@
 package model.database.dao;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
-import model.database.entity.Chat;
-import model.database.entity.Lobby;
-import model.database.entity.QChat;
+import model.database.entity.Word;
+import model.database.entity.QWord;
 
 /**
  *
- * @author Samuel Local
+ * @author Karl Svensson
  */
 @Stateless
-public class ChatDAO extends AbstractDAO<Chat> {
+public class WordDAO extends AbstractDAO<Word> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
   
-  public ChatDAO(){
-    super(Chat.class);
+  public WordDAO(){
+    super(Word.class);
   }
-
-  public Chat find(Chat c) {
-    return getEntityManager().find(c.getClass(), c.getChat_id());
+  
+  public List<Word> findWordsByLevel(int lvl){
+    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    QWord word = QWord.word1;
+    
+    return query
+            .select(word)
+            .from(word)
+            .where(word.lvl.eq(lvl))
+            .fetch();
   }
-
-  public Chat findChatByLobby(Lobby lob) {
-    JPAQuery<Chat> q = new JPAQuery<>(entityManager);
-    QChat chat = QChat.chat;
-    return q
-            .select(chat)
-            .from(chat)
-            .where(chat.lobby.lobby_id.eq(lob.getLobby_id()))
-            .fetchOne();
+  
+  public Word find(Word dw) {
+    return getEntityManager().find(dw.getClass(), dw.getWord());
   }
 }

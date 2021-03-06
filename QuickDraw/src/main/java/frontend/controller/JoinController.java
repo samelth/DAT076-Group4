@@ -17,49 +17,42 @@
 package frontend.controller;
 
 import frontend.session.PlebSession;
-import frontend.view.IndexView;
+import frontend.view.JoinView;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import model.database.dao.ChatDAO;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
-import model.database.entity.Chat;
-import model.database.entity.Lobby;
 import model.database.entity.Pleb;
-
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 
 /**
  *
  * @author Samuel Local
  */
 @Data
-@Named("indexController")
+@Named("joinController")
 @ViewScoped
-public class IndexController implements Serializable {
-  @Inject private PlebSession plebSession;
-  @Inject private IndexView indexView;
+public class JoinController implements Serializable {
+  @Inject @Push private PushContext messageChannel;   
+  @Inject       private PlebSession plebSession;
+  @Inject       private JoinView joinView;
   
   @EJB private LobbyDAO lobbyDAO;
-  @EJB private ChatDAO chatDAO;
   @EJB private PlebDAO userDAO;
-    
-  public void hostNewLobby(){
-    final Pleb pleb = new Pleb();
-    final Lobby lob = new Lobby();
-    final Chat chat = new Chat();
-    chatDAO.create(chat);
-    pleb.setUsername(indexView.getInputUsername());
-    lob.addPleb(pleb);
-    lob.setHost(pleb);
-    lob.setChat(chat);
-    plebSession.setPleb(pleb);
-    lobbyDAO.create(lob);
-    chat.setLobby(lob);
-    chatDAO.update(chat);
+  
+  public void joinLobby(){
+    plebSession.setPleb(new Pleb());
+		plebSession.setUsername(joinView.getInputUsername());
+		plebSession.setLobby(lobbyDAO.findLobbyByHexLid(joinView.getInputLobbyHexLid()));
+		userDAO.create(plebSession.getPleb());
+    Collection<Pleb> recipients = userDAO.findPlebsInSameLobby(plebSession.getLobby());
+    messageChannel.send("playerJoined",recipients);
   }
   
 }

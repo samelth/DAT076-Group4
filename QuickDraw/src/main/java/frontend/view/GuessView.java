@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Samuel Local
+ * Copyright (C) 2021 Karl Svensson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,31 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model.database.entity;
+package frontend.view;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  *
- * @author Samuel Local
+ * @author Karl Svensson
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Message implements Serializable{
-  @Id @GeneratedValue @EqualsAndHashCode.Include private int msg_id;
-  @ManyToOne private Chat chat;
-  
-  private String username;
-  private String content;
+@Named("guessView")
+@ViewScoped
+public class GuessView implements Serializable{
+  private String imgURL;
+  private String guessed;
+  private String result;
 }
