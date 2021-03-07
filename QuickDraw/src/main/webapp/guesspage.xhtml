@@ -94,7 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         
         <img src="#{guessView.imgURL}" id="pic" /> 
         <o:socket channel="messageChannel" user="#{plebSession.pleb}">
-          <f:ajax event="newPic" listener="#{guessController.nextPicture()}" render="@all" />
+          <f:ajax event="newPic" listener="#{guessController.newPicture()}" />
         </o:socket>
        
       </div>

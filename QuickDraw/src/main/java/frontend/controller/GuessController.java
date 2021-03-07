@@ -20,7 +20,11 @@ import frontend.request.DrawRequest;
 import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.Queue;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -42,14 +46,22 @@ public class GuessController implements Serializable {
   
   @EJB private PictureDAO pictureDAO;
   
-  public void nextPicture() {
-    try {
-      Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
-      String url = String.valueOf(pic.getUrl());
-      guessView.setImgURL(url);
-      pictureDAO.remove(pic);
-    } catch(NullPointerException exception){
-      guessView.setImgURL("");
+  private Queue<String> submissions;
+  private boolean guessing;
+  
+  @PostConstruct
+  public void init() {
+    submissions = new LinkedList<>();
+  }
+  
+  public void newPicture() {
+    Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
+    submissions.add(String.valueOf(pic.getUrl()));
+    pictureDAO.remove(pic);
+    if(!guessing) {
+      guessing = true;
+      guessView.setImgURL(submissions.remove());
+      FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
     }
   }
   
