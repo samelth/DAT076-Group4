@@ -34,5 +34,9 @@ public class DrawRequest {
   public Word nextWord() {
     return plebSession.getDrawingWords().remove(0);
   }
+  
+  public Word currentWord() {
+    return plebSession.getDrawingWords().get(0);
+  }
 
 }

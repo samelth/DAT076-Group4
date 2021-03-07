@@ -54,6 +54,10 @@ public class DrawController implements Serializable {
     this.drawView.setWord(drawRequest.nextWord());
   }
   
+  public void currentWord() {
+    drawView.setWord(drawRequest.currentWord());
+  }
+  
   public void submitPicture(){
     char[] url;
     url = drawView.getImgURL().toCharArray();

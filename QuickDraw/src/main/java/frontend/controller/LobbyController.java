@@ -37,6 +37,7 @@ import model.database.dao.MessageDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Game;
 import model.database.entity.Pleb;
+import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
 
@@ -76,12 +77,13 @@ public class LobbyController implements Serializable{
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     List<Pleb> plebs = new ArrayList<>(recipients);
     Collections.shuffle(plebs);
+    List<Word> words = wordDAO.findWordsByLevel(1);
+    Collections.shuffle(words);
     g.setLvl(1); //TODO: fetch level from input
     g.setRound(1);
     g.setGuesser(plebs.get(0));
     g.setLobby(plebSession.getLobby());
-    g.setWords(wordDAO.findWordsByLevel(1));
-    //TODO: fetch level from input, shuffle words
+    g.setWords(words);
     plebSession.getLobby().setGame(g);
     gameDAO.create(g);
     lobbyDAO.update(plebSession.getLobby());
