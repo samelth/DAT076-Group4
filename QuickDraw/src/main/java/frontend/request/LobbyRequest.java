@@ -38,7 +38,7 @@ public class LobbyRequest {
   
   @EJB private GameDAO gameDAO;
   
-	 public void jumpToDrawPage(){
+	 public void jumpToGame() {
     try {
       plebSession.getLobby().setGame(gameDAO
               .findGameByLobby(plebSession.getLobby()));

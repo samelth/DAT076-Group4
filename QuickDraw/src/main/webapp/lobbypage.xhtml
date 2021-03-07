@@ -37,7 +37,7 @@
       </div>
       <div class="col-2" style="margin-left:15px; margin-right:15px">
         <h:form>
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" action="drawpage" validateClient="true" ajax="false">
+          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false">
             <f:actionListener binding="#{lobbyController.startNewGame()}"></f:actionListener>
           </p:commandButton>
         </h:form>
@@ -73,7 +73,7 @@
           </h:form>
           <o:socket channel="messageChannel" user="#{plebSession.pleb}">
             <f:ajax event="playerJoined" render="playerList"></f:ajax>
-            <f:ajax event="gameStart" listener="#{lobbyRequest.jumpToDrawPage()}"></f:ajax>
+            <f:ajax event="jumpToGame" listener="#{lobbyRequest.jumpToGame()}"></f:ajax>
             <f:ajax event="newMsg" render="messages"></f:ajax>
             <f:ajax event="newMsg"></f:ajax>
           </o:socket>

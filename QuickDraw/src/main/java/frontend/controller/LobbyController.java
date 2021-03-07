@@ -81,7 +81,7 @@ public class LobbyController implements Serializable{
     gameDAO.create(g);
     lobbyDAO.update(plebSession.getLobby());
     Collection<Pleb> recipients = userDAO.findPlebsInSameLobby(plebSession.getLobby());
-    messageChannel.send("gameStart",recipients);
+    messageChannel.send("jumpToGame",recipients);
   }
   
   public void onPostNewMessage(){
