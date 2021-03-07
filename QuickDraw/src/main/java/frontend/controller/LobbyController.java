@@ -19,7 +19,9 @@ package frontend.controller;
 import frontend.session.PlebSession;
 import frontend.view.LobbyView;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -50,7 +52,7 @@ public class LobbyController implements Serializable{
   @Inject       private PlebSession plebSession;
   @Inject       private LobbyView lobbyView;
    
-  @EJB private PlebDAO userDAO;
+  @EJB private PlebDAO plebDAO;
   @EJB private GameDAO gameDAO;
   @EJB private WordDAO wordDAO;
   @EJB private LobbyDAO lobbyDAO;
@@ -58,7 +60,7 @@ public class LobbyController implements Serializable{
   @EJB private ChatDAO chatDAO;
   
   public List<Pleb> plebsInLobby(){
-    return userDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
+    return plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
   }
   
   public List<Message> messagesInLobbyChat(){
@@ -71,16 +73,19 @@ public class LobbyController implements Serializable{
   
   public void startNewGame() {
     Game g = new Game();
+    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+    List<Pleb> plebs = new ArrayList<>(recipients);
+    Collections.shuffle(plebs);
     g.setLvl(1); //TODO: fetch level from input
     g.setRound(1);
-    g.setGuesser(plebSession.getHost()); //TODO: random judge
+    g.setGuesser(plebs.get(0));
     g.setLobby(plebSession.getLobby());
     g.setWords(wordDAO.findWordsByLevel(1));
     //TODO: fetch level from input, shuffle words
     plebSession.getLobby().setGame(g);
     gameDAO.create(g);
     lobbyDAO.update(plebSession.getLobby());
-    Collection<Pleb> recipients = userDAO.findPlebsInSameLobby(plebSession.getLobby());
+    
     messageChannel.send("jumpToGame",recipients);
   }
   
@@ -91,7 +96,7 @@ public class LobbyController implements Serializable{
     msg.setContent(lobbyView.getNewMessage());
     messageDAO.create(msg);
     chatDAO.update(chatDAO.findChatByLobby(plebSession.getLobby()));
-    Collection<Pleb> recipients = userDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
+    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
     lobbyView.setMessages(plebSession.getLobby().getChat().getMessages());
     messageChannel.send("newMsg",recipients);
   }
