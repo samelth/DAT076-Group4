@@ -42,7 +42,11 @@ public class LobbyRequest {
     try {
       plebSession.getLobby().setGame(gameDAO
               .findGameByLobby(plebSession.getLobby()));
-      FacesContext.getCurrentInstance().getExternalContext().redirect("drawpage.xhtml");
+      if(plebSession.isGuesser()) {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("guesspage.xhtml");
+      } else {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("drawpage.xhtml");
+      }
     } catch (IOException ex) {
       Logger.getLogger(LobbyRequest.class.getName()).log(Level.SEVERE, null, ex);
     }

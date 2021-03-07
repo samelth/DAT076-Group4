@@ -22,6 +22,7 @@ import java.util.Optional;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.entity.Game;
 import model.database.entity.Lobby;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
@@ -64,7 +65,7 @@ public class PlebSession implements Serializable {
   }
   
   public List<Word> getDrawingWords(){
-    return getLobby().getGame().getWords();
+    return getGame().getWords();
   }
   
   public void setScore(int score) {
@@ -87,17 +88,25 @@ public class PlebSession implements Serializable {
     if(pleb == null || pleb.getLobby() == null){
       return null; 
     }
-    return pleb.getLobby().getHost(); 
+    return getLobby().getHost();
   }
   
   public Pleb getGuesser() {
     if(pleb == null || pleb.getLobby() == null){
       return null; 
     }
-    return pleb.getLobby().getGame().getGuesser();
+    return getGame().getGuesser();
   }
   
   public int getUser_id(){
     return pleb.getUser_id();
+  }
+  
+  public Game getGame() {
+    return getLobby().getGame();
+  }
+  
+  public boolean isGuesser() {
+    return pleb.equals(getGuesser());
   }
 }
