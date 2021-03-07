@@ -92,9 +92,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       
       <div class="col-4">
         
-        <img src="#{guessView.imgURL}" id="newimg" /> 
+        <img src="#{guessView.imgURL}" id="pic" /> 
         <o:socket channel="messageChannel" user="#{plebSession.pleb}">
-          <f:ajax event="newdrawing" listener="#{guessController.nextPicture()}" render="@all" />
+          <f:ajax event="newPic" listener="#{guessController.nextPicture()}" render="@all" />
         </o:socket>
        
       </div>

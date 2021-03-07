@@ -64,11 +64,11 @@ public class DrawController implements Serializable {
     Picture pic = new Picture();
     pic.setPleb(plebSession.getPleb());
     pic.setUrl(url);
-    pic.setGame(plebSession.getLobby().getGame());
-    pic.setRound(plebSession.getLobby().getGame().getRound());
+    pic.setGame(plebSession.getGame());
+    pic.setRound(plebSession.getGame().getRound());
     pictureDAO.create(pic);
     Pleb guesser = plebSession.getGuesser();
-    messageChannel.send("newdrawing", guesser);
+    messageChannel.send("newPic", guesser);
   }
   
 }
