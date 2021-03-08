@@ -21,7 +21,7 @@ $("#butt").click(function(){
       
       console.log(gamecode.value);
       console.log(username.value);
-    })
+    });
   }); 
 
 function jump(page){
