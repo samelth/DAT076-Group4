@@ -17,6 +17,7 @@
 package frontend.controller;
 
 import frontend.request.DrawRequest;
+import frontend.request.GuessRequest;
 import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
@@ -44,6 +45,7 @@ public class GuessController implements Serializable {
   @Inject private PlebSession plebSession;
   @Inject private GuessView guessView;
   @Inject private DrawRequest drawRequest;
+  @Inject private GuessRequest guessRequest;
   
   @EJB private PictureDAO pictureDAO;
   
@@ -72,7 +74,7 @@ public class GuessController implements Serializable {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed.equalsIgnoreCase(correctWord)) {
-      guessView.setResult("YOU GUESSED RIGHT!");
+      guessRequest.jumpToResult();
     }
     else{
       guessView.setGuessed("YOU GUESSED WRONG");
