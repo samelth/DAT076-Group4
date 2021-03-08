@@ -26,16 +26,13 @@ $("#butt").click(function(){
     });
   }); 
 
-function jump(page){
-  window.location.href = page;
-}
 function hideElem(tag){
   $(tag).hide();
 }
 function showElem(tag){
   $(tag).show();
 }
-function startProgressBar(indentifier){
+function startProgressBar(indentifier){git l
   setInterval( function(){
     updateProgressBar(indentifier);
   } , progressBarDelay);
@@ -82,9 +79,4 @@ function copyToCB(textToCopyID){
     },1000);}
   ,2500);
 }
-
-let toastElList = [].slice.call(document.querySelectorAll('.toast'));
-let toastList = toastElList.map(function (toastEl) {
-  return new bootstrap.Toast(toastEl, option);
-});
 
