@@ -9,6 +9,7 @@ let progressBarVal = 0;
 var progressBarDelay = 1000;
 let totalPlayTime = 20;
 
+
 $("#butt").click(function(){
     console.log("clicked");
  });
@@ -18,6 +19,7 @@ $("#butt").click(function(){
       var gamecode = document.getElementById("gameCode");
       var username = document.getElementById("playerUsername");
       var countdown = document.getElementById("countdown").innerHTML; 
+      
       
       console.log(gamecode.value);
       console.log(username.value);
@@ -45,6 +47,9 @@ function playTime (countdown) {
     clearInterval(playTime);
     $(countdown).text("TIME!");
     $("#screenshot").click();
+    var btn = document.getElementById("fr:guessbtn");
+    btn.click();
+    console.log("HEJ");
   } else {
     $(countdown).text(totalPlayTime);
   }
@@ -78,8 +83,8 @@ function copyToCB(textToCopyID){
   ,2500);
 }
 
-let toastElList = [].slice.call(document.querySelectorAll('.toast'))
+let toastElList = [].slice.call(document.querySelectorAll('.toast'));
 let toastList = toastElList.map(function (toastEl) {
-  return new bootstrap.Toast(toastEl, option)
-})
+  return new bootstrap.Toast(toastEl, option);
+});
 
