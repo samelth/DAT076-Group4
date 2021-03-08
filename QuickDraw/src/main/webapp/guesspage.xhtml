@@ -105,8 +105,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <div class="col-4">
         <h:form id="fr">
           <p:growl showDetail="true"/>
-          <p:inputText placeholder="What do you guess?" id="input" value="#{guessView.guessed}"></p:inputText>
-          <p:commandButton id="guessbtn" styleClass="ui-button-info" value="GUESS" validateClient="true" ajax="false">
+          <p:inputText placeholder="What do you guess?" id="input" value="#{guessView.guessed}" autocomplete="off"></p:inputText>
+          <p:commandButton styleClass="ui-button-info" value="GUESS" validateClient="true" ajax="false">
             <f:actionListener binding="#{guessController.guess()}"></f:actionListener>
           </p:commandButton>
         </h:form>

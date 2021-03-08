@@ -86,7 +86,7 @@
               </p:dataScroller>
             </p:outputPanel>
         <h:form id="chatForm">
-          <p:inputText id="inputChat" value="#{lobbyView.newMessage}"></p:inputText>
+          <p:inputText id="inputChat" value="#{lobbyView.newMessage}" autocomplete="off"></p:inputText>
           <p:commandButton style="float:right; margin-top:.5rem;" styleClass="ui-button-info" value="Send" action="#{lobbyController.onPostNewMessage()}" update="inputChat"></p:commandButton>
         </h:form>
       </div>
