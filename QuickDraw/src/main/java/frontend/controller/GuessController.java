@@ -17,6 +17,7 @@
 package frontend.controller;
 
 import frontend.request.DrawRequest;
+import frontend.request.GuessRequest;
 import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
@@ -30,7 +31,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.PictureDAO;
+import model.database.dao.PlebDAO;
 import model.database.entity.Picture;
+import model.database.entity.Pleb;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -44,11 +47,14 @@ public class GuessController implements Serializable {
   @Inject private PlebSession plebSession;
   @Inject private GuessView guessView;
   @Inject private DrawRequest drawRequest;
+  @Inject private GuessRequest guessRequest;
   
   @EJB private PictureDAO pictureDAO;
+  @EJB private PlebDAO pledDAO;
   
   private Queue<String> submissions;
   private boolean guessing;
+  Picture pic;
   
   @PostConstruct
   public void init() {
@@ -56,7 +62,7 @@ public class GuessController implements Serializable {
   }
   
   public void newPicture() {
-    Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
+    pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
     submissions.add(String.valueOf(pic.getUrl()));
     pictureDAO.remove(pic);
     if(!guessing) {
@@ -70,9 +76,12 @@ public class GuessController implements Serializable {
   
   public void guess() {
     String guessed = guessView.getGuessed();
-    String correctWord = drawRequest.nextWord().getWord();
+    String correctWord = drawRequest.currentWord().getWord();
     if(guessed.equalsIgnoreCase(correctWord)) {
-      guessView.setResult("YOU GUESSED RIGHT!");
+      Pleb p = pic.getPleb();
+      p.setScore(100);
+      pledDAO.update(p);
+      guessRequest.jumpToResult();
     }
     else{
       guessView.setGuessed("YOU GUESSED WRONG");
