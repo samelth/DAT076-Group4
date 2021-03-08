@@ -27,6 +27,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import jdk.javadoc.internal.tool.Main;
 import lombok.Data;
 import model.database.dao.ChatDAO;
 import model.database.entity.Message;
@@ -40,6 +41,7 @@ import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -59,6 +61,8 @@ public class LobbyController implements Serializable{
   @EJB private LobbyDAO lobbyDAO;
   @EJB private MessageDAO messageDAO;
   @EJB private ChatDAO chatDAO;
+  
+  private String chatInput;
   
   public List<Pleb> plebsInLobby(){
     return plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
@@ -101,6 +105,7 @@ public class LobbyController implements Serializable{
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
     lobbyView.setMessages(plebSession.getLobby().getChat().getMessages());
     messageChannel.send("newMsg",recipients);
+    lobbyView.setNewMessage("");
   }
    
 }
