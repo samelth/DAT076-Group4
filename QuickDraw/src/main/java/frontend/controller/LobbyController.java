@@ -27,7 +27,6 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import jdk.javadoc.internal.tool.Main;
 import lombok.Data;
 import model.database.dao.ChatDAO;
 import model.database.entity.Message;
@@ -41,7 +40,6 @@ import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
-import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -63,6 +61,7 @@ public class LobbyController implements Serializable{
   @EJB private ChatDAO chatDAO;
   
   private String chatInput;
+
   
   public List<Pleb> plebsInLobby(){
     return plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
@@ -81,9 +80,9 @@ public class LobbyController implements Serializable{
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     List<Pleb> plebs = new ArrayList<>(recipients);
     Collections.shuffle(plebs);
-    List<Word> words = wordDAO.findWordsByLevel(1);
+    List<Word> words = wordDAO.findWordsByLevel(lobbyView.getDifficulty());
     Collections.shuffle(words);
-    g.setLvl(1); //TODO: fetch level from input
+    g.setLvl(lobbyView.getDifficulty()); 
     g.setRound(1);
     g.setGuesser(plebs.get(0));
     g.setLobby(plebSession.getLobby());

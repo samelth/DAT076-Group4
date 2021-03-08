@@ -31,8 +31,7 @@ import model.database.entity.Message;
 @Named("lobbyView")
 @ViewScoped
 public class LobbyView implements Serializable {
-
   private String newMessage;
   private List<Message> messages;
-  
+  private int difficulty = 1;
 }
