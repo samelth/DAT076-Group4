@@ -20,6 +20,8 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -30,7 +32,8 @@ import lombok.Data;
 @Named("indexView")
 @ViewScoped
 public class IndexView implements Serializable {
-
+  @Size(max = 12,message = "Please choose a username that is not longer than 12 characters")
   @NotEmpty(message = "Please insert a username")
+  @Pattern(regexp = "[a-zA-Z0-9]+", message = "Please insert only numbers and letters in the username")
   private String inputUsername;
 }
