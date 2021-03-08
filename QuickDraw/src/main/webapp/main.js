@@ -79,12 +79,16 @@ function copyToCB(textToCopyID){
     $("#alert").animate({
       opacity: 0,
       top: "+=8.2vh"
-    },1000)}
+    },1000);}
   ,2500);
 }
 
 let toastElList = [].slice.call(document.querySelectorAll('.toast'));
 let toastList = toastElList.map(function (toastEl) {
+<<<<<<< HEAD
   return new bootstrap.Toast(toastEl, option);
+=======
+  return new bootstrap.Toast(toastEl, option)
+>>>>>>> added closing semicolons on lines that should be close
 });
 
