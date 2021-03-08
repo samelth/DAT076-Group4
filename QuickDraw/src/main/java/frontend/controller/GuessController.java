@@ -54,7 +54,7 @@ public class GuessController implements Serializable {
   
   private Queue<String> submissions;
   private boolean guessing;
-  Picture pic;
+  private Picture pic;
   
   @PostConstruct
   public void init() {
@@ -65,12 +65,21 @@ public class GuessController implements Serializable {
     pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
     submissions.add(String.valueOf(pic.getUrl()));
     pictureDAO.remove(pic);
-    if(!guessing) {
-      guessing = true;
-      guessView.setImgURL(submissions.remove());
-      FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
-      PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
-      PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+    showPicture();
+  }
+  
+  public void showPicture(){
+    if(submissions.isEmpty()){
+      guessRequest.jumpToResult();
+    }
+    else {
+      if(!guessing) {
+        guessing = true;
+        guessView.setImgURL(submissions.remove());
+        FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+        PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
+        PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+      }
     }
   }
   
@@ -84,8 +93,8 @@ public class GuessController implements Serializable {
       guessRequest.jumpToResult();
     }
     else{
-      guessView.setGuessed("YOU GUESSED WRONG");
+      guessing = false;
+      showPicture();
     }
-    
   }
 }
