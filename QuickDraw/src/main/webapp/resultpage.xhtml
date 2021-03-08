@@ -76,12 +76,12 @@ and open the template in the editor.
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="NEXT GAME" validateClient="true" ajax="false">
-            <f:actionListener binding="#{resultController.startNextGame()}"></f:actionListener>
+          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="NEXT ROUND" validateClient="true" ajax="false">
+            <f:actionListener binding="#{resultController.startNextRound()}"></f:actionListener>
           </p:commandButton>
         </h:form>
         <o:socket channel="messageChannel" user="#{plebSession.pleb}">
-          <f:ajax event="nextGame" listener="#{lobbyRequest.jumpToGame()}" />
+          <f:ajax event="nextRound" listener="#{lobbyRequest.jumpToGame()}" />
         </o:socket>
       </div>
 

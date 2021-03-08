@@ -51,7 +51,7 @@ public class ResultController implements Serializable {
   @EJB GameDAO gameDAO;
   @EJB LobbyDAO lobbyDAO;
   
-  public void startNextGame() {
+  public void startNextRound() {
     Game g = plebSession.getGame();
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     List<Pleb> plebs = new ArrayList<>(recipients);
@@ -66,6 +66,6 @@ public class ResultController implements Serializable {
     plebSession.getLobby().setGame(g);
     gameDAO.update(g);
     lobbyDAO.update(plebSession.getLobby());
-    messageChannel.send("nextGame",recipients);
+    messageChannel.send("nextRound",recipients);
   }
 }
