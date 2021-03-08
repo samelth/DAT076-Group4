@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -63,6 +64,7 @@ public class LobbyController implements Serializable{
   @EJB private ChatDAO chatDAO;
   
   private String chatInput;
+
   
   public List<Pleb> plebsInLobby(){
     return plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
@@ -81,9 +83,9 @@ public class LobbyController implements Serializable{
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     List<Pleb> plebs = new ArrayList<>(recipients);
     Collections.shuffle(plebs);
-    List<Word> words = wordDAO.findWordsByLevel(1);
+    List<Word> words = wordDAO.findWordsByLevel(lobbyView.getDifficulty());
     Collections.shuffle(words);
-    g.setLvl(1); //TODO: fetch level from input
+    g.setLvl(lobbyView.getDifficulty()); 
     g.setRound(1);
     g.setGuesser(plebs.get(0));
     g.setLobby(plebSession.getLobby());
