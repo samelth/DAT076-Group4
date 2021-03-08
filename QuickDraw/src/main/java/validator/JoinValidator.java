@@ -54,15 +54,15 @@ public class JoinValidator implements Validator {
    * @see javax.faces.validator.Validator
    */
   @Override
-  public void validate(FacesContext fc, UIComponent uic, Object t) throws ValidatorException {
+  public void validate(FacesContext fc, UIComponent uic, Object usernameIn) throws ValidatorException {
 
     final UIInput lidComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
 
     //Input to validate
-    if (lidComponent == null || t == null) {
+    if (lidComponent == null || usernameIn == null) {
       return;
     }
-    final String username = t.toString();
+    final String username = usernameIn.toString();
     final String lobbyHexLid = (String) lidComponent.getValue();
     Lobby lobby = null;
     try {
