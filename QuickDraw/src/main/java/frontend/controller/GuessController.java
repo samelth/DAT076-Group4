@@ -67,7 +67,7 @@ public class GuessController implements Serializable {
   
   public void guess() {
     String guessed = guessView.getGuessed();
-    String correctWord = drawRequest.nextWord().getWord();
+    String correctWord = drawRequest.currentWord().getWord();
     if(guessed.equalsIgnoreCase(correctWord)) {
       guessView.setResult("YOU GUESSED RIGHT!");
     }
