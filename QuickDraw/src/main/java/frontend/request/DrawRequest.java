@@ -32,11 +32,11 @@ public class DrawRequest {
   @Inject private PlebSession plebSession;
   
   public Word nextWord() {
-    return plebSession.getDrawingWords().remove(0);
+    return plebSession.getWords().remove(0);
   }
   
   public Word currentWord() {
-    return plebSession.getDrawingWords().get(0);
+    return plebSession.getWords().get(0);
   }
 
 }

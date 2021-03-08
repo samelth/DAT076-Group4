@@ -64,7 +64,7 @@ public class PlebSession implements Serializable {
     return pleb.getUsername();
   }
   
-  public List<Word> getDrawingWords(){
+  public List<Word> getWords(){
     return getGame().getWords();
   }
   

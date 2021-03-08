@@ -31,6 +31,7 @@ import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.PictureDAO;
 import model.database.entity.Picture;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -62,6 +63,8 @@ public class GuessController implements Serializable {
       guessing = true;
       guessView.setImgURL(submissions.remove());
       FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+      PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
+      PrimeFaces.current().executeScript("playTime(\"#countdown\");");
     }
   }
   
@@ -74,5 +77,6 @@ public class GuessController implements Serializable {
     else{
       guessView.setGuessed("YOU GUESSED WRONG");
     }
+    
   }
 }
