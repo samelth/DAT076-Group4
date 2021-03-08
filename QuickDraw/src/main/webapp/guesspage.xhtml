@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <link href="https://fonts.googleapis.com/css2?family=Jaldi&#38;display=swap" rel="stylesheet"></link>
     <link rel="stylesheet" href="styles.css"></link>
     <script src="main.js"></script>
-    <script src="canvas.js"></script>   
+    <script src="canvas.js"></script>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <title>guesspage</title>
@@ -103,10 +103,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <div class="col-4"></div>
        
       <div class="col-4">
-        <h:form>
+        <h:form id="fr">
           <p:growl showDetail="true"/>
           <p:inputText placeholder="What do you guess?" id="input" value="#{guessView.guessed}"></p:inputText>
-          <p:commandButton styleClass="ui-button-info" value="GUESS" validateClient="true" ajax="false">
+          <p:commandButton id="guessbtn" styleClass="ui-button-info" value="GUESS" validateClient="true" ajax="false">
             <f:actionListener binding="#{guessController.guess()}"></f:actionListener>
           </p:commandButton>
         </h:form>
