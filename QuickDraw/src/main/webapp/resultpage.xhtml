@@ -50,7 +50,7 @@ and open the template in the editor.
         </div>
       </div>
       <div class="col-2">
-        <div class="col scoreboard backgroundblue" style="padding-left: 20%;">
+        <div class="col scoreboard backgroundblue">
           <h3 style="padding-top:10px">SCOREBOARD</h3>
           <h:form>
             <h:dataTable value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
@@ -76,7 +76,7 @@ and open the template in the editor.
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND" validateClient="true" ajax="false">
+          <p:commandButton rendered ="#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND" validateClient="true" ajax="false">
             <f:actionListener binding="#{resultController.startNextRound()}"></f:actionListener>
           </p:commandButton>
         </h:form>

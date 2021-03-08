@@ -43,7 +43,7 @@
           <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false">
             <f:actionListener binding="#{lobbyController.startNewGame()}"></f:actionListener>
           </p:commandButton>
-          <p:selectOneMenu rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
+          <p:selectOneMenu style="float:right; padding: 0px;" rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
             <p:ajax event="itemSelect" update = "form"></p:ajax>
             <f:selectItem itemLabel="Easy" itemValue="1"/>
             <f:selectItem itemLabel="Medium" itemValue="2"/>
