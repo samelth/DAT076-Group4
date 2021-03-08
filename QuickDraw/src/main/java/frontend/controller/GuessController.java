@@ -21,6 +21,7 @@ import frontend.request.GuessRequest;
 import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
@@ -35,6 +36,8 @@ import model.database.dao.PictureDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Picture;
 import model.database.entity.Pleb;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -49,9 +52,10 @@ public class GuessController implements Serializable {
   @Inject private GuessView guessView;
   @Inject private DrawRequest drawRequest;
   @Inject private GuessRequest guessRequest;
+  @Inject @Push private PushContext scoreChannel;
   
   @EJB private PictureDAO pictureDAO;
-  @EJB private PlebDAO pledDAO;
+  @EJB private PlebDAO plebDAO;
   
   private Queue<String> submissions;
   private boolean guessing;
@@ -73,7 +77,7 @@ public class GuessController implements Serializable {
   }
   
   public void showPicture(){
-    if(submissions.isEmpty() && count == pledDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
+    if(submissions.isEmpty() && count == plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
       guessRequest.jumpToResult();
     }
     else {
@@ -93,12 +97,14 @@ public class GuessController implements Serializable {
   }
   
   public void guess() {
+    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
       Pleb p = pic.getPleb();
       p.setScore(100);
-      pledDAO.update(p);
+      plebDAO.update(p);
+      scoreChannel.send("newScore",recipients);
       guessRequest.jumpToResult();
     }
     else{

@@ -53,10 +53,13 @@ and open the template in the editor.
         <div class="col scoreboard backgroundblue">
           <h3 style="text-align:center;padding-top:10px">SCOREBOARD</h3>
           <h:form>
-            <h:dataTable value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
+            <h:dataTable id="plebList" value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
               <h:column>#{pleb.username}</h:column>
               <h:column>#{pleb.score}</h:column>
             </h:dataTable>
+            <o:socket channel="scoreChannel" user="#{plebSession.pleb}">
+              <f:ajax event="newScore" render="plebList"></f:ajax>
+            </o:socket>
           </h:form>'
         </div>
       </div>
