@@ -42,8 +42,8 @@ and open the template in the editor.
       <div class="col-2 roundedEdge backgroundteal">
         <div id ="t1" style="color: var(--babyblue)">   
           <h:form>
-            <h:dataTable value="#{lobbyController.plebsInLobby()}" var="player" rows="10">
-              <h:column>#{player.getUsername()}</h:column>
+            <h:dataTable value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
+              <h:column>#{pleb.username}</h:column>
             </h:dataTable>
           </h:form>
         </div>
@@ -51,11 +51,12 @@ and open the template in the editor.
       <div class="col-2">
         <div class="col scoreboard backgroundblue">
           <h3 style="text-align:center;padding-top:10px">SCOREBOARD</h3>
-          <ol>
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
-          </ol>
+          <h:form>
+            <h:dataTable value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
+              <h:column>#{pleb.username}</h:column>
+              <h:column>#{pleb.score}</h:column>
+            </h:dataTable>
+          </h:form>'
         </div>
       </div>
       <div class="col-3"></div>
