@@ -32,7 +32,7 @@ function hideElem(tag){
 function showElem(tag){
   $(tag).show();
 }
-function startProgressBar(indentifier){git l
+function startProgressBar(indentifier){
   setInterval( function(){
     updateProgressBar(indentifier);
   } , progressBarDelay);
