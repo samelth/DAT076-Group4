@@ -85,10 +85,6 @@ function copyToCB(textToCopyID){
 
 let toastElList = [].slice.call(document.querySelectorAll('.toast'));
 let toastList = toastElList.map(function (toastEl) {
-<<<<<<< HEAD
   return new bootstrap.Toast(toastEl, option);
-=======
-  return new bootstrap.Toast(toastEl, option)
->>>>>>> added closing semicolons on lines that should be close
 });
 
