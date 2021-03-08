@@ -215,9 +215,12 @@ canvas {
 }
 
 .roundedEdge {
-  border-radius: 5px 5px 5px 5px;
+border-radius: 5px 5px 5px 5px;
 }
 
+body .ui-datascroller .ui-datascroller-content {
+  border-radius: 5px 5px 5px 5px;
+}
 .progress {
   border-radius: 0px 0px 0px 5px;
 }
