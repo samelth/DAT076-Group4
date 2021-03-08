@@ -22,6 +22,7 @@ import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,7 +32,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.PictureDAO;
+import model.database.dao.PlebDAO;
 import model.database.entity.Picture;
+import model.database.entity.Pleb;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -48,37 +51,59 @@ public class GuessController implements Serializable {
   @Inject private GuessRequest guessRequest;
   
   @EJB private PictureDAO pictureDAO;
+  @EJB private PlebDAO pledDAO;
   
   private Queue<String> submissions;
   private boolean guessing;
+  private Picture pic;
+  private int count;
   
   @PostConstruct
   public void init() {
     submissions = new LinkedList<>();
+    count = 1;
   }
   
   public void newPicture() {
-    Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
+    pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
     submissions.add(String.valueOf(pic.getUrl()));
     pictureDAO.remove(pic);
-    if(!guessing) {
-      guessing = true;
-      guessView.setImgURL(submissions.remove());
-      FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
-      PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
-      PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+    count ++;
+    showPicture();
+  }
+  
+  public void showPicture(){
+    if(submissions.isEmpty() && count == pledDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
+      guessRequest.jumpToResult();
+    }
+    else {
+      if(!guessing) {
+        try{
+          guessing = true;
+          guessView.setImgURL(submissions.remove());
+          FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+          PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
+          PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+        } catch(NoSuchElementException e){
+          guessView.setImgURL("");
+          guessing = false;
+        }
+      }
     }
   }
   
   public void guess() {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
-    if(guessed.equalsIgnoreCase(correctWord)) {
+    if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
+      Pleb p = pic.getPleb();
+      p.setScore(100);
+      pledDAO.update(p);
       guessRequest.jumpToResult();
     }
     else{
-      guessView.setGuessed("YOU GUESSED WRONG");
+      guessing = false;
+      showPicture();
     }
-    
   }
 }

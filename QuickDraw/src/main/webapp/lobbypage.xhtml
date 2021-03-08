@@ -75,7 +75,6 @@
             <f:ajax event="playerJoined" render="playerList"></f:ajax>
             <f:ajax event="jumpToGame" listener="#{lobbyRequest.jumpToGame()}"></f:ajax>
             <f:ajax event="newMsg" render="messages"></f:ajax>
-            <f:ajax event="newMsg"></f:ajax>
           </o:socket>
               
         </div>
@@ -86,9 +85,9 @@
                 #{msg.username}: #{msg.content}
               </p:dataScroller>
             </p:outputPanel>
-        <h:form>
-          <p:inputText id="inputChat" value="#{lobbyView.newMessage}"></p:inputText>
-          <p:commandButton style="float:right; margin-top:.5rem;" styleClass="ui-button-info" value="Send" action="#{lobbyController.onPostNewMessage()}"></p:commandButton>
+        <h:form id="chatForm">
+          <p:inputText id="inputChat" value="#{lobbyView.newMessage}" autocomplete="off"></p:inputText>
+          <p:commandButton style="float:right; margin-top:.5rem;" styleClass="ui-button-info" value="Send" action="#{lobbyController.onPostNewMessage()}" update="inputChat"></p:commandButton>
         </h:form>
       </div>
       

@@ -29,7 +29,7 @@
       <div class="col-2">
         <h:form>
           <p:growl showDetail="true"/>
-          <p:inputText placeholder="Username" id="input" value="#{indexView.inputUsername}"></p:inputText>
+          <p:inputText placeholder="Username" id="input" value="#{indexView.inputUsername}" autocomplete="off"></p:inputText>
           <p:commandButton styleClass="ui-button-info" style="float:right; margin-top: .5rem;" value="HOST LOBBY" action="lobbypage" validateClient="true" ajax="false">
             <f:actionListener binding="#{indexController.hostNewLobby()}"></f:actionListener>
           </p:commandButton>
