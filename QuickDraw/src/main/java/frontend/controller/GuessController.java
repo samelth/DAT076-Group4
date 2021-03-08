@@ -22,6 +22,7 @@ import frontend.session.PlebSession;
 import frontend.view.GuessView;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -55,30 +56,38 @@ public class GuessController implements Serializable {
   private Queue<String> submissions;
   private boolean guessing;
   private Picture pic;
+  private int count;
   
   @PostConstruct
   public void init() {
     submissions = new LinkedList<>();
+    count = 1;
   }
   
   public void newPicture() {
     pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
     submissions.add(String.valueOf(pic.getUrl()));
     pictureDAO.remove(pic);
+    count ++;
     showPicture();
   }
   
   public void showPicture(){
-    if(submissions.isEmpty()){
+    if(submissions.isEmpty() && count == pledDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
       guessRequest.jumpToResult();
     }
     else {
       if(!guessing) {
-        guessing = true;
-        guessView.setImgURL(submissions.remove());
-        FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
-        PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
-        PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+        try{
+          guessing = true;
+          guessView.setImgURL(submissions.remove());
+          FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+          PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
+          PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+        } catch(NoSuchElementException e){
+          guessView.setImgURL("");
+          guessing = false;
+        }
       }
     }
   }
@@ -86,7 +95,7 @@ public class GuessController implements Serializable {
   public void guess() {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
-    if(guessed.equalsIgnoreCase(correctWord)) {
+    if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
       Pleb p = pic.getPleb();
       p.setScore(100);
       pledDAO.update(p);
