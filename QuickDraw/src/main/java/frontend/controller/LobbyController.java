@@ -23,12 +23,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import jdk.javadoc.internal.tool.Main;
 import lombok.Data;
 import model.database.dao.ChatDAO;
 import model.database.entity.Message;
@@ -42,7 +40,6 @@ import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
-import org.primefaces.PrimeFaces;
 
 /**
  *
