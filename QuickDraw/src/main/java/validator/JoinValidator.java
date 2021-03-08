@@ -58,12 +58,14 @@ public class JoinValidator implements Validator {
 
     final UIInput lidComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
 
-    //Input to validate
-    if (lidComponent == null || usernameIn == null) {
+    //Check lobby exists
+    if (lidComponent == null) {
       return;
     }
-    final String username = usernameIn.toString();
     final String lobbyHexLid = (String) lidComponent.getValue();
+    if(lobbyHexLid == null){
+      return; 
+    }
     Lobby lobby = null;
     try {
       lobby = lobbyDAO.findLobbyByHexLid(lobbyHexLid);
@@ -74,6 +76,12 @@ public class JoinValidator implements Validator {
     if (lobbyNotExist) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));
     }
+    
+    //Check if username exists in lobby
+    if (usernameIn == null) {
+      return;
+    }
+    final String username = usernameIn.toString();
     final boolean usernameExistinLobby = usernameExistinLobby(lobby, username);
     if (usernameExistinLobby) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY));
