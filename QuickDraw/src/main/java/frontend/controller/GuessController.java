@@ -48,11 +48,11 @@ import org.primefaces.PrimeFaces;
 @Named("guessController")
 @ViewScoped
 public class GuessController implements Serializable {
-  @Inject private PlebSession plebSession;
-  @Inject private GuessView guessView;
-  @Inject private DrawRequest drawRequest;
-  @Inject private GuessRequest guessRequest;
   @Inject @Push private PushContext scoreChannel;
+  @Inject       private PlebSession plebSession;
+  @Inject       private GuessView guessView;
+  @Inject       private DrawRequest drawRequest;
+  @Inject       private GuessRequest guessRequest;
   
   @EJB private PictureDAO pictureDAO;
   @EJB private PlebDAO plebDAO;
@@ -77,6 +77,7 @@ public class GuessController implements Serializable {
   }
   
   public void showPicture(){
+    // If all players has submitted and guesser has seen all pictures, jump to result.
     if(submissions.isEmpty() && count == plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
       guessRequest.jumpToResult();
     }
@@ -89,6 +90,7 @@ public class GuessController implements Serializable {
           PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
           PrimeFaces.current().executeScript("playTime(\"#countdown\");");
         } catch(NoSuchElementException e){
+          // Set empty picture and wait for next player to submit
           guessView.setImgURL("");
           guessing = false;
         }
