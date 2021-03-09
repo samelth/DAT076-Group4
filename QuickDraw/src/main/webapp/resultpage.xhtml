@@ -52,8 +52,8 @@ and open the template in the editor.
       <div class="col-2">
         <div class="col scoreboard backgroundblue">
           <h3 style="padding-top:10px">SCOREBOARD</h3>
-          <h:form>
-            <h:dataTable id="plebList" value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
+          <h:form id="plebList">
+            <h:dataTable  value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
               <h:column>#{pleb.username}</h:column>
               <h:column class="col-1">#{pleb.score}</h:column>
             </h:dataTable>
