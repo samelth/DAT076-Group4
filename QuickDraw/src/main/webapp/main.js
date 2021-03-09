@@ -26,9 +26,6 @@ $("#butt").click(function(){
     });
   }); 
 
-function jump(page){
-  window.location.href = page;
-}
 function hideElem(tag){
   $(tag).hide();
 }
@@ -79,12 +76,7 @@ function copyToCB(textToCopyID){
     $("#alert").animate({
       opacity: 0,
       top: "+=8.2vh"
-    },1000)}
+    },1000);}
   ,2500);
 }
-
-let toastElList = [].slice.call(document.querySelectorAll('.toast'));
-let toastList = toastElList.map(function (toastEl) {
-  return new bootstrap.Toast(toastEl, option);
-});
 

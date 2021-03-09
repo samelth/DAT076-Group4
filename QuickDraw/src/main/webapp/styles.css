@@ -54,17 +54,21 @@ td {
 
 /*DATATABLES AND CHILDREN*/
 /*Adds a different color to the host*/
-tbody>tr:nth-child(1) { /* etc */
+#t1 tbody>tr:nth-child(1) { /* etc */
   color: #ecd680;
   font-weight: bold;
 }
 
 /*Adds (host) text to host*/
-tbody>tr:nth-child(1)::before {
+#t1 tbody>tr:nth-child(1)::before {
   font-weight: bold;
   color: #ecd680;
   content: "(host)";
   padding-right: 5px;
+}
+
+body .ui-selectonemenu .ui-selectonemenu-label {
+  padding-top: 0px;
 }
 
 /*HEADERS*/
@@ -190,7 +194,7 @@ body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui
 }
 
 body .ui-inputfield {
-  width: 50%;
+  width: 45%;
   padding-left: 10px;
   border-radius: 2px;
   background: white;
@@ -233,6 +237,8 @@ body .ui-datascroller .ui-datascroller-content {
 .scoreboard {
   margin-left: 15px;
   border-radius: 5px 5px 5px 5px;
+  padding-left: 20%;
+  padding-bottom:10px;
 }
 
 .row {

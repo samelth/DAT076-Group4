@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"></link>
     <link href="https://fonts.googleapis.com/css2?family=Jaldi&#38;display=swap" rel="stylesheet"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <link rel="stylesheet" href="styles.css"></link>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -36,11 +38,21 @@
 
       </div>
       <div class="col-2" style="margin-left:15px; margin-right:15px">
-        <h:form>
+        <h:form id="form">
+    
           <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false">
             <f:actionListener binding="#{lobbyController.startNewGame()}"></f:actionListener>
           </p:commandButton>
+          <p:selectOneMenu style="float:right; padding: 0px;" rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
+            <p:ajax event="itemSelect" update = "form"></p:ajax>
+            <f:selectItem itemLabel="Easy" itemValue="1"/>
+            <f:selectItem itemLabel="Medium" itemValue="2"/>
+            <f:selectItem itemLabel="Hard" itemValue="3"/>
+          </p:selectOneMenu>
         </h:form>
+
+                  
+       
       </div>
       <div class="col-5">
       </div>
@@ -62,6 +74,7 @@
         <p> • Last, but not least: ENJOY THE GAME!
         </p>          
       </div>
+     
       <div class="col-2 roundedEdge backgroundteal" style="margin-left:15px; margin-right:15px">
         <div id ="t1" style="padding-left: 25px;color: var(--babyblue)">   
           <h:form id="playerList">          

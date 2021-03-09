@@ -51,11 +51,11 @@ and open the template in the editor.
       </div>
       <div class="col-2">
         <div class="col scoreboard backgroundblue">
-          <h3 style="text-align:center;padding-top:10px">SCOREBOARD</h3>
+          <h3 style="padding-top:10px">SCOREBOARD</h3>
           <h:form>
             <h:dataTable id="plebList" value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
               <h:column>#{pleb.username}</h:column>
-              <h:column>#{pleb.score}</h:column>
+              <h:column class="col-1">#{pleb.score}</h:column>
             </h:dataTable>
             <o:socket channel="scoreChannel" user="#{plebSession.pleb}">
               <f:ajax event="newScore" render="plebList"></f:ajax>
@@ -75,11 +75,11 @@ and open the template in the editor.
       <!-- THE MIDDLE OF THE SCREEN (THE MEAT) -->
       <div class="col-2">
         <h:form>
-          <p:commandButton styleClass="ui-button-info" style="margin-top: .5rem;" value="MAIN MENU" action="index">
+          <p:commandButton styleClass="ui-button-info" style="margin-top: .5rem; float: left;" value="MAIN MENU" action="index">
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="NEXT ROUND" validateClient="true" ajax="false">
+          <p:commandButton rendered ="#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND" validateClient="true" ajax="false">
             <f:actionListener binding="#{resultController.startNextRound()}"></f:actionListener>
           </p:commandButton>
         </h:form>
@@ -94,4 +94,3 @@ and open the template in the editor.
     </div>
   </h:body>
 </html>
-
