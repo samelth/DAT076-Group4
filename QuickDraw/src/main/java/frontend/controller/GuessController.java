@@ -57,9 +57,8 @@ public class GuessController implements Serializable {
   @EJB private PictureDAO pictureDAO;
   @EJB private PlebDAO plebDAO;
   
-  private Queue<String> submissions;
+  private Queue<Picture> submissions;
   private boolean guessing;
-  private Picture pic;
   private int count;
   
   @PostConstruct
@@ -69,8 +68,8 @@ public class GuessController implements Serializable {
   }
   
   public void newPicture() {
-    pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
-    submissions.add(String.valueOf(pic.getUrl()));
+    Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
+    submissions.add(pic);
     pictureDAO.remove(pic);
     count ++;
     showPicture();
@@ -85,7 +84,7 @@ public class GuessController implements Serializable {
       if(!guessing) {
         try{
           guessing = true;
-          guessView.setImgURL(submissions.remove());
+          guessView.setImgURL(String.valueOf(submissions.peek().getUrl()));
           FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
           PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
           PrimeFaces.current().executeScript("playTime(\"#countdown\");");
@@ -103,13 +102,14 @@ public class GuessController implements Serializable {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
-      Pleb p = pic.getPleb();
-      p.setScore(100);
+      Pleb p = submissions.remove().getPleb();
+      p.setScore(p.getScore() + 100);
       plebDAO.update(p);
       scoreChannel.send("newScore",recipients);
       guessRequest.jumpToResult();
     }
     else{
+      submissions.remove();
       guessing = false;
       showPicture();
     }
