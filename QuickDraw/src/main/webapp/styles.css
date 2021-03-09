@@ -237,7 +237,8 @@ body .ui-datascroller .ui-datascroller-content {
 .scoreboard {
   margin-left: 15px;
   border-radius: 5px 5px 5px 5px;
-  padding-left: 20%;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom:10px;
 }
 
