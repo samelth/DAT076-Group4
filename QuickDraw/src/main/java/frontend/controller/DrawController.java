@@ -41,11 +41,11 @@ import org.omnifaces.cdi.PushContext;
 @Named("drawController")
 @ViewScoped
 public class DrawController implements Serializable {
-  @Inject @Push private PushContext messageChannel;
+  @Inject @Push private PushContext guessChannel;
   @Inject       private PlebSession plebSession;
   @Inject       private DrawView drawView;
   @Inject       private DrawRequest drawRequest;
-  
+ 
   @EJB private WordDAO wordDAO;
   @EJB private GameDAO gameDAO;
   @EJB private PictureDAO pictureDAO;
@@ -66,9 +66,9 @@ public class DrawController implements Serializable {
     pic.setUrl(url);
     pic.setGame(plebSession.getGame());
     pic.setRound(plebSession.getGame().getRound());
-    pictureDAO.create(pic);
+    pictureDAO.update(pic);
     Pleb guesser = plebSession.getGuesser();
-    messageChannel.send("newPic", guesser);
+    guessChannel.send("newPic", guesser);
   }
   
 }

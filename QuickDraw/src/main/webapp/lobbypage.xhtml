@@ -40,9 +40,8 @@
       <div class="col-2" style="margin-left:15px; margin-right:15px">
         <h:form id="form">
     
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false">
-            <f:actionListener binding="#{lobbyController.startNewGame()}"></f:actionListener>
-          </p:commandButton>
+          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false" action="#{lobbyController.startNewGame()}"/>
+ 
           <p:selectOneMenu style="float:right; padding: 0px;" rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
             <p:ajax event="itemSelect" update = "form"></p:ajax>
             <f:selectItem itemLabel="Easy" itemValue="1"/>
@@ -84,7 +83,7 @@
             <span class="ref"> </span>
 
           </h:form>
-          <o:socket channel="messageChannel" user="#{plebSession.pleb}">
+          <o:socket port="8080" channel="messageChannel" user="#{plebSession.pleb}">
             <f:ajax event="playerJoined" render="playerList"></f:ajax>
             <f:ajax event="jumpToGame" listener="#{lobbyRequest.jumpToGame()}"></f:ajax>
             <f:ajax event="newMsg" render="messages"></f:ajax>

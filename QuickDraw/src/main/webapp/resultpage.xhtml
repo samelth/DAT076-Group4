@@ -21,6 +21,7 @@ and open the template in the editor.
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <title>resultpage</title>
+    <script src= "main.js"></script>
   </h:head>
   <h:body>
     <!-- Bootstrap Bundle with Popper -->
@@ -57,7 +58,7 @@ and open the template in the editor.
               <h:column>#{pleb.username}</h:column>
               <h:column class="col-1">#{pleb.score}</h:column>
             </h:dataTable>
-            <o:socket channel="scoreChannel" user="#{plebSession.pleb}">
+            <o:socket port="8080" channel="scoreChannel" user="#{plebSession.pleb}">
               <f:ajax event="newScore" render="plebList"></f:ajax>
             </o:socket>
           </h:form>'
@@ -79,11 +80,9 @@ and open the template in the editor.
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered ="#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND" validateClient="true" ajax="false">
-            <f:actionListener binding="#{resultController.startNextRound()}"></f:actionListener>
-          </p:commandButton>
+          <p:commandButton rendered ="#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND"  ajax="false" action="#{resultController.startNextRound()}"/>
         </h:form>
-        <o:socket channel="messageChannel" user="#{plebSession.pleb}">
+        <o:socket port="8080" channel="resultChannel" user="#{plebSession.pleb}">
           <f:ajax event="nextRound" listener="#{lobbyRequest.jumpToGame()}" />
         </o:socket>
       </div>

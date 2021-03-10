@@ -16,6 +16,7 @@
  */
 package frontend.controller;
 
+import frontend.request.LobbyRequest;
 import frontend.session.PlebSession;
 import frontend.view.LobbyView;
 import java.io.Serializable;
@@ -23,10 +24,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.UserTransaction;
 import lombok.Data;
 import model.database.dao.ChatDAO;
 import model.database.entity.Message;
@@ -40,6 +43,7 @@ import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
+import org.omnifaces.util.Faces;
 
 /**
  *
@@ -59,7 +63,8 @@ public class LobbyController implements Serializable{
   @EJB private LobbyDAO lobbyDAO;
   @EJB private MessageDAO messageDAO;
   @EJB private ChatDAO chatDAO;
-  
+  @Inject UserTransaction userTransaction;
+  @Inject LobbyRequest lobbyRequest; 
   private String chatInput;
 
   
@@ -75,7 +80,8 @@ public class LobbyController implements Serializable{
     return Integer.toHexString(plebSession.getPleb().getLobby().getLobby_id()).toUpperCase();
   }
   
-  public void startNewGame() {
+  public String startNewGame() throws Exception {
+    userTransaction.begin();
     Game g = new Game();
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     List<Pleb> plebs = new ArrayList<>(recipients);
@@ -90,8 +96,12 @@ public class LobbyController implements Serializable{
     plebSession.getLobby().setGame(g);
     gameDAO.create(g);
     lobbyDAO.update(plebSession.getLobby());
-    
+    lobbyDAO.getEntityManager().flush();
+    userTransaction.commit();
     messageChannel.send("jumpToGame",recipients);
+    plebSession.getLobby().setGame(gameDAO
+            .findGameByLobby(plebSession.getLobby()));
+    return lobbyRequest.hostJumpToGame();
   }
   
   public void onPostNewMessage(){
