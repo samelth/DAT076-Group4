@@ -60,7 +60,7 @@ public class PlebSession implements Serializable {
     pleb.setUsername(username);
   }
   
-  public String getUsername(String username) {
+  public String getUsername() {
     return pleb.getUsername();
   }
   
