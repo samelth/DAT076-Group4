@@ -16,12 +16,14 @@
  */
 package frontend.controller;
 
+import frontend.request.LobbyRequest;
 import frontend.session.PlebSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -44,14 +46,15 @@ import org.omnifaces.cdi.PushContext;
 @Named("resultController")
 @ViewScoped
 public class ResultController implements Serializable {
-  @Inject @Push private PushContext messageChannel;
+  @Inject @Push private PushContext resultChannel;
   @Inject       private PlebSession plebSession;
   
   @EJB PlebDAO plebDAO;
   @EJB GameDAO gameDAO;
   @EJB LobbyDAO lobbyDAO;
+  @Inject LobbyRequest lobbyRequest;
   
-  public void startNextRound() {
+  public String startNextRound() {
     Game g = plebSession.getGame();
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     List<Pleb> plebs = new ArrayList<>(recipients);
@@ -66,6 +69,9 @@ public class ResultController implements Serializable {
     plebSession.getLobby().setGame(g);
     gameDAO.update(g);
     lobbyDAO.update(plebSession.getLobby());
-    messageChannel.send("nextRound",recipients);
+    resultChannel.send("nextRound",recipients);
+    plebSession.getLobby().setGame(gameDAO
+            .findGameByLobby(plebSession.getLobby()));
+    return lobbyRequest.hostJumpToGame();
   }
 }
