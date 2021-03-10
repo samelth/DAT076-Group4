@@ -20,12 +20,15 @@ import frontend.session.PlebSession;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.database.dao.GameDAO;
+import org.omnifaces.util.Faces;
+import org.primefaces.PrimeFaces;
 
 /**
  * Control of pageNavigation
@@ -37,18 +40,33 @@ public class LobbyRequest {
   @Inject private PlebSession plebSession;
   
   @EJB private GameDAO gameDAO;
-  
-	 public void jumpToGame() {
-    try {
-      plebSession.getLobby().setGame(gameDAO
-              .findGameByLobby(plebSession.getLobby()));
-      if(plebSession.isGuesser()) {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("guesspage.xhtml");
-      } else {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("drawpage.xhtml");
-      }
-    } catch (IOException ex) {
-      Logger.getLogger(LobbyRequest.class.getName()).log(Level.SEVERE, null, ex);
-    }
+  private final Logger log = Logger.getLogger(LobbyRequest.class.getName());
+	public void  jumpToGame() {
+     log.info(plebSession.toString());
+     Logger.getLogger(LobbyRequest.class.getName()).info("received messagge:" + plebSession.getUsername("f") );
+     plebSession.getLobby().setGame(gameDAO
+             .findGameByLobby(plebSession.getLobby()));
+     if(plebSession.isGuesser()) {
+       Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername("f") + "is a judge redirect to guesspage"   );
+       FacesContext.getCurrentInstance().getExternalContext().redirect("guesspage.xhtml");
+       //PrimeFaces.current().executeScript("jump(\"guesspage.xhtml\");");
+       
+     } else {
+       Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername("f") + "is a drawer redirect to drawpage"   );
+       FacesContext.getCurrentInstance().getExternalContext().redirect("drawpage.xhtml");
+       //PrimeFaces.current().executeScript("jump(\"drawpage.xhtml\");");
+       
+     }
+   }
+    public String hostJumpToGame() {
+    log.info(plebSession.toString());
+    Logger.getLogger(LobbyRequest.class.getName()).info("received messagge:" + plebSession.getUsername("f") );
+    plebSession.getLobby().setGame(gameDAO
+             .findGameByLobby(plebSession.getLobby()));
+    if(plebSession.isGuesser()) {
+      Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername("f") + "is a judge redirect to guesspage");
+      return "guesspage.xhtml?faces-redirect=true";
+    } 
+    return "drawpage.xhtml?faces-redirect=true";
    }
 }
