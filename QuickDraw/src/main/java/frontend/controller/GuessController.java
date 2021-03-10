@@ -88,7 +88,7 @@ public class GuessController implements Serializable {
           FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
           PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
           PrimeFaces.current().executeScript("playTime(\"#countdown\");");
-        } catch(NoSuchElementException e){
+        }catch(Exception e) { // TODO don't use Exception recommended to rewrite logic
           // Set empty picture and wait for next player to submit
           guessView.setImgURL("");
           guessing = false;
