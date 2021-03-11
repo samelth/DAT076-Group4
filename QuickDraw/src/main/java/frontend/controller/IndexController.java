@@ -61,5 +61,4 @@ public class IndexController implements Serializable {
     chat.setLobby(lob);
     chatDAO.update(chat);
   }
-  
 }
