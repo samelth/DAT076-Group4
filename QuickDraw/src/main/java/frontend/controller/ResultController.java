@@ -19,9 +19,7 @@ package frontend.controller;
 import frontend.request.LobbyRequest;
 import frontend.session.PlebSession;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -30,6 +28,7 @@ import javax.inject.Named;
 import lombok.Data;
 import model.database.dao.GameDAO;
 import model.database.dao.LobbyDAO;
+import model.database.dao.PictureDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
@@ -52,10 +51,12 @@ public class ResultController implements Serializable {
   @EJB PlebDAO plebDAO;
   @EJB GameDAO gameDAO;
   @EJB LobbyDAO lobbyDAO;
+  @EJB PictureDAO pictureDAO;
   @Inject LobbyRequest lobbyRequest;
   
   public String startNextRound() {
     Game g = plebSession.getGame();
+    erasePictures(g);
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     List<Word> words = plebSession.getWords();
     words.remove(0);
@@ -71,11 +72,18 @@ public class ResultController implements Serializable {
     return lobbyRequest.hostJumpToGame();
   }
   
+  private void erasePictures(Game g){
+    pictureDAO.findDByGame(g).forEach(pic -> {
+      pictureDAO.remove(pic);
+    });
+  }
+  
   public String backToLobby() {
     Lobby l = plebSession.getLobby();
     l.setGame(null);
     lobbyDAO.update(l);
     Game g = gameDAO.findGameByLobby(plebSession.getLobby());
+    erasePictures(g);
     gameDAO.remove(g);
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     resultChannel.send("backToLobby",recipients);
