@@ -69,4 +69,10 @@ public class ResultController implements Serializable {
             .findGameByLobby(plebSession.getLobby()));
     return lobbyRequest.hostJumpToGame();
   }
+  
+  public String backToLobby() {
+    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
+    resultChannel.send("backToLobby",recipients);
+    return "index.xhtml?faces-redirect=true";
+  }
 }
