@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -57,14 +56,10 @@ public class ResultController implements Serializable {
   public String startNextRound() {
     Game g = plebSession.getGame();
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
-    List<Pleb> plebs = new ArrayList<>(recipients);
-    Pleb guesser = plebSession.getGuesser();
-    plebs.remove(guesser);
-    Collections.shuffle(plebs);
     List<Word> words = plebSession.getWords();
     words.remove(0);
     g.setRound(g.getRound() + 1);
-    g.setGuesser(plebs.get(0));
+    g.setGuesser(plebSession.getGuessers().remove());
     g.setWords(words);
     plebSession.getLobby().setGame(g);
     gameDAO.update(g);
