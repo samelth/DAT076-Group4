@@ -44,6 +44,10 @@ public class PlebSession implements Serializable {
     return isHost() && !guessers.isEmpty();
   }
   
+  public boolean renderBackToLobbyButton() {
+    return !renderNextRoundButton();
+  }
+  
   public boolean isHost(){
     // null check guarding from run time null point exception. 
     // Reason why its done this way :
