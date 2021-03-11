@@ -82,13 +82,13 @@ public class GuessController implements Serializable {
     }
     else {
       if(!guessing) {
-        try{
+        if(!submissions.isEmpty()) {
           guessing = true;
           guessView.setImgURL(String.valueOf(submissions.peek().getUrl()));
           FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
           PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
           PrimeFaces.current().executeScript("playTime(\"#countdown\");");
-        }catch(Exception e) { // TODO don't use Exception recommended to rewrite logic
+        } else {
           // Set empty picture and wait for next player to submit
           guessView.setImgURL("");
           guessing = false;
@@ -98,6 +98,7 @@ public class GuessController implements Serializable {
   }
   
   public void guess() {
+    if(submissions.isEmpty()) return;
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
