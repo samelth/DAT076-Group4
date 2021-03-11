@@ -82,7 +82,7 @@ public class PlebSession implements Serializable {
     pleb.setScore(score); 
   }
   
-  public int getScore(int score) {
+  public int getScore() {
     return pleb.getScore(); 
   }
   
