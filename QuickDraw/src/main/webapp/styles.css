@@ -248,6 +248,8 @@ body .ui-datascroller .ui-datascroller-content {
 
 /*Datatable*/
 #t1{
+  background: var(--front);
+  padding-left: 25px;
   font-size: 1.45em;
   padding-left: .5em;
   margin-top: 10px;
