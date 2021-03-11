@@ -79,32 +79,32 @@ public class GuessController implements Serializable {
     // If all players has submitted and guesser has seen all pictures, jump to result.
     if(submissions.isEmpty() && count == plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
       guessRequest.jumpToResult();
-    }
-    else {
-      if(!guessing) {
-        try{
-          guessing = true;
-          guessView.setImgURL(String.valueOf(submissions.peek().getUrl()));
-          FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
-          PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
-          PrimeFaces.current().executeScript("playTime(\"#countdown\");");
-        }catch(Exception e) { // TODO don't use Exception recommended to rewrite logic
-          // Set empty picture and wait for next player to submit
-          guessView.setImgURL("");
-          guessing = false;
-        }
+    } else if(!guessing) {
+      if(!submissions.isEmpty()) {
+        guessing = true;
+        guessView.setImgURL(String.valueOf(submissions.peek().getUrl()));
+        FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+        PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
+        PrimeFaces.current().executeScript("playTime(\"#countdown\");");
+      } else {
+        // Set empty picture and wait for next player to submit
+        guessView.setImgURL("");
+        guessing = false;
       }
     }
   }
   
   public void guess() {
-    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     String guessed = guessView.getGuessed();
+    if(guessed == null || submissions.isEmpty()) return;
     String correctWord = drawRequest.currentWord().getWord();
-    if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
+    if(guessed.equalsIgnoreCase(correctWord)) {
+      Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
       Pleb p = submissions.remove().getPleb();
       p.setScore(p.getScore() + 100);
+      plebSession.setScore(plebSession.getScore() + 100);
       plebDAO.update(p);
+      plebDAO.update(plebSession.getPleb());
       scoreChannel.send("newScore",recipients);
       guessRequest.jumpToResult();
     }
