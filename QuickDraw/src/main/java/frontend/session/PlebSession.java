@@ -19,6 +19,7 @@ package frontend.session;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import lombok.Data;
@@ -37,6 +38,7 @@ import model.database.entity.Word;
 @SessionScoped
 public class PlebSession implements Serializable {
 	private Pleb pleb;
+  private Queue<Pleb> guessers;
   
   public boolean isHost(){
     // null check guarding from run time null point exception. 
