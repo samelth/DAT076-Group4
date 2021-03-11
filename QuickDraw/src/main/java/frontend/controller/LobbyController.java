@@ -97,14 +97,13 @@ public class LobbyController implements Serializable{
     g.setGuesser(plebSession.getGuessers().remove());
     g.setLobby(plebSession.getLobby());
     g.setWords(words);
-    plebSession.getLobby().setGame(g);
     gameDAO.create(g);
+    plebSession.getLobby().setGame(gameDAO
+            .findGameByLobby(plebSession.getLobby()));
     lobbyDAO.update(plebSession.getLobby());
     lobbyDAO.getEntityManager().flush();
     userTransaction.commit();
     messageChannel.send("jumpToGame",recipients);
-    plebSession.getLobby().setGame(gameDAO
-            .findGameByLobby(plebSession.getLobby()));
     return lobbyRequest.hostJumpToGame();
   }
   
