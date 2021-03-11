@@ -68,7 +68,7 @@ public class GuessController implements Serializable {
   }
   
   public void newPicture() {
-    Picture pic = pictureDAO.findDByRoundandGameSession(plebSession.getLobby().getGame());
+    Picture pic = pictureDAO.findDByGame(plebSession.getLobby().getGame()).get(0);
     submissions.add(pic);
     pictureDAO.remove(pic);
     count ++;
@@ -99,7 +99,6 @@ public class GuessController implements Serializable {
   
   public void guess() {
     if(submissions.isEmpty()) return;
-    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
@@ -114,7 +113,6 @@ public class GuessController implements Serializable {
       submissions.remove();
       guessing = false;
       showPicture();
-      
     }
   }
 }
