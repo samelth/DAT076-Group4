@@ -19,6 +19,7 @@ package model.database.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Picture implements Serializable {
   @Id @ManyToOne @EqualsAndHashCode.Include private Pleb pleb;
+  @JoinColumn(name = "game")
+  @ManyToOne private Game game;
   private char [] url;
-  private Game game;
-  private int round;
 }

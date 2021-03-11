@@ -18,11 +18,13 @@ package model.database.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,8 +45,8 @@ public class Game implements Serializable {
   @OneToOne private Lobby lobby;
   @OneToOne private Pleb guesser;
   @ManyToMany private List <Word> words;
+  @OneToMany (mappedBy = "game", cascade = CascadeType.ALL) private List<Picture> pictures;
   @Id @GeneratedValue @EqualsAndHashCode.Include private int game_id;
   private int lvl;
   private int round;
-  
 }
