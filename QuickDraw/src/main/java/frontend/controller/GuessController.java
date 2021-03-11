@@ -103,6 +103,7 @@ public class GuessController implements Serializable {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
+      Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
       Pleb p = submissions.remove().getPleb();
       p.setScore(p.getScore() + 100);
       plebDAO.update(p);
@@ -113,6 +114,7 @@ public class GuessController implements Serializable {
       submissions.remove();
       guessing = false;
       showPicture();
+      
     }
   }
 }
