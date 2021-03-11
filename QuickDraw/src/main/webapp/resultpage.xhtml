@@ -80,7 +80,7 @@ and open the template in the editor.
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered ="#{plebSession.host}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND"  ajax="false" action="#{resultController.startNextRound()}"/>
+          <p:commandButton rendered ="#{plebSession.renderNextRoundButton()}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND"  ajax="false" action="#{resultController.startNextRound()}"/>
         </h:form>
         <o:socket port="8080" channel="resultChannel" user="#{plebSession.pleb}">
           <f:ajax event="nextRound" listener="#{lobbyRequest.jumpToGame()}" />
