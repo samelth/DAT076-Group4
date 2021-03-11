@@ -32,6 +32,7 @@ import model.database.dao.GameDAO;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Game;
+import model.database.entity.Lobby;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
@@ -71,6 +72,11 @@ public class ResultController implements Serializable {
   }
   
   public String backToLobby() {
+    Lobby l = plebSession.getLobby();
+    l.setGame(null);
+    lobbyDAO.update(l);
+    Game g = gameDAO.findGameByLobby(plebSession.getLobby());
+    gameDAO.remove(g);
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     resultChannel.send("backToLobby",recipients);
     return "index.xhtml?faces-redirect=true";
