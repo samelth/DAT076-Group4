@@ -17,6 +17,7 @@
 package model.database.dao;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,14 +40,14 @@ public class PictureDAO extends AbstractDAO<Picture> {
     super(Picture.class);
   }
   
-  public Picture findDByRoundandGameSession(Game gs){
+  public List<Picture> findDByGame(Game gs){
     JPAQuery<Picture> query = new JPAQuery<>(entityManager);
     QPicture picture = QPicture.picture;
     return query
             .select(picture)
             .from(picture)
-            .where(picture.game.game_id.eq(gs.getGame_id()).and(picture.round.eq(gs.getRound())))
-            .fetchFirst();
+            .where(picture.game.game_id.eq(gs.getGame_id()))
+            .fetch();
   
   }
   public Picture find(Picture d) {
