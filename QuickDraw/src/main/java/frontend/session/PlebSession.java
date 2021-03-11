@@ -45,7 +45,7 @@ public class PlebSession implements Serializable {
   }
   
   public boolean renderBackToLobbyButton() {
-    return !renderNextRoundButton();
+    return isHost() && guessers.isEmpty();
   }
   
   public boolean isHost(){
