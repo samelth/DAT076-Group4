@@ -40,6 +40,10 @@ public class PlebSession implements Serializable {
 	private Pleb pleb;
   private Queue<Pleb> guessers;
   
+  public boolean renderNextRoundButton() {
+    return isHost() && !guessers.isEmpty();
+  }
+  
   public boolean isHost(){
     // null check guarding from run time null point exception. 
     // Reason why its done this way :
