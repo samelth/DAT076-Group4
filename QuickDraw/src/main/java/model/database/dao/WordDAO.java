@@ -39,8 +39,8 @@ public class WordDAO extends AbstractDAO<Word> {
   }
   
   public List<Word> findWordsByLevel(int lvl){
-    JPAQuery<?> query = new JPAQuery<Void>(entityManager);
-    QWord word = QWord.word1;
+    final JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    final QWord word = QWord.word1;
     
     return query
             .select(word)
@@ -49,6 +49,7 @@ public class WordDAO extends AbstractDAO<Word> {
             .fetch();
   }
   
+  @Override
   public Word find(Word dw) {
     return getEntityManager().find(dw.getClass(), dw.getWord());
   }

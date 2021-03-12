@@ -30,8 +30,8 @@ public class PlebDAO extends AbstractDAO<Pleb> {
   }
   
   public List<Pleb> findPlebsInSameLobby(Lobby lobby) {
-    JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
-    QPleb pleb = QPleb.pleb;
+    final JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
+    final QPleb pleb = QPleb.pleb;
     return query
             .select(pleb)
             .from(pleb)
@@ -40,8 +40,8 @@ public class PlebDAO extends AbstractDAO<Pleb> {
   }
   
   public List<Pleb> findPlebsInSameLobbySortedByScore(Lobby lobby){
-    JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
-    QPleb pleb = QPleb.pleb;
+    final JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
+    final QPleb pleb = QPleb.pleb;
     return query
             .select(pleb)
             .from(pleb)
