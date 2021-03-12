@@ -63,12 +63,8 @@ public class ResultController implements Serializable {
     g.setRound(g.getRound() + 1);
     g.setGuesser(plebSession.getGuessers().remove());
     g.setWords(words);
-    plebSession.getLobby().setGame(g);
     gameDAO.update(g);
-    lobbyDAO.update(plebSession.getLobby());
     resultChannel.send("nextRound",recipients);
-    plebSession.getLobby().setGame(gameDAO
-            .findGameByLobby(plebSession.getLobby()));
     return lobbyRequest.hostJumpToGame();
   }
   
@@ -78,7 +74,7 @@ public class ResultController implements Serializable {
     });
   }
   
-  public void backToLobby() {
+  public String backToLobby() {
     Lobby l = plebSession.getLobby();
     l.setGame(null);
     lobbyDAO.update(l);
@@ -87,5 +83,6 @@ public class ResultController implements Serializable {
     gameDAO.remove(g);
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     resultChannel.send("backToLobby",recipients);
+    return "lobbypage.xhtml?faces-redirect=true";
   }
 }
