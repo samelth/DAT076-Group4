@@ -83,7 +83,7 @@ public class LobbyController implements Serializable{
   }
   
   public void resetScore(){
-    List<Pleb> plebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+    final List<Pleb> plebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     for(Pleb p : plebs){
       p.setScore(0);
       plebDAO.update(p);
