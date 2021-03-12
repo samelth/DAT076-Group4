@@ -23,7 +23,6 @@ import frontend.view.GuessView;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 import java.util.Queue;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,7 +30,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.UserTransaction;
 import lombok.Data;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PictureDAO;
@@ -75,7 +73,7 @@ public class GuessController implements Serializable {
   }
   
   public void newPicture() {
-    Picture pic = pictureDAO.findDByGame(plebSession.getLobby().getGame()).get(0);
+    final Picture pic = pictureDAO.findDByGame(plebSession.getLobby().getGame()).get(0);
     submissions.add(pic);
     pictureDAO.remove(pic);
     count ++;
@@ -109,7 +107,7 @@ public class GuessController implements Serializable {
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
-      Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+      final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
       Pleb p = submissions.remove().getPleb();
       p.setScore(plebDAO.find(p).getScore() + numberOfPlebs - guessCount);
       plebDAO.update(p);
