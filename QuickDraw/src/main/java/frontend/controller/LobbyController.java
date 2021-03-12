@@ -82,11 +82,20 @@ public class LobbyController implements Serializable{
     return Integer.toHexString(plebSession.getPleb().getLobby().getLobby_id()).toUpperCase();
   }
   
+  public void resetScore(){
+    List<Pleb> plebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+    for(Pleb p : plebs){
+      p.setScore(0);
+      plebDAO.update(p);
+    }
+  }
+  
   public String startNewGame() throws Exception {
+    resetScore();
     userTransaction.begin();
     Game g = new Game();
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
-    List<Pleb> plebsInLobby = new ArrayList<>(recipients);
+    List<Pleb> plebsInLobby = new ArrayList<>(recipients);   
     Collections.shuffle(plebsInLobby);
     Queue<Pleb> guessers = new LinkedList<>(plebsInLobby);
     plebSession.setGuessers(guessers);
