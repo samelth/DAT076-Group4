@@ -37,10 +37,9 @@ import model.database.entity.Lobby;
 @RequestScoped
 @FacesValidator(value = "joinValidator")
 public class JoinValidator implements Validator {
-  private static final string LOBBY_COMPONENT_IDENTIFIER = "joinform:lobbyHexLidInput";
+  private static final String LOBBY_COMPONENT_IDENTIFIER = "joinform:lobbyHexLidInput";
   private static final String ERROR_MESSAGE_LOBBY_NOT_EXIST = "Lobby doesn't exist";
   private static final String ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY = "Username taken, choose another";
-  private static final String ERROR_MESSAGE_INCORRECT_FORMAT = "Please don't leave the fields empty";
   @EJB private LobbyDAO lobbyDAO;
 
   /**
@@ -49,7 +48,7 @@ public class JoinValidator implements Validator {
    *
    * @param fc FacesContext.
    * @param uic UIComponent to grab other components
-   * @param t Object to check for validation
+   * @param usernameInput Object to check for validation
    * @throws ValidatorException
    * @see javax.faces.validator.Validator
    */
