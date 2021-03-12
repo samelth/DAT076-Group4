@@ -31,7 +31,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.UserTransaction;
 import lombok.Data;
+import model.database.dao.LobbyDAO;
 import model.database.dao.PictureDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Picture;
@@ -56,15 +58,20 @@ public class GuessController implements Serializable {
   
   @EJB private PictureDAO pictureDAO;
   @EJB private PlebDAO plebDAO;
+  @EJB private LobbyDAO lobbyDAO;
   
   private Queue<Picture> submissions;
   private boolean guessing;
   private int count;
+  private int numberOfPlebs;
+  private int guessCount;
   
   @PostConstruct
   public void init() {
     submissions = new LinkedList<>();
-    count = 1;
+    count = 0;
+    guessCount = 0;
+    numberOfPlebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size();
   }
   
   public void newPicture() {
@@ -77,7 +84,7 @@ public class GuessController implements Serializable {
   
   public void showPicture(){
     // If all players has submitted and guesser has seen all pictures, jump to result.
-    if(submissions.isEmpty() && count == plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size()){
+    if(submissions.isEmpty() && count+1 == numberOfPlebs){
       guessRequest.jumpToResult();
     }
     else {
@@ -97,21 +104,26 @@ public class GuessController implements Serializable {
     }
   }
   
-  public void guess() {
+  public void guess() throws Exception {
     if(submissions.isEmpty()) return;
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
     if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
       Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
       Pleb p = submissions.remove().getPleb();
-      p.setScore(p.getScore() + 100);
+      p.setScore(plebDAO.find(p).getScore() + numberOfPlebs - guessCount);
+      plebDAO.update(p);
+      p = plebDAO.find(plebSession.getPleb());
+      p.setScore(plebDAO.find(p).getScore() + numberOfPlebs - guessCount);
       plebDAO.update(p);
       scoreChannel.send("newScore",recipients);
+      guessCount++;
       guessRequest.jumpToResult();
     }
     else{
       submissions.remove();
       guessing = false;
+      guessCount++;
       showPicture();
     }
   }
