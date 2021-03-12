@@ -61,12 +61,12 @@ public class DrawController implements Serializable {
   public void submitPicture(){
     char[] url;
     url = drawView.getImgURL().toCharArray();
-    Picture pic = new Picture();
+    final Picture pic = new Picture();
     pic.setPleb(plebSession.getPleb());
     pic.setUrl(url);
     pic.setGame(plebSession.getGame());
     pictureDAO.update(pic);
-    Pleb guesser = plebSession.getGuesser();
+    final Pleb guesser = plebSession.getGuesser();
     guessChannel.send("newPic", guesser);
   }
 }
