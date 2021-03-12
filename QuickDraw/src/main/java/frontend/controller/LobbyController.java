@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -45,7 +44,7 @@ import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
-import org.omnifaces.util.Faces;
+
 
 /**
  *
@@ -93,13 +92,13 @@ public class LobbyController implements Serializable{
   public String startNewGame() throws Exception {
     resetScore();
     userTransaction.begin();
-    Game g = new Game();
-    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
-    List<Pleb> plebsInLobby = new ArrayList<>(recipients);   
+    final Game g = new Game();
+    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+    final List<Pleb> plebsInLobby = new ArrayList<>(recipients);   
     Collections.shuffle(plebsInLobby);
-    Queue<Pleb> guessers = new LinkedList<>(plebsInLobby);
+    final Queue<Pleb> guessers = new LinkedList<>(plebsInLobby);
     plebSession.setGuessers(guessers);
-    List<Word> words = wordDAO.findWordsByLevel(lobbyView.getDifficulty());
+    final List<Word> words = wordDAO.findWordsByLevel(lobbyView.getDifficulty());
     Collections.shuffle(words);
     g.setLvl(lobbyView.getDifficulty()); 
     g.setRound(1);
@@ -123,7 +122,7 @@ public class LobbyController implements Serializable{
     msg.setContent(lobbyView.getNewMessage());
     messageDAO.create(msg);
     chatDAO.update(chatDAO.findChatByLobby(plebSession.getLobby()));
-    Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
+    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
     lobbyView.setMessages(plebSession.getLobby().getChat().getMessages());
     messageChannel.send("newMsg",recipients);
     lobbyView.setNewMessage("");
