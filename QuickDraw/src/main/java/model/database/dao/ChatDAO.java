@@ -38,12 +38,13 @@ public class ChatDAO extends AbstractDAO<Chat> {
     super(Chat.class);
   }
 
+  @Override
   public Chat find(Chat c) {
     return getEntityManager().find(c.getClass(), c.getChat_id());
   }
 
   public Chat findChatByLobby(Lobby lob) {
-    JPAQuery<Chat> q = new JPAQuery<>(entityManager);
+    final JPAQuery<Chat> q = new JPAQuery<>(entityManager);
     QChat chat = QChat.chat;
     return q
             .select(chat)
