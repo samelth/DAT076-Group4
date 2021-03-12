@@ -17,9 +17,12 @@
 package frontend.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
+import model.database.entity.Picture;
 
 /**
  *
@@ -29,5 +32,6 @@ import lombok.Data;
 @Named("resultView")
 @ViewScoped
 public class ResultView implements Serializable {
+  private List<String> pictures;
 	
 }

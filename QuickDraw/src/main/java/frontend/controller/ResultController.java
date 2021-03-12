@@ -18,7 +18,9 @@ package frontend.controller;
 
 import frontend.request.LobbyRequest;
 import frontend.session.PlebSession;
+import frontend.view.ResultView;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,6 +34,7 @@ import model.database.dao.PictureDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
+import model.database.entity.Picture;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.omnifaces.cdi.Push;
@@ -47,6 +50,7 @@ import org.omnifaces.cdi.PushContext;
 public class ResultController implements Serializable {
   @Inject @Push private PushContext resultChannel;
   @Inject       private PlebSession plebSession;
+  @Inject       private ResultView resultView;
   
   @EJB PlebDAO plebDAO;
   @EJB GameDAO gameDAO;
@@ -84,5 +88,14 @@ public class ResultController implements Serializable {
     Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
     resultChannel.send("backToLobby",recipients);
     return "lobbypage.xhtml?faces-redirect=true";
+  }
+  
+  public void findPicture(){
+    List<Picture> pictures = pictureDAO.findDByGame(plebSession.getGame());
+    List<String> urls = new ArrayList<>();
+    for(Picture p : pictures){
+      urls.add(String.valueOf(p.getUrl()));
+    }
+    resultView.setPictures(urls);
   }
 }

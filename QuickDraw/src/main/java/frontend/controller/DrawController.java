@@ -19,7 +19,9 @@ package frontend.controller;
 import frontend.request.DrawRequest;
 import frontend.session.PlebSession;
 import frontend.view.DrawView;
+import frontend.view.ResultView;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -28,6 +30,8 @@ import lombok.Data;
 import model.database.dao.PictureDAO;
 import model.database.dao.WordDAO;
 import model.database.dao.GameDAO;
+import model.database.dao.LobbyDAO;
+import model.database.dao.PlebDAO;
 import model.database.entity.Picture;
 import model.database.entity.Pleb;
 import org.omnifaces.cdi.Push;
@@ -42,13 +46,16 @@ import org.omnifaces.cdi.PushContext;
 @ViewScoped
 public class DrawController implements Serializable {
   @Inject @Push private PushContext guessChannel;
+  @Inject @Push private PushContext resultChannel;
   @Inject       private PlebSession plebSession;
   @Inject       private DrawView drawView;
   @Inject       private DrawRequest drawRequest;
+  @Inject       private ResultView resultView;
  
   @EJB private WordDAO wordDAO;
   @EJB private GameDAO gameDAO;
   @EJB private PictureDAO pictureDAO;
+  @EJB private PlebDAO plebDAO;
   
   public void nextWord(){
     this.drawView.setWord(drawRequest.nextWord());
@@ -68,5 +75,7 @@ public class DrawController implements Serializable {
     pictureDAO.update(pic);
     Pleb guesser = plebSession.getGuesser();
     guessChannel.send("newPic", guesser);
+    resultChannel.send("newPic", plebDAO.findPlebsInSameLobby(plebSession.getLobby()));
+    
   }
 }

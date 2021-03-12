@@ -30,7 +30,19 @@ and open the template in the editor.
     </div>
 
     <div class="row">
-      <div class="col-5"></div>
+      <div class="col-5">
+        <h:form id="picList">
+          <h:dataTable value="#{resultView.pictures}" var="pic" rows="10">
+              <h:column>
+                <img src="#{pic}"/>
+              </h:column>
+            </h:dataTable>
+          </h:form>
+        <o:socket port="8080" channel="resultChannel" user="#{plebSession.pleb}">
+          <f:ajax event="newPic" render="picList" listener="#{resultController.findPicture()}"></f:ajax>
+        </o:socket>
+        
+      </div>
       <div class="col-2 roundedEdge backgroundteal margin">
         <h2>Word: #{drawRequest.currentWord()} </h2>
       </div>
@@ -72,6 +84,7 @@ and open the template in the editor.
 
       <!-- THE FIRST THIRD OF THE SCREEN (EMPTY) -->
       <div class="col-5"></div>
+      
 
       <!-- THE MIDDLE OF THE SCREEN (THE MEAT) -->
       <div class="col-2">
