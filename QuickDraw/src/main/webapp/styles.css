@@ -60,11 +60,11 @@ td {
 }
 
 /*Adds (host) text to host*/
-#t1 tbody>tr:nth-child(1)::before {
+#t1 tbody>tr:nth-child(1)::after {
   font-weight: bold;
   color: #ecd680;
   content: "(host)";
-  padding-right: 5px;
+  padding-left: 5px;
 }
 
 body .ui-selectonemenu .ui-selectonemenu-label {
