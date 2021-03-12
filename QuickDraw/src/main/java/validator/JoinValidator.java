@@ -54,15 +54,15 @@ public class JoinValidator implements Validator {
    * @see javax.faces.validator.Validator
    */
   @Override
-  public void validate(FacesContext fc, UIComponent uic, Object usernameIn) throws ValidatorException {
+  public void validate(FacesContext fc, UIComponent uic, Object usernameInput) throws ValidatorException {
 
-    final UIInput lidComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
+    final UIInput lobbyIdComponent = (UIInput) fc.getViewRoot().findComponent("joinform:lobbyHexLidInput");
 
     //Check lobby exists
-    if (lidComponent == null) {
+    if (lobbyIdComponent == null) {
       return;
     }
-    final String lobbyHexLid = (String) lidComponent.getValue();
+    final String lobbyHexLid = (String) lobbyIdComponent.getValue();
     if(lobbyHexLid == null){
       return; 
     }
@@ -78,10 +78,10 @@ public class JoinValidator implements Validator {
     }
     
     //Check if username exists in lobby
-    if (usernameIn == null) {
+    if (usernameInput == null) {
       return;
     }
-    final String username = usernameIn.toString();
+    final String username = usernameInput.toString();
     final boolean usernameExistinLobby = usernameExistinLobby(lobby, username);
     if (usernameExistinLobby) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_USERNAME_ALREADY_IN_LOBBY));
