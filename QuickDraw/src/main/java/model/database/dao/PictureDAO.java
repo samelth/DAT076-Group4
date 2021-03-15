@@ -51,7 +51,7 @@ public class PictureDAO extends AbstractDAO<Picture> {
   }
   
   public Picture find(Picture d) {
-    return getEntityManager().find(d.getClass(), d.getPleb());
+    return getEntityManager().find(d.getClass(), d.getPleb().getUser_id());
   }
   
 }
