@@ -40,17 +40,16 @@ public class PictureDAO extends AbstractDAO<Picture> {
     super(Picture.class);
   }
   
-  public List<Picture> findDByGame(Game gs){
+  public List<Picture> findPicturesByGame(Game g){
     final JPAQuery<Picture> query = new JPAQuery<>(entityManager);
     final QPicture picture = QPicture.picture;
     return query
             .select(picture)
             .from(picture)
-            .where(picture.game.game_id.eq(gs.getGame_id()))
+            .where(picture.game.game_id.eq(g.getGame_id()))
             .fetch();
-  
   }
-  @Override
+  
   public Picture find(Picture d) {
     return getEntityManager().find(d.getClass(), d.getPleb());
   }

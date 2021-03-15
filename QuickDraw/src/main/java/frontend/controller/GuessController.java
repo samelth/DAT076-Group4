@@ -73,7 +73,7 @@ public class GuessController implements Serializable {
   }
   
   public void newPicture() {
-    final Picture pic = pictureDAO.findDByGame(plebSession.getLobby().getGame()).get(0);
+    final Picture pic = pictureDAO.findPicturesByGame(plebSession.getLobby().getGame()).get(0);
     submissions.add(pic);
     pictureDAO.remove(pic);
     count ++;

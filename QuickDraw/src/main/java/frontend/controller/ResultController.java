@@ -69,7 +69,7 @@ public class ResultController implements Serializable {
   }
   
   private void erasePictures(Game g){
-    pictureDAO.findDByGame(g).forEach(pic -> {
+    pictureDAO.findPicturesByGame(g).forEach(pic -> {
       pictureDAO.remove(pic);
     });
   }
