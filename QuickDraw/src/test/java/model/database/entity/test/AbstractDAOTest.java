@@ -132,11 +132,4 @@ public class AbstractDAOTest {
     Assert.assertEquals(3, plebDAO.find(p1).getScore());
     Assert.assertEquals(4, plebDAO.find(p2).getScore());
   }
-  
-  /*
-  @Test
-  public void testRefresh() {
-    //wtf is this even supposed to do?
-  }
-  */
 }
