@@ -5,9 +5,10 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:o="http://omnifaces.org/ui">
   <h:head>
     <!-- Bootstrap CSS -->
@@ -25,7 +26,7 @@ and open the template in the editor.
   </h:head>
   <h:body>
     <!-- Bootstrap Bundle with Popper -->
-    <div class="row" style="height:150px">
+    <div class="row titleheight">
       <h1 class="stroke shad">Results</h1>
     </div>
 
@@ -35,7 +36,6 @@ and open the template in the editor.
         <h2>Word: #{drawRequest.currentWord()} </h2>
       </div>
       <div class="col-5">
-
       </div>
     </div>
 
@@ -52,7 +52,7 @@ and open the template in the editor.
       </div>
       <div class="col-2">
         <div class="col scoreboard backgroundblue">
-          <h3 style="padding-top:10px">SCOREBOARD</h3>
+          <h3>SCOREBOARD</h3>
           <h:form id="plebList">
             <h:dataTable  value="#{lobbyController.plebsInLobby()}" var="pleb" rows="10">
               <h:column>#{pleb.username}</h:column>

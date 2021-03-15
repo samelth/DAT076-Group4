@@ -33,14 +33,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Word implements Serializable{
-  //@ManyToMany private List<GameSession> gameSessions;
+public class Word implements Serializable {
   @Id @EqualsAndHashCode.Include private String word;
   private int lvl;
-  
+
   @Override
   public String toString() {
     return this.word;
   }
-  
+
 }

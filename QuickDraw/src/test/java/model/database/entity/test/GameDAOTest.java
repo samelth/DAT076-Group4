@@ -19,7 +19,6 @@ package model.database.entity.test;
 import javax.ejb.EJB;
 import model.database.dao.GameDAO;
 import model.database.dao.LobbyDAO;
-import model.database.dao.PlebDAO;
 import model.database.entity.Chat;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
@@ -32,7 +31,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +65,7 @@ public class GameDAOTest {
     l1 = new Lobby();
     l2 = new Lobby();
   }
-  
+
   @Test
   public void testFind() {
     gameDAO.create(g1);

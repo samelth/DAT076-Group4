@@ -29,13 +29,13 @@ public abstract class AbstractDAO<T> {
     cq.select(builder.count(rt));
 
     final Query q = getEntityManager().createQuery(cq);
-    return ((Long) q.getSingleResult());
+    return (Long) q.getSingleResult();
   }
 
   public void create(T entity) {
     getEntityManager().persist(entity);
   }
-  
+
   public abstract T find(T entity);
   
   public List<T> findAll() {
@@ -47,17 +47,17 @@ public abstract class AbstractDAO<T> {
   public void remove(T entity) {
     getEntityManager().remove(getEntityManager().merge(entity));
   }
-  
+
   public int removeAll() {
     final CriteriaDelete<T> cd = getEntityManager().getCriteriaBuilder().createCriteriaDelete(entityType);
     cd.from(entityType);
     return getEntityManager().createQuery(cd).executeUpdate();
   }
-  
+
   public T update(T entity){
     return getEntityManager().merge(entity);
   }
-  
+
   public void refresh(T entity){
     getEntityManager().refresh(entity);
   }

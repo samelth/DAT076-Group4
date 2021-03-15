@@ -34,13 +34,13 @@ import model.database.entity.QMessage;
 public class MessageDAO extends AbstractDAO<Message> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
-  public MessageDAO(){
+
+  public MessageDAO() {
     super(Message.class);
   }
-  
+
   @Override
-  public Message find(Message m) {
+  public Message find(final Message m) {
     return getEntityManager().find(m.getClass(), m.getMsg_id());
   }
   
@@ -52,5 +52,5 @@ public class MessageDAO extends AbstractDAO<Message> {
             .from(message)
             .where(message.chat.chat_id.eq(chat.getChat_id()))
             .fetch();
-}
+  }
 }

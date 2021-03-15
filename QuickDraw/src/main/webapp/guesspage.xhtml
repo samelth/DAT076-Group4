@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <h:body>
     
     <!-- EMPTY ROW FOR SPACING -->  
-    <div class="row" style="height:150px">
+    <div class="row titleheight">
       <h1 class="stroke shad">Guess!</h1>
     </div>
     <!-- DESCRIPTION -->
@@ -90,7 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       
       <div class="col-4">
         
-        <img style="height:100% ; width: 100%" src="#{guessView.imgURL}" id="pic" /> 
+        <img src="#{guessView.imgURL}" id="pic" /> 
         <o:socket port="8080" channel="guessChannel" user="#{plebSession.pleb}">
           <f:ajax event="newPic" listener="#{guessController.newPicture()}" />
         </o:socket>

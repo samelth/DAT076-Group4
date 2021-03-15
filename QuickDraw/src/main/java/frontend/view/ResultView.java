@@ -29,5 +29,5 @@ import lombok.Data;
 @Named("resultView")
 @ViewScoped
 public class ResultView implements Serializable {
-	
+
 }

@@ -28,9 +28,9 @@ import javax.inject.Named;
 @Named("resultRequest")
 @RequestScoped
 public class ResultRequest {
-  
+
   public void jumpToLobby() throws IOException {
     FacesContext.getCurrentInstance().getExternalContext().redirect("lobbypage.xhtml");
   }
-  
+
 }

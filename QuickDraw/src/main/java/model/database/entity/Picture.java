@@ -39,5 +39,5 @@ public class Picture implements Serializable {
   @Id @ManyToOne @EqualsAndHashCode.Include private Pleb pleb;
   @JoinColumn(name = "game")
   @ManyToOne private Game game;
-  private char [] url;
+  private char[] url;
 }

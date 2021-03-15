@@ -41,10 +41,10 @@ public class Pleb implements Serializable {
   @Id @GeneratedValue @EqualsAndHashCode.Include private int user_id;
   private String username;
   private int score;
-  
+
   /**
-   * @see model.database.entity.Lobby#addPlayer() 
-   * @param lobby 
+   * @see model.database.entity.Lobby#addPlayer()
+   * @param lobby
    */
   public void setLobby(Lobby lobby) {
     this.lobby = lobby;

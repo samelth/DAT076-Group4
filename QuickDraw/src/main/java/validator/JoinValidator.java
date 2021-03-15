@@ -63,7 +63,7 @@ public class JoinValidator implements Validator {
     }
     final String lobbyHexLid = (String) lobbyIdComponent.getValue();
     if(lobbyHexLid == null){
-      return; 
+      return;
     }
     Lobby lobby = null;
     try {
@@ -71,11 +71,12 @@ public class JoinValidator implements Validator {
     } catch (EJBException e) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));
     }
-    final boolean lobbyNotExist = (null == lobby);
+    final boolean lobbyNotExist;
+    lobbyNotExist = (null == lobby);
     if (lobbyNotExist) {
       throw new ValidatorException(new FacesMessage(ERROR_MESSAGE_LOBBY_NOT_EXIST));
     }
-    
+
     //Check if username exists in lobby
     if (usernameInput == null) {
       return;

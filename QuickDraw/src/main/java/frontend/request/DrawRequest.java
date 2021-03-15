@@ -30,11 +30,11 @@ import model.database.entity.Word;
 @RequestScoped
 public class DrawRequest {
   @Inject private PlebSession plebSession;
-  
+
   public Word nextWord() {
     return plebSession.getWords().remove(0);
   }
-  
+
   public Word currentWord() {
     return plebSession.getWords().get(0);
   }

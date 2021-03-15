@@ -22,16 +22,17 @@ import model.database.entity.QGame;
 public class GameDAO extends AbstractDAO<Game> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-    
+
   public GameDAO(){
     super(Game.class);
   }
-  
-  public Game find(Game g) {
+
+  @Override
+  public Game find(final Game g) {
     return getEntityManager().find(g.getClass(), g.getGame_id());
   }
-  
-  public Game findGameByLobby(Lobby l) {
+
+  public Game findGameByLobby(final Lobby l) {
     JPAQuery<Game> query = new JPAQuery<>(entityManager);
     QGame game = QGame.game;
     return query

@@ -32,7 +32,7 @@ import lombok.Data;
 @Named("joinView")
 @ViewScoped
 public class JoinView implements Serializable {
-  
+
   @Size(max = 12,message = "Please choose a username that is not longer than 12 characters")
   @NotEmpty(message = "Please insert a username")
   @Pattern(regexp = "[a-zA-Z0-9]+", message = "Please insert only numbers and letters")

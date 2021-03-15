@@ -6,16 +6,11 @@ package model.database.entity.test;
  * and open the template in the editor.
  */
 
-import model.database.entity.Pleb;
-import model.database.entity.Lobby;
 import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Chat;
-import model.database.entity.Picture;
-import model.database.entity.Word;
-import model.database.entity.Game;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
 import model.database.entity.Message;
@@ -51,14 +46,14 @@ public class PlebDAOTest {
   private PlebDAO plebDAO;
   @EJB
   private LobbyDAO lobbyDAO;
-  
+
   private Pleb p1;
   private Pleb p2;
   private Pleb p3;
-  
+
   private Lobby l1;
   private Lobby l2;
-  
+
   @Before
   public void init() {
     p1 = new Pleb();
@@ -67,7 +62,7 @@ public class PlebDAOTest {
     l1 = new Lobby();
     l2 = new Lobby();
   }
-  
+
   @Test
   public void testFindPlebsInSameLobby() {
     l1.addPleb(p1);
@@ -81,7 +76,7 @@ public class PlebDAOTest {
     Assert.assertTrue(ps2.contains(p3));
     Assert.assertFalse(ps1.contains(p3) || ps2.contains(p1) || ps2.contains(p2));
   }
-  
+
   @Test
   public void testFindPlebsInSameLobbySortedByScore() {
     p1.setScore(1);
@@ -103,11 +98,11 @@ public class PlebDAOTest {
     l1.updatePleb(p3);
     lobbyDAO.update(l1);
     final List<Pleb> ps2 = plebDAO.findPlebsInSameLobbySortedByScore(l1);
-    for(int i = 0; i < ps2.size() - 1; i++) {
+    for (int i = 0; i < ps2.size() - 1; i++) {
       Assert.assertTrue(ps2.get(i).getScore() > ps2.get(i + 1).getScore());
     }
   }
-  
+
   @Test
   public void testFind() {
     plebDAO.create(p1);
@@ -117,5 +112,5 @@ public class PlebDAOTest {
     Assert.assertEquals(p2, plebDAO.find(p2));
     Assert.assertEquals(p3, plebDAO.find(p3));
   }
-  
+
 }

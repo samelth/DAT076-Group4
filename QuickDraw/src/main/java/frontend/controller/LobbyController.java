@@ -57,7 +57,7 @@ public class LobbyController implements Serializable{
   @Inject @Push private PushContext messageChannel;
   @Inject       private PlebSession plebSession;
   @Inject       private LobbyView lobbyView;
-   
+
   @EJB private PlebDAO plebDAO;
   @EJB private GameDAO gameDAO;
   @EJB private WordDAO wordDAO;
@@ -68,39 +68,39 @@ public class LobbyController implements Serializable{
   @Inject LobbyRequest lobbyRequest; 
   private String chatInput;
 
-  
+
   public List<Pleb> plebsInLobby(){
     return plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
   }
-  
+
   public List<Message> messagesInLobbyChat(){
     return messageDAO.findMessagesByChat(plebSession.getLobby().getChat());
   }
-   
+
   public String getHexLid(){
     return Integer.toHexString(plebSession.getPleb().getLobby().getLobby_id()).toUpperCase();
   }
-  
+
   public void resetScore(){
     final List<Pleb> plebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
-    for(Pleb p : plebs){
+    for (Pleb p : plebs) {
       p.setScore(0);
       plebDAO.update(p);
     }
   }
-  
+
   public String startNewGame() throws Exception {
     resetScore();
     userTransaction.begin();
     final Game g = new Game();
     final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
-    final List<Pleb> plebsInLobby = new ArrayList<>(recipients);   
+    final List<Pleb> plebsInLobby = new ArrayList<>(recipients);
     Collections.shuffle(plebsInLobby);
     final Queue<Pleb> guessers = new LinkedList<>(plebsInLobby);
     plebSession.setGuessers(guessers);
     final List<Word> words = wordDAO.findWordsByLevel(lobbyView.getDifficulty());
     Collections.shuffle(words);
-    g.setLvl(lobbyView.getDifficulty()); 
+    g.setLvl(lobbyView.getDifficulty());
     g.setRound(1);
     g.setGuesser(plebSession.getGuessers().remove());
     g.setLobby(plebSession.getLobby());
@@ -111,10 +111,10 @@ public class LobbyController implements Serializable{
     lobbyDAO.update(plebSession.getLobby());
     lobbyDAO.getEntityManager().flush();
     userTransaction.commit();
-    messageChannel.send("jumpToGame",recipients);
+    messageChannel.send("jumpToGame", recipients);
     return lobbyRequest.hostJumpToGame();
   }
-  
+
   public void onPostNewMessage(){
     final Message msg = new Message();
     msg.setChat(plebSession.getLobby().getChat());
@@ -124,8 +124,8 @@ public class LobbyController implements Serializable{
     chatDAO.update(chatDAO.findChatByLobby(plebSession.getLobby()));
     final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getPleb().getLobby());
     lobbyView.setMessages(plebSession.getLobby().getChat().getMessages());
-    messageChannel.send("newMsg",recipients);
+    messageChannel.send("newMsg", recipients);
     lobbyView.setNewMessage("");
   }
-   
+
 }

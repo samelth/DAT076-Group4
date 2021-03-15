@@ -28,30 +28,31 @@ import model.database.dao.GameDAO;
 
 
 /**
- * Control of pageNavigation
+ * Control of pageNavigation.
  * @author lewiv
  */
 @Named("lobbyRequest")
 @RequestScoped
 public class LobbyRequest {
   @Inject private PlebSession plebSession;
-  
+
   @EJB private GameDAO gameDAO;
   private final Logger log = Logger.getLogger(LobbyRequest.class.getName());
-	public void  jumpToGame() {
+
+  public void  jumpToGame() {
      log.info(plebSession.toString());
      Logger.getLogger(LobbyRequest.class.getName()).info("received messagge:" + plebSession.getUsername() );
      plebSession.getLobby().setGame(gameDAO
              .findGameByLobby(plebSession.getLobby()));
-     try{
-      if(plebSession.isGuesser()) {
+     try {
+      if (plebSession.isGuesser()) {
         Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername() + "is a judge redirect to guesspage");
         FacesContext.getCurrentInstance().getExternalContext().redirect("guesspage.xhtml");
-      }else {
+      } else {
         Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername() + "is a drawer redirect to drawpage");
         FacesContext.getCurrentInstance().getExternalContext().redirect("drawpage.xhtml");
       }
-     }catch(IOException e){
+     } catch (IOException e) {
         Logger.getLogger(LobbyRequest.class.getName()).info("Error couldn't redirect to ");
      }
    }
@@ -60,10 +61,10 @@ public class LobbyRequest {
       Logger.getLogger(LobbyRequest.class.getName()).info("received messagge: " + plebSession.getUsername());
       plebSession.getLobby().setGame(gameDAO
                .findGameByLobby(plebSession.getLobby()));
-      if(plebSession.isGuesser()) {
+      if (plebSession.isGuesser()) {
         Logger.getLogger(LobbyRequest.class.getName()).info( plebSession.getUsername() + " is a judge redirect to guesspage");
         return "guesspage.xhtml?faces-redirect=true";
-      } 
+      }
       return "drawpage.xhtml?faces-redirect=true";
    }
 }

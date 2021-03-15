@@ -42,11 +42,11 @@ import model.database.entity.Pleb;
 public class IndexController implements Serializable {
   @Inject private PlebSession plebSession;
   @Inject private IndexView indexView;
-  
+
   @EJB private LobbyDAO lobbyDAO;
   @EJB private ChatDAO chatDAO;
   @EJB private PlebDAO userDAO;
-    
+
   public void hostNewLobby(){
     final Pleb pleb = new Pleb();
     final Lobby lob = new Lobby();

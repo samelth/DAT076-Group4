@@ -35,7 +35,7 @@ import model.database.entity.QPicture;
 public class PictureDAO extends AbstractDAO<Picture> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
+
   public PictureDAO() {
     super(Picture.class);
   }
@@ -53,5 +53,5 @@ public class PictureDAO extends AbstractDAO<Picture> {
   public Picture find(Picture d) {
     return getEntityManager().find(d.getClass(), d.getPleb().getUser_id());
   }
-  
+
 }

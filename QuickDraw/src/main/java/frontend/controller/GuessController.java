@@ -41,7 +41,8 @@ import org.omnifaces.cdi.PushContext;
 import org.primefaces.PrimeFaces;
 
 /**
- *
+ * Handles the guessPage logic.
+ * 
  * @author Karl Svensson
  */
 @Data
@@ -53,17 +54,17 @@ public class GuessController implements Serializable {
   @Inject       private GuessView guessView;
   @Inject       private DrawRequest drawRequest;
   @Inject       private GuessRequest guessRequest;
-  
+
   @EJB private PictureDAO pictureDAO;
   @EJB private PlebDAO plebDAO;
   @EJB private LobbyDAO lobbyDAO;
-  
+
   private Queue<Picture> submissions;
   private boolean guessing;
   private int count;
   private int numberOfPlebs;
   private int guessCount;
-  
+
   @PostConstruct
   public void init() {
     submissions = new LinkedList<>();
@@ -71,42 +72,52 @@ public class GuessController implements Serializable {
     guessCount = 0;
     numberOfPlebs = plebDAO.findPlebsInSameLobby(plebSession.getLobby()).size();
   }
-  
+  /**
+   * Fetch picture from DB, adds to submissions queue.
+   * @see showPicture()
+   */
   public void newPicture() {
     final Picture pic = pictureDAO.findPicturesByGame(plebSession.getLobby().getGame()).get(0);
     submissions.add(pic);
     pictureDAO.remove(pic);
-    count ++;
+    count++;
     showPicture();
   }
-  
+  /**
+   * Displays the next picture in submission queue, redirects to resultPage
+   * if all pictures are submitted. Displays a blank picture if no submissions.
+   */
   public void showPicture(){
-    // If all players has submitted and guesser has seen all pictures, jump to result.
-    if(submissions.isEmpty() && count+1 == numberOfPlebs){
+
+    if (submissions.isEmpty() && count + 1 == numberOfPlebs) {
       guessRequest.jumpToResult();
-    }
-    else {
-      if(!guessing) {
-        if(!submissions.isEmpty()) {
+    } else {
+      if (!guessing) {
+        if (!submissions.isEmpty()) {
           guessing = true;
           guessView.setImgURL(String.valueOf(submissions.peek().getUrl()));
           FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
           PrimeFaces.current().executeScript("startProgressBar(\"#p1\");");
           PrimeFaces.current().executeScript("playTime(\"#countdown\");");
         } else {
-          // Set empty picture and wait for next player to submit
           guessView.setImgURL("");
           guessing = false;
         }
       }
     }
   }
-  
+  /**
+   * Check if the guesser submitted correct word. If correct assign points and
+   * jump to results.
+   * @throws Exception
+   */
   public void guess() throws Exception {
-    if(submissions.isEmpty()) return;
+    if (submissions.isEmpty()) {
+      return;
+    }
     String guessed = guessView.getGuessed();
     String correctWord = drawRequest.currentWord().getWord();
-    if(guessed != null && guessed.equalsIgnoreCase(correctWord)) {
+    if (guessed != null && guessed.equalsIgnoreCase(correctWord)) {
       final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
       Pleb p = submissions.remove().getPleb();
       p.setScore(plebDAO.find(p).getScore() + numberOfPlebs - guessCount);
@@ -114,11 +125,10 @@ public class GuessController implements Serializable {
       p = plebDAO.find(plebSession.getPleb());
       p.setScore(plebDAO.find(p).getScore() + numberOfPlebs - guessCount);
       plebDAO.update(p);
-      scoreChannel.send("newScore",recipients);
+      scoreChannel.send("newScore", recipients);
       guessCount++;
       guessRequest.jumpToResult();
-    }
-    else{
+    } else {
       submissions.remove();
       guessing = false;
       guessCount++;
