@@ -58,7 +58,4 @@ public abstract class AbstractDAO<T> {
     return getEntityManager().merge(entity);
   }
 
-  public void refresh(T entity){
-    getEntityManager().refresh(entity);
-  }
 }
