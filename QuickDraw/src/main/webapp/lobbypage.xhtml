@@ -40,9 +40,9 @@
       <div class="col-2" style="margin-left:15px; margin-right:15px">
         <h:form id="form">
     
-          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info" style="float:left; margin-bottom: 10px;" value="START GAME" validateClient="true" ajax="false" action="#{lobbyController.startNewGame()}"/>
+          <p:commandButton rendered = "#{plebSession.host}" styleClass="ui-button-info floatLeftMarginBottom"  value="START GAME" validateClient="true" ajax="false" action="#{lobbyController.startNewGame()}"/>
  
-          <p:selectOneMenu style="float:right; padding: 0px;" rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
+          <p:selectOneMenu class="floatRightDropdown" rendered = "#{plebSession.host}" id="option" value="#{lobbyView.difficulty}">
             <p:ajax event="itemSelect" update = "form"></p:ajax>
             <f:selectItem itemLabel="Easy" itemValue="1"/>
             <f:selectItem itemLabel="Medium" itemValue="2"/>
@@ -99,7 +99,7 @@
             </p:outputPanel>
         <h:form id="chatForm">
           <p:inputText id="inputChat" value="#{lobbyView.newMessage}" autocomplete="off"></p:inputText>
-          <p:commandButton style="float:right; margin-top:.5rem;" styleClass="ui-button-info" value="Send" action="#{lobbyController.onPostNewMessage()}" update="inputChat"></p:commandButton>
+          <p:commandButton styleClass="ui-button-info floatRightMargin" value="Send" action="#{lobbyController.onPostNewMessage()}" update="inputChat"></p:commandButton>
         </h:form>
       </div>
       

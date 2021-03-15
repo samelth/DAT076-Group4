@@ -76,14 +76,14 @@ and open the template in the editor.
       <!-- THE MIDDLE OF THE SCREEN (THE MEAT) -->
       <div class="col-2">
         <h:form>
-          <p:commandButton styleClass="ui-button-info" style="margin-top: .5rem; float: left;" value="MAIN MENU" action="index">
+          <p:commandButton styleClass="ui-button-info floatRightMargin" value="MAIN MENU" action="index">
           </p:commandButton>
         </h:form>
         <h:form>
-          <p:commandButton rendered ="#{plebSession.renderNextRoundButton()}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="NEXT ROUND"  ajax="false" action="#{resultController.startNextRound()}"/>
+          <p:commandButton rendered ="#{plebSession.renderNextRoundButton()}" styleClass="ui-button-info floatLeftMargin" value="NEXT ROUND" ajax="false" action="#{resultController.startNextRound()}"/>
         </h:form>
         <h:form>
-          <p:commandButton rendered ="#{plebSession.renderBackToLobbyButton()}" styleClass="ui-button-info" style="margin-top: .5rem;float:right;" value="BACK TO LOBBY"  ajax="false" action="#{resultController.backToLobby()}"/>
+          <p:commandButton rendered ="#{plebSession.renderBackToLobbyButton()}" styleClass="ui-button-info floatRightMargin" value="BACK TO LOBBY" ajax="false" action="#{resultController.backToLobby()}"/>
         </h:form>
         <o:socket port="8080" channel="resultChannel" user="#{plebSession.pleb}">
           <f:ajax event="nextRound" listener="#{lobbyRequest.jumpToGame()}" />
