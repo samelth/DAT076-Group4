@@ -45,20 +45,27 @@ public class DrawController implements Serializable {
   @Inject       private PlebSession plebSession;
   @Inject       private DrawView drawView;
   @Inject       private DrawRequest drawRequest;
- 
+
   @EJB private WordDAO wordDAO;
   @EJB private GameDAO gameDAO;
   @EJB private PictureDAO pictureDAO;
-  
+  /**
+   * Get the newt word to draw.
+   */
   public void nextWord(){
     this.drawView.setWord(drawRequest.nextWord());
   }
-  
+  /**
+   * Get the current word to draw.
+   */
   public void currentWord() {
     drawView.setWord(drawRequest.currentWord());
   }
-  
-  public void submitPicture(){
+  /**
+  * Adds picture to database.
+  * Sends notification to guesser.
+  */
+  public void submitPicture() {
     char[] url;
     url = drawView.getImgURL().toCharArray();
     final Picture pic = new Picture();

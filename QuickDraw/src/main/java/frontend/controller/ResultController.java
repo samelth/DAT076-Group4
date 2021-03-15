@@ -47,33 +47,33 @@ import org.omnifaces.cdi.PushContext;
 public class ResultController implements Serializable {
   @Inject @Push private PushContext resultChannel;
   @Inject       private PlebSession plebSession;
-  
+
   @EJB PlebDAO plebDAO;
   @EJB GameDAO gameDAO;
   @EJB LobbyDAO lobbyDAO;
   @EJB PictureDAO pictureDAO;
   @Inject LobbyRequest lobbyRequest;
-  
+
   public String startNextRound() {
     final Game g = plebSession.getGame();
     erasePictures(g);
-    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
+    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
     final List<Word> words = plebSession.getWords();
     words.remove(0);
     g.setRound(g.getRound() + 1);
     g.setGuesser(plebSession.getGuessers().remove());
     g.setWords(words);
     gameDAO.update(g);
-    resultChannel.send("nextRound",recipients);
+    resultChannel.send("nextRound", recipients);
     return lobbyRequest.hostJumpToGame();
   }
-  
+
   private void erasePictures(Game g){
     pictureDAO.findDByGame(g).forEach(pic -> {
       pictureDAO.remove(pic);
     });
   }
-  
+
   public String backToLobby() {
     final Lobby l = plebSession.getLobby();
     l.setGame(null);
@@ -81,8 +81,8 @@ public class ResultController implements Serializable {
     final Game g = gameDAO.findGameByLobby(plebSession.getLobby());
     erasePictures(g);
     gameDAO.remove(g);
-    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby()); // is this needed or should we just fetch from existing session?
-    resultChannel.send("backToLobby",recipients);
+    final Collection<Pleb> recipients = plebDAO.findPlebsInSameLobby(plebSession.getLobby());
+    resultChannel.send("backToLobby", recipients);
     return "lobbypage.xhtml?faces-redirect=true";
   }
 }

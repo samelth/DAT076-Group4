@@ -42,18 +42,17 @@ public class JoinController implements Serializable {
   @Inject @Push private PushContext messageChannel;   
   @Inject       private PlebSession plebSession;
   @Inject       private JoinView joinView;
-  
+
   @EJB private LobbyDAO lobbyDAO;
   @EJB private PlebDAO userDAO;
-  
+
   public void joinLobby(){
     plebSession.setPleb(new Pleb());
-		plebSession.setUsername(joinView.getInputUsername());
-		plebSession.setLobby(lobbyDAO.findLobbyByHexLid(joinView.getInputLobbyHexLid()));
-		userDAO.create(plebSession.getPleb());
+    plebSession.setUsername(joinView.getInputUsername());
+    plebSession.setLobby(lobbyDAO.findLobbyByHexLid(joinView.getInputLobbyHexLid()));
+    userDAO.create(plebSession.getPleb());
     lobbyDAO.update(plebSession.getLobby());
     Collection<Pleb> recipients = userDAO.findPlebsInSameLobby(plebSession.getLobby());
-    messageChannel.send("playerJoined",recipients);
+    messageChannel.send("playerJoined", recipients);
   }
-  
 }
