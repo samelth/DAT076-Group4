@@ -49,4 +49,14 @@ public class Game implements Serializable {
   @Id @GeneratedValue @EqualsAndHashCode.Include private int game_id;
   private int lvl;
   private int round;
+  
+  public void addPicture(Picture p) {
+    pictures.add(p);
+    p.setGame(this);
+  }
+  
+  public void removePicture(Picture p) {
+    pictures.remove(p);
+    p.setGame(null);
+  }
 }
