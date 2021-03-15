@@ -48,48 +48,48 @@ public class WordDAOTest {
   @EJB
   private WordDAO wordDAO;
   
+  private Word w1;
+  private Word w2;
+  private Word w3;
+  private Word w4;
   
   @Before
-  public void init(){
-    Word w1 = new Word();
-    Word w2 = new Word();
-    Word w3 = new Word();
-    Word w4 = new Word();
-    w1.setWord("horse");
-    w1.setLvl(1);
-    w2.setWord("submarine");
-    w2.setLvl(2);
-    w3.setWord("car");
-    w3.setLvl(3);
-    w4.setWord("statue_of_liberty");
-    w4.setLvl(4);
-    
+  public void init() {
+    w1 = new Word("a",1);
+    w2 = new Word("b",2);
+    w3 = new Word("c",3);
+    w4 = new Word("d",3);
     wordDAO.create(w1);
     wordDAO.create(w2);
     wordDAO.create(w3);
     wordDAO.create(w4);
   }
   
-  @Test
-  public void checkFindByLevel(){
-    int level = 3;
-    String word = "car";
-    List<Word> found = wordDAO.findWordsByLevel(level);
-    Assert.assertEquals(found.get(0).getWord(), word);
+  @After
+  public void clean() {
+    wordDAO.removeAll();
   }
   
   @Test
   public void testFind() {
-    Word w = new Word("apa",1);
-    wordDAO.create(w);
-    Assert.assertEquals(w, wordDAO.find(w));
+    Assert.assertEquals(w1, wordDAO.find(w1));
+    Assert.assertEquals(w2, wordDAO.find(w2));
+    Assert.assertEquals(w3, wordDAO.find(w3));
+    Assert.assertEquals(w4, wordDAO.find(w4));
   }
   
-  @After
-  public void tearDown() {
-    wordDAO.findAll().forEach(p -> {
-      wordDAO.remove(p);
-    });
-    
+  @Test
+  public void testFindWordsByLevel(){
+    List<Word> l1 = wordDAO.findWordsByLevel(1);
+    List<Word> l2 = wordDAO.findWordsByLevel(2);
+    List<Word> l3 = wordDAO.findWordsByLevel(3);
+    Assert.assertTrue(l1.contains(w1));
+    Assert.assertTrue(l2.contains(w2));
+    Assert.assertTrue(l3.contains(w3));
+    Assert.assertTrue(l3.contains(w4));
+    Assert.assertEquals(1, l1.size());
+    Assert.assertEquals(1, l2.size());
+    Assert.assertEquals(2, l3.size());
   }
+  
 }
