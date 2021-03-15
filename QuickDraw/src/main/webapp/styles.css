@@ -67,6 +67,18 @@ td {
   padding-left: 5px;
 }
 
+#pic img {
+  height: 100%;
+  width: 100%;
+  inline-size: 0px;
+}
+
+.copyDB {  
+  margin-left:15px;
+  margin-right:15px;
+  margin-top: 15px;
+}
+
 body .ui-selectonemenu .ui-selectonemenu-label {
   padding-top: 0px;
 }
@@ -269,4 +281,9 @@ body .ui-datascroller .ui-datascroller-content {
 
 .alert {
   height: 75px;
+  margin-left: 25px;
+}
+
+.titleheight {
+  height:150px;
 }
