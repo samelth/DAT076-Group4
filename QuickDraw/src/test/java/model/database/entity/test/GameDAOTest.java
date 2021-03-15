@@ -18,6 +18,7 @@ package model.database.entity.test;
 
 import javax.ejb.EJB;
 import model.database.dao.GameDAO;
+import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
 import model.database.entity.Chat;
 import model.database.entity.Game;
@@ -46,26 +47,25 @@ public class GameDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(GameDAO.class, PlebDAO.class, Pleb.class, Lobby.class, Game.class, Word.class, Picture.class, Chat.class, Message.class)
+      .addClasses(GameDAO.class, LobbyDAO.class, Pleb.class, Lobby.class, Game.class, Word.class, Picture.class, Chat.class, Message.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
 
-  @EJB
-  private GameDAO gameDAO;
+  @EJB private GameDAO gameDAO;
+  @EJB private LobbyDAO lobbyDAO;
   
   private Game g1;
   private Game g2;
+  private Lobby l1;
+  private Lobby l2;
   
   @Before
   public void init() {
     g1 = new Game();
     g2 = new Game();
-  }
-  
-  @After
-  public void clean() {
-    gameDAO.removeAll();
+    l1 = new Lobby();
+    l2 = new Lobby();
   }
   
   @Test
@@ -74,5 +74,23 @@ public class GameDAOTest {
     gameDAO.create(g2);
     Assert.assertEquals(g1, gameDAO.find(g1));
     Assert.assertEquals(g2, gameDAO.find(g2));
+  }
+  
+  @Test
+  public void testFindGameByLobby() {
+    gameDAO.create(g1);
+    gameDAO.create(g2);
+    lobbyDAO.create(l1);
+    lobbyDAO.create(l2);
+    g1.setLobby(l1);
+    g2.setLobby(l2);
+    l1.setGame(g1);
+    l2.setGame(g2);
+    gameDAO.update(g1);
+    gameDAO.update(g2);
+    lobbyDAO.update(l1);
+    lobbyDAO.update(l2);
+    Assert.assertEquals(g1, gameDAO.findGameByLobby(l1));
+    Assert.assertEquals(g2, gameDAO.findGameByLobby(l2));
   }
 }
