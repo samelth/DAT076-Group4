@@ -59,4 +59,9 @@ public class Game implements Serializable {
     pictures.remove(p);
     p.setGame(null);
   }
+  
+  @Override
+  public String toString() {
+    return String.valueOf(game_id);
+  }
 }
