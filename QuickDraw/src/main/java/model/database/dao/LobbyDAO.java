@@ -22,16 +22,16 @@ import model.database.entity.QLobby;
 public class LobbyDAO extends AbstractDAO<Lobby> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-    
-  public LobbyDAO(){
+
+  public LobbyDAO() {
     super(Lobby.class);
   }
-  
+
   public Lobby find(Lobby l) {
     return getEntityManager().find(l.getClass(), l.getLobby_id());
   }
-  
-  public Lobby findLobbyByHexLid(String hexLid) {
+
+  public Lobby findLobbyByHexLid(final String hexLid) {
     JPAQuery<Lobby> q = new JPAQuery<>(entityManager);
     QLobby lobby = QLobby.lobby;
     return q
@@ -40,5 +40,5 @@ public class LobbyDAO extends AbstractDAO<Lobby> {
             .where(lobby.lobby_id.eq(Integer.valueOf(hexLid, 16)))
             .fetchOne();
   }
-  
+
 }

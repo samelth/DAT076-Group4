@@ -34,17 +34,17 @@ import model.database.entity.QMessage;
 public class MessageDAO extends AbstractDAO<Message> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
-  public MessageDAO(){
+
+  public MessageDAO() {
     super(Message.class);
   }
-  
+
   @Override
-  public Message find(Message m) {
+  public Message find(final Message m) {
     return getEntityManager().find(m.getClass(), m.getMsg_id());
   }
-  
-  public List<Message> messages(Chat chat){
+
+  public List<Message> messages(final Chat chat){
     final JPAQuery<List<Message>> query = new JPAQuery<>(entityManager);
     final QMessage message = QMessage.message;
     return query

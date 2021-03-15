@@ -33,24 +33,29 @@ import model.database.entity.QWord;
 public class WordDAO extends AbstractDAO<Word> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
+
   public WordDAO(){
     super(Word.class);
   }
-  
-  public List<Word> findWordsByLevel(int lvl){
+
+  /**
+   * Fetch words from DB based on level.
+   * @param lvl level for words.
+   * @return List of word based on level.
+   */
+  public List<Word> findWordsByLevel(final int lvl) {
     final JPAQuery<?> query = new JPAQuery<Void>(entityManager);
     final QWord word = QWord.word1;
-    
+
     return query
             .select(word)
             .from(word)
             .where(word.lvl.eq(lvl))
             .fetch();
   }
-  
+
   @Override
-  public Word find(Word dw) {
+  public Word find(final Word dw) {
     return getEntityManager().find(dw.getClass(), dw.getWord());
   }
 }

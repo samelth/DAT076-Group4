@@ -35,12 +35,17 @@ import model.database.entity.QPicture;
 public class PictureDAO extends AbstractDAO<Picture> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
+
   public PictureDAO() {
     super(Picture.class);
   }
-  
-  public List<Picture> findDByGame(Game gs){
+
+  /**
+   * Fetch pictures from database related to a game.
+   * @param gs game to fetch pictures from
+   * @return List of pictures
+   */
+  public List<Picture> findDByGame(final Game gs) {
     final JPAQuery<Picture> query = new JPAQuery<>(entityManager);
     final QPicture picture = QPicture.picture;
     return query
@@ -48,11 +53,11 @@ public class PictureDAO extends AbstractDAO<Picture> {
             .from(picture)
             .where(picture.game.game_id.eq(gs.getGame_id()))
             .fetch();
-  
+
   }
   @Override
-  public Picture find(Picture d) {
+  public Picture find(final Picture d) {
     return getEntityManager().find(d.getClass(), d.getPleb());
   }
-  
+
 }

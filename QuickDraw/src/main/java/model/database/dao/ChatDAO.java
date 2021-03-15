@@ -33,17 +33,17 @@ import model.database.entity.QChat;
 public class ChatDAO extends AbstractDAO<Chat> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
+
   public ChatDAO(){
     super(Chat.class);
   }
 
   @Override
-  public Chat find(Chat c) {
+  public Chat find(final Chat c) {
     return getEntityManager().find(c.getClass(), c.getChat_id());
   }
 
-  public Chat findChatByLobby(Lobby lob) {
+  public Chat findChatByLobby(final Lobby lob) {
     final JPAQuery<Chat> q = new JPAQuery<>(entityManager);
     QChat chat = QChat.chat;
     return q

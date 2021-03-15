@@ -23,13 +23,13 @@ import model.database.entity.QPleb;
 public class PlebDAO extends AbstractDAO<Pleb> {
   @Getter @PersistenceContext(unitName = "Games")
   private EntityManager entityManager;
-  
+
 
   public PlebDAO(){
     super(Pleb.class);
   }
-  
-  public List<Pleb> findPlebsInSameLobby(Lobby lobby) {
+
+  public List<Pleb> findPlebsInSameLobby(final Lobby lobby) {
     final JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
     final QPleb pleb = QPleb.pleb;
     return query
@@ -38,8 +38,8 @@ public class PlebDAO extends AbstractDAO<Pleb> {
             .where(pleb.lobby.lobby_id.eq(lobby.getLobby_id()))
             .fetch();
   }
-  
-  public List<Pleb> findPlebsInSameLobbySortedByScore(Lobby lobby){
+
+  public List<Pleb> findPlebsInSameLobbySortedByScore(final Lobby lobby) {
     final JPAQuery<List<Pleb>> query = new JPAQuery<>(entityManager);
     final QPleb pleb = QPleb.pleb;
     return query
@@ -49,9 +49,9 @@ public class PlebDAO extends AbstractDAO<Pleb> {
             .orderBy(pleb.score.desc())
             .fetch();
   }
-  
-  public Pleb find(Pleb p) {
+  @Override
+  public Pleb find(final Pleb p) {
     return getEntityManager().find(p.getClass(), p.getUser_id());
   }
-  
+
 }
