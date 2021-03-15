@@ -83,7 +83,7 @@ and open the template in the editor.
           <p:commandButton rendered ="#{plebSession.renderNextRoundButton()}" styleClass="ui-button-info floatLeftMargin" value="NEXT ROUND" ajax="false" action="#{resultController.startNextRound()}"/>
         </h:form>
         <h:form>
-          <p:commandButton rendered ="#{plebSession.renderBackToLobbyButton()}" styleClass="ui-button-info floatRightMargin" value="BACK TO LOBBY" ajax="false" action="#{resultController.backToLobby()}"/>
+          <p:commandButton rendered ="#{plebSession.renderBackToLobbyButton()}" styleClass="ui-button-info floatLeftMargin" value="BACK TO LOBBY" ajax="false" action="#{resultController.backToLobby()}"/>
         </h:form>
         <o:socket port="8080" channel="resultChannel" user="#{plebSession.pleb}">
           <f:ajax event="nextRound" listener="#{lobbyRequest.jumpToGame()}" />

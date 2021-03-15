@@ -75,7 +75,10 @@ td {
   margin-top: 15px;
 }
 
-
+.marginSides {
+  margin-left:15px;
+  margin-right:15px;
+}
 
 /*HEADERS*/
 h1{
@@ -104,6 +107,21 @@ h2 {
   margin-top: .5rem;  
 }
 
+.fontSizeButton {
+  font-size: 1.25rem;
+}
+.spaceRow {
+  height: 5px;
+}
+
+.spaceRowLarge {
+  height: 15px;
+}
+
+#p1 {
+  height:35px;
+  background-color:#086788;
+}
 /* Can be applied to text to get stroke effect */
 .stroke{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -158,7 +176,7 @@ h2 {
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
   color: var(--background);
-  
+
 }
 
 .ui-growl-item-container, .ui-growl-item {
@@ -250,7 +268,7 @@ canvas {
 }
 
 .roundedEdge {
-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 body .ui-datascroller .ui-datascroller-content {
@@ -258,6 +276,7 @@ body .ui-datascroller .ui-datascroller-content {
 }
 .progress {
   border-radius: 0px 0px 0px 5px;
+  height: 35px;
 }
 
 /*RESULT*/
