@@ -26,6 +26,7 @@ import model.database.entity.Word;
 /**
  *
  * @author lewiv, Karl Svensson
+ *
  */
 @Data
 @Named("drawView")
