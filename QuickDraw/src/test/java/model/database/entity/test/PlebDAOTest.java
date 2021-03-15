@@ -12,11 +12,13 @@ import java.util.List;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
+import model.database.entity.Chat;
 import model.database.entity.Picture;
 import model.database.entity.Word;
 import model.database.entity.Game;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
+import model.database.entity.Message;
 import model.database.entity.Picture;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
@@ -40,7 +42,7 @@ public class PlebDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(PlebDAO.class, Pleb.class, Lobby.class, LobbyDAO.class, Game.class, Word.class, Picture.class)
+      .addClasses(PlebDAO.class, LobbyDAO.class, Pleb.class, Lobby.class, Game.class, Word.class, Picture.class, Chat.class, Message.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }

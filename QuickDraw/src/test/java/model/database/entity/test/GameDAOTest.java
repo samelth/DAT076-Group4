@@ -19,14 +19,11 @@ package model.database.entity.test;
 import javax.ejb.EJB;
 import model.database.dao.GameDAO;
 import model.database.dao.PlebDAO;
-import model.database.entity.Picture;
-import model.database.entity.Word;
-import model.database.entity.Game;
+import model.database.entity.Chat;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
-import model.database.entity.Lobby;
+import model.database.entity.Message;
 import model.database.entity.Picture;
-import model.database.entity.Pleb;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -49,7 +46,7 @@ public class GameDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(GameDAO.class, Lobby.class, Pleb.class, PlebDAO.class, Game.class, Word.class, Picture.class)
+      .addClasses(GameDAO.class, PlebDAO.class, Pleb.class, Lobby.class, Game.class, Word.class, Picture.class, Chat.class, Message.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }

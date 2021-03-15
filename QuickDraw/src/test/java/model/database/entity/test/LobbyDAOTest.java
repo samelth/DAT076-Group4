@@ -8,8 +8,10 @@ package model.database.entity.test;
 import javax.ejb.EJB;
 import model.database.dao.LobbyDAO;
 import model.database.dao.PlebDAO;
+import model.database.entity.Chat;
 import model.database.entity.Game;
 import model.database.entity.Lobby;
+import model.database.entity.Message;
 import model.database.entity.Picture;
 import model.database.entity.Pleb;
 import model.database.entity.Word;
@@ -34,7 +36,7 @@ public class LobbyDAOTest {
   @Deployment
   public static WebArchive createDeployment() {
     return ShrinkWrap.create(WebArchive.class)
-      .addClasses(LobbyDAO.class, Lobby.class, Pleb.class, PlebDAO.class, Game.class, Word.class, Picture.class)
+      .addClasses(LobbyDAO.class, PlebDAO.class, Pleb.class, Lobby.class, Game.class, Word.class, Picture.class, Chat.class, Message.class)
       .addAsResource("META-INF/persistence.xml")
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
   }
