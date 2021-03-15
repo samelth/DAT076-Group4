@@ -31,10 +31,12 @@ import lombok.NoArgsConstructor;
 public class Lobby implements Serializable {
   @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL)
   private List<Pleb> plebs = new ArrayList<Pleb>();
-  @OneToOne private Game game;
+  @OneToOne(cascade = CascadeType.REMOVE)
+  private Game game;
   @Id @GeneratedValue @EqualsAndHashCode.Include private int lobby_id;
   private Pleb host;
-  @OneToOne private Chat chat;
+  @OneToOne (cascade = CascadeType.REMOVE)
+  private Chat chat;
 
   @Override
   public String toString() {
