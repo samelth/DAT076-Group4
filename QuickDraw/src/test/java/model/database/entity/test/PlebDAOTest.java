@@ -68,12 +68,6 @@ public class PlebDAOTest {
     l2 = new Lobby();
   }
   
-  @After
-  public void clean() {
-    plebDAO.removeAll();
-    lobbyDAO.removeAll();
-  }
-  
   @Test
   public void testFindPlebsInSameLobby() {
     l1.addPleb(p1);

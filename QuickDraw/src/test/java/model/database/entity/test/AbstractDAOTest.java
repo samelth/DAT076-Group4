@@ -68,11 +68,6 @@ public class AbstractDAOTest {
     p2 = new Pleb();
   }
   
-  @After
-  public void clean() {
-    plebDAO.removeAll();
-  }
-  
   @Test
   public void testCount() {
     long count = plebDAO.count();

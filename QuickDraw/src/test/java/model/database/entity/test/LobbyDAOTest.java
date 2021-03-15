@@ -55,12 +55,6 @@ public class LobbyDAOTest {
     p = new Pleb();
   }
   
-  @After
-  public void clean() {
-    lobbyDAO.removeAll();
-    plebDAO.removeAll(); 
-  }
-  
   @Test
   public void checkFind() {
     lobbyDAO.create(l);
