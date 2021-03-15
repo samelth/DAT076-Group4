@@ -35,10 +35,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Message implements Serializable{
+public class Message implements Serializable {
   @Id @GeneratedValue @EqualsAndHashCode.Include private int msg_id;
   @ManyToOne private Chat chat;
-  
+
   private String username;
   private String content;
 }

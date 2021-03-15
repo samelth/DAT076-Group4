@@ -45,28 +45,28 @@ public class LobbyDAOTest {
   private LobbyDAO lobbyDAO;
   @EJB
   private PlebDAO plebDAO;
-  
+
   private Lobby l;
   private Pleb p;
-   
+
   @Before
   public void init() {
     l = new Lobby();
     p = new Pleb();
   }
-  
+
   @After
   public void clean() {
     lobbyDAO.removeAll();
     plebDAO.removeAll(); 
   }
-  
+
   @Test
   public void checkFind() {
     lobbyDAO.create(l);
     Assert.assertEquals(l, lobbyDAO.find(l));
   }
-  
+
   @Test
   public void checkFindLobbyByHexLid() {
     lobbyDAO.create(l);

@@ -53,21 +53,21 @@ public class GameDAOTest {
 
   @EJB
   private GameDAO gameDAO;
-  
+
   private Game g1;
   private Game g2;
-  
+
   @Before
   public void init() {
     g1 = new Game();
     g2 = new Game();
   }
-  
+
   @After
   public void clean() {
     gameDAO.removeAll();
   }
-  
+
   @Test
   public void testFind() {
     gameDAO.create(g1);

@@ -29,22 +29,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Lobby implements Serializable {
-  @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL) 
+  @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL)
   private List<Pleb> plebs = new ArrayList<Pleb>();
   @OneToOne private Game game;
   @Id @GeneratedValue @EqualsAndHashCode.Include private int lobby_id;
   private Pleb host;
   @OneToOne private Chat chat;
-  
+
   @Override
   public String toString() {
     return String.valueOf(this.lobby_id);
   }
-  
+
    /**
    * According to hibernates recommendations
-   * a developer must make sure the bidirectional relationship is always in sync at all times. 
-   * Hence the removePlayer() and addPlayer() is implemented in this way. 
+   * a developer must make sure the bidirectional relationship is always in sync at all times.
+   * Hence the removePlayer() and addPlayer() is implemented in this way.
    * @see <a href="https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html />
    * @param p the player to add to the lobby
    */
@@ -52,7 +52,7 @@ public class Lobby implements Serializable {
     plebs.add(p);
     p.setLobby(this);
   }
-  
+
   /**
    * @see addPlayer#addUser
    * @param p the player to add to the lobby
@@ -61,19 +61,19 @@ public class Lobby implements Serializable {
     plebs.remove(p);
     p.setLobby(null);
   }
-  
+
   public void updatePleb(Pleb p) {
-    if(plebs.remove(p)) {
+    if (plebs.remove(p)) {
       plebs.add(p);
     }
   }
-  
+
   public List<Pleb> getPlebs(){
     return plebs;
   }
-  
+
   public Pleb getHost(){
     return host;
   }
-  
+
 }

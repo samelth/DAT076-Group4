@@ -44,7 +44,7 @@ public class Game implements Serializable {
   @JoinColumn(name = "lobby")
   @OneToOne private Lobby lobby;
   @OneToOne private Pleb guesser;
-  @ManyToMany private List <Word> words;
+  @ManyToMany private List<Word> words;
   @OneToMany (mappedBy = "game", cascade = CascadeType.ALL) private List<Picture> pictures;
   @Id @GeneratedValue @EqualsAndHashCode.Include private int game_id;
   private int lvl;
