@@ -41,4 +41,14 @@ public class Chat implements Serializable {
   @OneToMany private List<Message> messages;
   @Id @GeneratedValue @EqualsAndHashCode.Include private int chat_id;
   @OneToOne private Lobby lobby;
+  
+  public void addMessage(Message m) {
+    messages.add(m);
+    m.setChat(this);
+  }
+  
+  public void removeMessage(Message m) {
+    messages.remove(m);
+    m.setChat(null);
+  }
 }
