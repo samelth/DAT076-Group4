@@ -44,7 +44,7 @@ public class MessageDAO extends AbstractDAO<Message> {
     return getEntityManager().find(m.getClass(), m.getMsg_id());
   }
   
-  public List<Message> messages(Chat chat){
+  public List<Message> findMessagesByChat(Chat chat){
     final JPAQuery<List<Message>> query = new JPAQuery<>(entityManager);
     final QMessage message = QMessage.message;
     return query

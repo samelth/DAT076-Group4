@@ -74,7 +74,7 @@ public class LobbyController implements Serializable{
   }
   
   public List<Message> messagesInLobbyChat(){
-    return messageDAO.messages(plebSession.getLobby().getChat());
+    return messageDAO.findMessagesByChat(plebSession.getLobby().getChat());
   }
    
   public String getHexLid(){
