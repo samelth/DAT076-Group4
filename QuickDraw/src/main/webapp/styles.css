@@ -20,6 +20,7 @@ body {
 /*Change all fonts that wont inherit*/
 td {
   font-family: 'Jaldi', sans-serif;
+  color: var(--background);
   padding-right: 2px;
 }
 
@@ -36,11 +37,6 @@ td {
 }
 .bg-white{
   background-color: grey;
-}
-
-.greybox {
-  background-color: white;
-  height: 60px;
 }
 
 .description{
@@ -79,9 +75,7 @@ td {
   margin-top: 15px;
 }
 
-body .ui-selectonemenu .ui-selectonemenu-label {
-  padding-top: 0px;
-}
+
 
 /*HEADERS*/
 h1{
@@ -182,6 +176,10 @@ body .ui-button.ui-button-info {
   color: var(--background);
 }
 
+body .ui-selectonemenu .ui-selectonemenu-label {
+  padding-top: 0px;
+}
+
 /*Had to do icon and image separate, otherwise they gain the border of the previous CSS*/
 body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui-growl .ui-growl-item-container.ui-growl-error .ui-icon {
   color: white;
@@ -252,6 +250,10 @@ body .ui-datascroller .ui-datascroller-content {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom:10px;
+}
+
+.scoreboard h3{
+  padding-top: 10px;
 }
 
 .row {
