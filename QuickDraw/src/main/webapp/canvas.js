@@ -60,6 +60,13 @@ window.addEventListener('load', () =>{
   canvas.addEventListener('mouseleave', endPosition);
 });
 
+window.addEventListener('resize', () =>{
+  //Resizing to relative window size
+  const canvas = document.querySelector('#canvas');
+  canvas.height = window.innerHeight*(1/3);
+  canvas.width = window.innerWidth*(1/3);
+});
+
 function erase (e) {
   // Might have to clean up? Can't access canvas or context from outside?
   // Canvas removes drawings when resized, not sure why, not erase fuctions fault
