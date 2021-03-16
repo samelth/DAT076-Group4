@@ -11,4 +11,4 @@ In QuickDraw/src/main/java/ you will find the validator package, which contains 
 
 In QuickDraw/src/test/ you will find all the testpackages. 
 
-The project report can be found in the report folder. (DAT076-Group4/Report).
+The project report can be found in the root directory. (DAT076-Group4/DAT 076.pdf).
