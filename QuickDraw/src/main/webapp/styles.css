@@ -152,21 +152,14 @@ h2 {
   font-weight: bold;
 }
 
-.btn.joingame {
-  height: 40px;
-  width: 100%;
-  margin-top: .5rem;
-  background-color: var(--babyblue) !important;
-  border-color: var(--babyblue) !important;
-  font-family: 'Jaldi', sans-serif;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: var(--background);
-}
-
 /*Needed due to commandbutton not allowing for inheritence*/
 #join:hover, #erase:hover, #screenshot:hover, #main:hover {
   color: white;
+}
+
+.joinbutton {
+  margin-top: .5rem !important;
+  width: 100% !important;
 }
 
 .ui-button-info {
@@ -176,7 +169,6 @@ h2 {
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
   color: var(--background);
-
 }
 
 .ui-growl-item-container, .ui-growl-item {
@@ -193,6 +185,12 @@ body .ui-growl .ui-growl-item-container.ui-growl-error, body .ui-growl .ui-growl
 /*Had to add FONT COLOR separately, not working in .ui-button-info, gets overridden by theme.css*/
 body .ui-button.ui-button-info {
   color: var(--background);
+}
+
+/*Wont work with regular/JSF CSS, not sure how to fix*/
+#joingame body .ui-button.ui-button-info {
+  margin-top: .5rem !important;
+  width: 100% !important;
 }
 
 body .ui-selectonemenu .ui-selectonemenu-label {

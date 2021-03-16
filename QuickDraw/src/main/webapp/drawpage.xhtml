@@ -92,10 +92,10 @@ and open the template in the editor.
       <!--Could be used for pencil size?-->
       <div class="col-2"></div>
       <div class="col-1" align="right">
-        <button id="screenshot" type="button" class="btn btn-menu fontSizeButton">SUBMIT</button>
+        <button id="screenshot" type="button" class="btn btn-menu fontSizeButton" >SUBMIT</button>
         <h:form id="form">
           <h:inputHidden id="dataURL" value="#{drawView.imgURL}"/>
-          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="resultpage">
+          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="resultpage?faces-redirect=true">
             <f:actionListener binding="#{drawController.submitPicture()}"></f:actionListener>
           </p:commandButton>
         </h:form>
