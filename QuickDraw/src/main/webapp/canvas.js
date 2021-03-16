@@ -44,7 +44,7 @@ window.addEventListener('load', () =>{
     if (!drawing) return;
     
     // Pen styles
-    context.lineWidth = 3.5;
+    context.lineWidth = 2.5;
     context.lineCap = 'round';
     
     context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
