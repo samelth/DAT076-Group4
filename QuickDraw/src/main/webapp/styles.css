@@ -171,8 +171,14 @@ h2 {
   color: var(--background);
 }
 
+/*Validator CSS, all elements inside, no pretty way to fix in single CSS*/
 .ui-growl-item-container, .ui-growl-item {
   background-color: var(--babyblue);
+  color: white;
+}
+
+/*Had to do icon and image separate, otherwise they gain the border of the previous CSS*/
+body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui-growl .ui-growl-item-container.ui-growl-error .ui-icon {
   color: white;
 }
 
@@ -197,10 +203,6 @@ body .ui-selectonemenu .ui-selectonemenu-label {
   padding-top: 0px;
 }
 
-/*Had to do icon and image separate, otherwise they gain the border of the previous CSS*/
-body .ui-growl .ui-growl-item-container.ui-growl-error .ui-growl-image, body .ui-growl .ui-growl-item-container.ui-growl-error .ui-icon {
-  color: white;
-}
 /* Countdown background */
 .countdown{
   height: 35px;
@@ -238,6 +240,7 @@ body .ui-inputfield.ui-state-error {
   border-radius: 5px 5px 5px 5px;
 }
 
+/*Margins and all that good stuff*/
 .floatRightMargin {
   float: right;
   margin-top:.5rem !important;
@@ -256,6 +259,10 @@ body .ui-inputfield.ui-state-error {
 .floatRightDropdown {
   float: right;
   padding: 0px;
+}
+
+.margin {
+  margin-bottom: 1rem;
 }
 
 canvas {
@@ -277,11 +284,6 @@ body .ui-datascroller .ui-datascroller-content {
   height: 35px;
 }
 
-/*RESULT*/
-.margin {
-  margin-bottom: 1rem;
-}
-
 .scoreboard {
   margin-left: 15px;
   border-radius: 5px 5px 5px 5px;
@@ -294,6 +296,7 @@ body .ui-datascroller .ui-datascroller-content {
   padding-top: 10px;
 }
 
+/*Edgeless design choice*/
 .row {
   --bs-gutter-x: 0;
 }

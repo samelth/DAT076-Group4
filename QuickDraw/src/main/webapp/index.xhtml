@@ -31,7 +31,7 @@
         <h:form>
           <p:growl showDetail="true"/>
           <p:inputText placeholder="Username" id="input" value="#{indexView.inputUsername}" autocomplete="off"></p:inputText>
-          <p:commandButton styleClass="ui-button-info floatRightMargin" value="HOST LOBBY" action="lobbypage" validateClient="true" ajax="false">
+          <p:commandButton styleClass="ui-button-info floatRightMargin" value="HOST LOBBY" action="lobbypage?faces-redirect=true" validateClient="true" ajax="false">
             <f:actionListener binding="#{indexController.hostNewLobby()}"></f:actionListener>
           </p:commandButton>
         </h:form>
@@ -45,7 +45,7 @@
       <div class="col-5"></div>
       <div class="col-2">
         <h:form>
-          <p:commandButton styleClass="ui-button-info joinbutton" value="JOIN LOBBY" action="joinpage">
+          <p:commandButton styleClass="ui-button-info joinbutton" value="JOIN LOBBY" action="joinpage?faces-redirect=true">
           </p:commandButton>
         </h:form>
       </div>

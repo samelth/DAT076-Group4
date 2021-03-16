@@ -45,7 +45,7 @@
                        >
           </p:inputText>
 
-          <p:commandButton value="JOIN LOBBY" styleClass="ui-button-info  floatRightMargin" validateClient="true" action="lobbypage">
+          <p:commandButton value="JOIN LOBBY" styleClass="ui-button-info floatRightMargin" validateClient="true" ajax="false" action="lobbypage?faces-redirect=true">
             <f:actionListener binding="#{joinController.joinLobby()}"/>
           </p:commandButton>
 

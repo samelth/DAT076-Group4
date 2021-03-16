@@ -95,7 +95,7 @@ and open the template in the editor.
         <button id="screenshot" type="button" class="btn btn-menu fontSizeButton" >SUBMIT</button>
         <h:form id="form">
           <h:inputHidden id="dataURL" value="#{drawView.imgURL}"/>
-          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="resultpage">
+          <p:commandButton style="display: none" id="subbtn" value="SUBMIT" action="resultpage?faces-redirect=true">
             <f:actionListener binding="#{drawController.submitPicture()}"></f:actionListener>
           </p:commandButton>
         </h:form>
