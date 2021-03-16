@@ -24,7 +24,7 @@
     <script src="canvas.js"></script>   
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-    <title>join</title>
+    <title>joinpage</title>
   </h:head>
   <h:body>
     <div class="row titleheight">
@@ -45,7 +45,7 @@
                        >
           </p:inputText>
 
-          <p:commandButton value="JOIN LOBBY" styleClass="ui-button-info" validateClient="true" ajax="false" action="lobbypage">
+          <p:commandButton value="JOIN LOBBY" styleClass="ui-button-info  floatRightMargin" validateClient="true" action="lobbypage?faces-redirect=true">
             <f:actionListener binding="#{joinController.joinLobby()}"/>
           </p:commandButton>
 
@@ -56,10 +56,8 @@
                        >
             <f:validator validatorId="joinValidator"/> 
           </p:inputText>
-
-          <p:commandButton value="GO BACK" styleClass="ui-button-info" action="index">
-          </p:commandButton>
         </h:form>
+
       </div>
       <div class="col-5">
       </div>
