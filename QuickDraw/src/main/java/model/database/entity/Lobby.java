@@ -54,16 +54,17 @@ public class Lobby implements Serializable {
   }
 
   /**
-   * @see addPlayer#addUser
+   * @see addPlayer#addPleb
    * @param p the player to add to the lobby
    */
   public void removePleb(Pleb p) {
     plebs.remove(p);
     p.setLobby(null);
   }
-
+  
   public void updatePleb(Pleb p) {
-    if (plebs.remove(p)) {
+    final boolean playerExist = plebs.remove(p);
+    if (playerExist) {
       plebs.add(p);
     }
   }
