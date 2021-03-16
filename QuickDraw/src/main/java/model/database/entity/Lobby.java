@@ -56,7 +56,7 @@ public class Lobby implements Serializable {
   }
 
   /**
-   * @see addPlayer#addPleb
+   * @see Lobby#addPleb
    * @param p the player to add to the lobby
    */
   public void removePleb(Pleb p) {

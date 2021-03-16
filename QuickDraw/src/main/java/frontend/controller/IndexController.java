@@ -47,6 +47,10 @@ public class IndexController implements Serializable {
   @EJB private ChatDAO chatDAO;
   @EJB private PlebDAO userDAO;
 
+  /**
+   * hostNewLobby creates an a new lobby with 
+   * the player from plebSession as host. 
+   */
   public void hostNewLobby(){
     final Pleb pleb = new Pleb();
     final Lobby lob = new Lobby();
