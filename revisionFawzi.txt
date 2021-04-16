@@ -1,0 +1,23 @@
+Hi Robin,
+
+Use case #11
+Name: Total player count
+Actor: User
+Goal: See total player count
+Description: As a user I would like to see how many players that joined a game
+
+In this case, I decided to make visible a count of the amount of players who ever joined
+a game. 
+
+Frontend:
+In the index.xhtml I added a text tag with some local CSS, and added a function call
+to #{indexController.totalPlayerCount() at Line 60. 
+
+Backend:
+This in turn calls the function totalPlayerCount() located in the indexController.
+The function simply returns the number of entries in the PLEB table located in the
+GamesProd database with the help of the count() function located in AbstractDAO.
+
+Since there wasn't much information to go on I'm not sure this will suffice. 
+Get back to me if it doesn't, and if I need to make a more complex use case or
+show you something else.
