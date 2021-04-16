@@ -4,7 +4,7 @@ Use case #11
 Name: Total player count
 Actor: User
 Goal: See total player count
-Description: As a user I would like to see how many players that joined a game
+Description: As a user I would like to see how many players that ever joined a game
 
 In this case, I decided to make visible a count of the amount of players who ever joined
 a game. 
